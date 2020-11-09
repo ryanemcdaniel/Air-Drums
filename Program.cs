@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Ultrahaptics;
 using Leap;
+using MIDI_driver;
 
 
 public struct ButtonWidget
@@ -76,6 +77,8 @@ public class ButtonExample
         bool button_on = true;
         new Stopwatch();
 
+        Driver dvr = new Driver();
+
         for(;;)
         {
             // Exit if the device has been disconnected
@@ -96,6 +99,7 @@ public class ButtonExample
                     if(gesture.Type == Gesture.GestureType.TYPE_KEY_TAP)
                     {
                         button_on = false;
+                        dvr.playNote();
 
                         emitter.stop();
                         break;
@@ -147,7 +151,7 @@ public class ButtonExample
         // Dispose/destroy the emitter
         emitter.Dispose();
         emitter = null;
-
+        dvr.closePort();
         controller.Dispose ();
     }
 }
