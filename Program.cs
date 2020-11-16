@@ -39,7 +39,6 @@ public class ButtonExample
 
         // Create a Leap Contoller
         Controller controller = new Controller();
-
         ButtonWidget button = new ButtonWidget();
 
         // Set the position of the new control point
