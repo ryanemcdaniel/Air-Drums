@@ -13,7 +13,7 @@
       <HintPath>Libraries/LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
     <Reference Include="MIDI_driver.cs">
-      <HintPath>Libraries/MIDI-driver/MIDI-driver/MIDI_driver.cs</HintPath>
+      <HintPath>Libraries/MIDI-driver/MIDI_driver.cs</HintPath>
     </Reference>
     <None Include="Libraries/*" Link="%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
   </ItemGroup>
