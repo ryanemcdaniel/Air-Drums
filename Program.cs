@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Linq;
 using Ultrahaptics;
 using Leap;
 using MIDI_driver;
@@ -77,7 +76,7 @@ public class ButtonExample
         new Stopwatch();
 
         Driver dvr = new Driver();
-
+        
         for(;;)
         {
             // Exit if the device has been disconnected
