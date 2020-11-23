@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Collections.Generic;
-using System.Linq;
 using Ultrahaptics;
 using Leap;
-using MIDI_driver;
-
 
 public struct ButtonWidget
 {
@@ -31,6 +28,7 @@ public class ButtonExample
 
     public static void Main(string[] args)
     {
+
         // Create an emitter, which connects to the first connected device
         AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();
 
@@ -77,7 +75,7 @@ public class ButtonExample
         new Stopwatch();
 
         Driver dvr = new Driver();
-
+        
         for(;;)
         {
             // Exit if the device has been disconnected
