@@ -3,8 +3,6 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using Ultrahaptics;
 using Leap;
-using MIDI_driver;
-
 
 public struct ButtonWidget
 {
@@ -30,6 +28,7 @@ public class ButtonExample
 
     public static void Main(string[] args)
     {
+
         // Create an emitter, which connects to the first connected device
         AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();
 

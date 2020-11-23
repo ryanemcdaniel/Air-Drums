@@ -1,6 +1,6 @@
 using Leap;
 
-public static class VecFunc{
+public static class Atomic{
     
     public static Vector subtract(Vector v1, Vector v2){
         return new Vector(
