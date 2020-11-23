@@ -7,7 +7,6 @@
             "type": "process",
             "args": [
                 "build",
-                "-o ${workspaceFolder}\\build",
                 "${workspaceFolder}\\air-drums-project.csproj"
             ],
             "problemMatcher": "$msCompile"
