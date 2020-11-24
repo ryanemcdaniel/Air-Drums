@@ -33,7 +33,7 @@ public class Data_Generator {
     }
 
     public AmplitudeModulationControlPoint newAmplitudeModulationControlPoint(){
-        Vector3  Temp = new vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
+        Vector3  Temp = new Vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
         return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));
     }
 

@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Collections.Generic;
 using Ultrahaptics;
 using Leap;
 
