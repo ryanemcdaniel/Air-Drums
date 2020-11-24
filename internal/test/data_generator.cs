@@ -1,5 +1,6 @@
 using System;
 using Leap;
+using Ultrahaptics;
 
 public class Data_Generator {
 
@@ -29,6 +30,11 @@ public class Data_Generator {
         Vector[] ret = new Vector[len];
         for(int i = 0; i < len; i++) ret[i] = this.newVector();
         return ret;
+    }
+
+    public AmplitudeModulationControlPoint newAmplitudeModulationControlPoint(){
+        Vector3  Temp = new vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
+        return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));
     }
 
 }
