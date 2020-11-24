@@ -8,14 +8,14 @@
   
   <ItemGroup>
     <Reference Include="UltrahapticsCSharp.NET40">
-      <HintPath>Libraries/UltrahapticsCSharp.NET40.dll</HintPath>
+      <HintPath>dependencies/UltrahapticsCSharp.NET40.dll</HintPath>
     </Reference>
     
     <Reference Include="LeapCSharp.NET.4.0">
-      <HintPath>Libraries/LeapCSharp.NET4.0.dll</HintPath>
+      <HintPath>dependencies/LeapCSharp.NET4.0.dll</HintPath>
     </Reference>
 
-    <None Include="Libraries/*" Link="%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
+    <None Include="dependencies/*" Link="%(Filename)%(Extension)" CopyToOutputDirectory="Always" />
   </ItemGroup>
   
   <ItemGroup>

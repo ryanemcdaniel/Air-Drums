@@ -61,7 +61,7 @@ public class ButtonExample
 
         new Stopwatch();
 
-        Driver dvr = new Driver();
+        MIDI dvr = new MIDI();
         
         // Dispose/destroy the emitter
         emitter.Dispose();
