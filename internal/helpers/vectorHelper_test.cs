@@ -22,7 +22,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Data_Vec_Velocity_Passes(){
+    public void Velocity_Passes(){
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -41,7 +41,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Data_Vec_Average_Passes(){
+    public void Average_Passes(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] vL = dg.newVectorList(len);
@@ -63,7 +63,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Data_Vec_Lowest_Passes(){
+    public void Lowest_Passes(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectorList(len);
@@ -84,7 +84,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Data_Vec_Greater_Passes(){
+    public void Greater_Passes(){
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         Vector v2 = dg.newVector();

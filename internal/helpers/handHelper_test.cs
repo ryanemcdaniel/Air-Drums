@@ -1,25 +1,28 @@
 using Xunit;
+using Moq;
 using Leap;
 
-public class hands_test {
+public class handHelper_test {
 
     [Fact]
-    public void Data_HandVec_FingerToVectorList_Passes(){
+    public void FingerToVectorList_Passes(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
-        Finger finger = hg.newFinger(dg.newVectorList(5));
-
+        Finger f = hg.newFinger(dg.newVectorList(5));
+        
         Vector[] exp = new Vector[5];
-        for(int i = 0; i < exp.Length - 1; i++) exp[i] = finger.bones[i].PrevJoint;
-        exp[exp.Length - 1] = finger.bones[exp.Length - 2].NextJoint; 
-
-        Vector[] act = Hands.fingerToVectorList(finger);
+        for(int i = 0; i < exp.Length - 1; i++) exp[i] = f.bones[i].PrevJoint;
+        exp[exp.Length - 1] = f.bones[exp.Length - 2].NextJoint; 
+        
+        Mock<VectorHelper> vh_mock = new Mock<VectorHelper>();
+        HandHelper hh = new HandHelper(vh_mock.Object);
+        Vector[] act = hh.fingerToVectorList(f);
 
         test.vectorListEqual(exp, act);
     }
 
     [Fact]
-    public void Data_HandVec_LowestJoint(){
+    public void LowestJoint(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand h = hg.newHand();
@@ -33,13 +36,15 @@ public class hands_test {
         }
         if(exp.y > h.PalmPosition.y) exp = h.PalmPosition;
 
-        Vector act = Hands.lowestJoint(h);
+        Mock<VectorHelper> vh_mock = new Mock<VectorHelper>();
+        HandHelper hh = new HandHelper(vh_mock.Object);
+        Vector act = hh.lowestJoint(h);
 
         test.vectorEqual(exp, act);
     }
 
     [Fact]
-    public void Data_HandVec_FingerTips(){
+    public void FingerTips(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand h = hg.newHand();
@@ -49,7 +54,9 @@ public class hands_test {
             exp[i] = h.Fingers[i].bones[3].NextJoint;
         }
 
-        Vector[] act = Hands.fingerTips(h);
+        Mock<VectorHelper> vh_mock = new Mock<VectorHelper>();
+        HandHelper hh = new HandHelper(vh_mock.Object);
+        Vector[] act = hh.fingerTips(h);
 
         test.vectorListEqual(exp, act);
     }
