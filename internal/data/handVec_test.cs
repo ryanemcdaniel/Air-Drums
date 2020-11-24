@@ -6,7 +6,7 @@ public class handVec_test {
     [Fact]
     public void Data_HandVec_FingerTips_Passes(){
     //Given
-        Vec_Generator dg = new Vec_Generator();
+        Data_Generator dg = new Data_Generator();
 
 
     //When

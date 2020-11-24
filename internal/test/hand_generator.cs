@@ -3,10 +3,10 @@ using Leap;
 
 public class Hand_Generator{
 
-    private Vec_Generator vg;
+    private Data_Generator vg;
 
     public Hand_Generator(){
-        vg = new Vec_Generator();
+        vg = new Data_Generator();
     }
 
     public Bone newBone(){
