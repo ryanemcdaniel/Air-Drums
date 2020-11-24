@@ -31,35 +31,4 @@ public class Data_Generator {
         return ret;
     }
 
-    public Bone newBone(){
-        return new Bone();
-    }
-
-    public Finger newFinger(){
-        Finger ret = new Finger(
-            newLong(100),
-            newInt(100),
-            newInt(100),
-            newFloat(100),
-            newVector(),
-            newVector(),
-            newVector(),
-            newVector(),
-            newFloat(100),
-            newFloat(100),
-            false,
-            Leap.Finger.FingerType.TYPE_INDEX,
-            newBone(),
-            newBone(),
-            newBone(),
-            newBone()
-        );
-        return ret;
-    }
-
-    public Hand newHand(){
-        Hand ret = new Hand();
-        return ret;
-    }
-
 }

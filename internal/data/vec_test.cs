@@ -5,9 +5,9 @@ public class vec_test{
 
     [Fact]
     public void Data_Vec_Subtract_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Vector in1 = dg.newVector(); 
-        Vector in2 = dg.newVector();
+        Vec_Generator vg = new Vec_Generator();
+        Vector in1 = vg.newVector(); 
+        Vector in2 = vg.newVector();
         Vector res = Vec.subtract(in1, in2);
         Assert.Equal(in1.x - in2.x, res.x);
         Assert.Equal(in1.y - in2.y, res.y);
@@ -16,10 +16,10 @@ public class vec_test{
 
     [Fact]
     public void Data_Vec_Velocity_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Vector in1 = dg.newVector(); 
-        Vector in2 = dg.newVector();
-        float frameRate = dg.newFloat(100);
+        Vec_Generator vg = new Vec_Generator();
+        Vector in1 = vg.newVector(); 
+        Vector in2 = vg.newVector();
+        float frameRate = vg.newFloat(100);
         Vector res = Vec.velocity(in1, in2, frameRate);
         Assert.Equal((in1.x - in2.x) / frameRate, res.x);
         Assert.Equal((in1.y - in2.y) / frameRate, res.y);
@@ -28,9 +28,9 @@ public class vec_test{
 
     [Fact]
     public void Data_Vec_Average_Passes(){
-        Data_Generator dg = new Data_Generator();
-        int len = dg.newInt(100);
-        Vector[] input = dg.newVectorList(len);
+        Vec_Generator vg = new Vec_Generator();
+        int len = vg.newInt(100);
+        Vector[] input = vg.newVectorList(len);
         Vector act = Vec.average(input);
         Vector exp = new Vector(0,0,0);
         for(int i = 0; i < len; i++){
@@ -48,9 +48,9 @@ public class vec_test{
 
     [Fact]
     public void Data_Vec_Lowest_Passes(){
-        Data_Generator dg = new Data_Generator();
-        int len = dg.newInt(100);
-        Vector[] input = dg.newVectorList(len);
+        Vec_Generator vg = new Vec_Generator();
+        int len = vg.newInt(100);
+        Vector[] input = vg.newVectorList(len);
         
         Vector exp = input[0];
         foreach (Vector v in input) {
@@ -69,9 +69,9 @@ public class vec_test{
 
     [Fact]
     public void Data_Vec_Greater_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Vector in1 = dg.newVector();
-        Vector in2 = dg.newVector();
+        Vec_Generator vg = new Vec_Generator();
+        Vector in1 = vg.newVector();
+        Vector in2 = vg.newVector();
         float[] f1 = in1.ToFloatArray();
         float[] f2 = in2.ToFloatArray();
         char[] mode = {'x', 'y', 'z'};
