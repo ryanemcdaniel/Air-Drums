@@ -18,6 +18,19 @@ public static class Vec{
         return ret;
     }
 
+    public static Vector average(Vector[] vList){
+        Vector ret = new Vector(0,0,0);
+        for(int i = 0; i < vList.Length; i++){
+            ret.x += vList[i].x;
+            ret.y += vList[i].y;
+            ret.z += vList[i].z;
+        }
+        ret.x /= (float) vList.Length;
+        ret.y /= (float) vList.Length;
+        ret.z /= (float) vList.Length;
+        return ret;
+    }
+
     public static bool greater(Vector v1, Vector v2, char mode){
         if(mode == 'x') return v1.x > v2.x;
         if(mode == 'y') return v1.y > v2.y;

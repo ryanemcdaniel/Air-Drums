@@ -27,6 +27,26 @@ public class vec_test{
     }
 
     [Fact]
+    public void Data_Vec_Average_Passes(){
+        Data_Generator dg = new Data_Generator();
+        int len = dg.newInt(100);
+        Vector[] input = dg.newVectorList(len);
+        Vector act = Vec.average(input);
+        Vector exp = new Vector(0,0,0);
+        for(int i = 0; i < len; i++){
+            exp.x += input[i].x;
+            exp.y += input[i].y;
+            exp.z += input[i].z;
+        }
+        exp.x /= (float) len;
+        exp.y /= (float) len;
+        exp.z /= (float) len;
+        Assert.Equal(exp.x, act.x);
+        Assert.Equal(exp.y, act.y);
+        Assert.Equal(exp.z, act.z);
+    }
+
+    [Fact]
     public void Data_Vec_Greater_Passes(){
         Data_Generator dg = new Data_Generator();
         Vector in1 = dg.newVector();
