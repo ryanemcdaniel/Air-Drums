@@ -5,8 +5,8 @@ public class Hand_Generator{
 
     private Data_Generator dg;
 
-    public Hand_Generator(){
-        dg = new Data_Generator();
+    public Hand_Generator(Data_Generator data_generator){
+        dg = data_generator;
     }
 
     public Finger newFinger(){
