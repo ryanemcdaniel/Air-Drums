@@ -31,6 +31,18 @@ public static class Vec{
         return ret;
     }
 
+    public static Vector lowest(Vector[] vList){
+        Vector ret = vList[0];
+        foreach (Vector v in vList) {
+            if(v.y < ret.y){
+                ret.x = v.x;
+                ret.y = v.y;
+                ret.z = v.z;
+            }
+        }
+        return ret;
+    }
+
     public static bool greater(Vector v1, Vector v2, char mode){
         if(mode == 'x') return v1.x > v2.x;
         if(mode == 'y') return v1.y > v2.y;

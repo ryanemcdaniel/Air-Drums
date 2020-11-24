@@ -47,6 +47,27 @@ public class vec_test{
     }
 
     [Fact]
+    public void Data_Vec_Lowest_Passes(){
+        Data_Generator dg = new Data_Generator();
+        int len = dg.newInt(100);
+        Vector[] input = dg.newVectorList(len);
+        
+        Vector exp = input[0];
+        foreach (Vector v in input) {
+            if(v.y < exp.y){
+                exp.x = v.x;
+                exp.y = v.y;
+                exp.z = v.z;
+            }
+        }
+
+        Vector res = Vec.lowest(input);
+        Assert.Equal(exp.x, res.x);
+        Assert.Equal(exp.y, res.y);
+        Assert.Equal(exp.z, res.z);
+    }
+
+    [Fact]
     public void Data_Vec_Greater_Passes(){
         Data_Generator dg = new Data_Generator();
         Vector in1 = dg.newVector();

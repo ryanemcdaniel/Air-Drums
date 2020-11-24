@@ -8,10 +8,6 @@ public struct ButtonWidget
 {
     public float radius;
     public float angle;
-    public ButtonWidget(float r = 0.025f, float a = 0.0f){
-        radius = r;
-        angle = a;
-    }
 }
 
 public static class MathF
@@ -37,7 +33,6 @@ public class ButtonExample
 
         // Create a Leap Contoller
         Controller controller = new Controller();
-        ButtonWidget button = new ButtonWidget();
 
         // Set the position of the new control point
         Vector3 position = new Vector3(0.0f, 0.0f, 0.2f);
@@ -62,89 +57,12 @@ public class ButtonExample
             Console.WriteLine("\n");
         }
 
-        controller.EnableGesture (Gesture.GestureType.TYPE_KEY_TAP);
+        Console.WriteLine("hayyyyyyyyyyyyyyy");
 
-        if(controller.Config.SetFloat("Gesture.Swipe.MinDistance", 30) &&
-            controller.Config.SetFloat("Gesture.Swipe.MinDownVelocity", 30) &&
-            controller.Config.SetFloat("Gesture.Swipe.MinSeconds", 0.01f))
-        {
-            controller.Config.Save();
-        }
-
-        bool button_on = true;
         new Stopwatch();
 
         Driver dvr = new Driver();
         
-        for(;;)
-        {
-            // Exit if the device has been disconnected
-            if (!emitter.isConnected())
-                break;
-
-            Frame frame = controller.Frame();
-            HandList hands = frame.Hands;
-
-            if(!hands.IsEmpty && button_on)
-            {
-                Hand hand = hands[0];
-                
-                for(int i = 0; i < frame.Gestures().Count; i++)
-                {
-                    Gesture gesture = frame.Gestures()[i];
-
-                    if(gesture.Type == Gesture.GestureType.TYPE_KEY_TAP)
-                    {
-                        button_on = false;
-                        dvr.playNote();
-
-                        emitter.stop();
-                        break;
-                    }
-                }
-                position = new Vector3(hand.PalmPosition.x, hand.PalmPosition.y, hand.PalmPosition.z);
-                Vector3 normal = new Vector3(-hand.PalmNormal.x, -hand.PalmNormal.y, -hand.PalmNormal.z);
-                Vector3 direction = new Vector3(hand.Direction.x, hand.Direction.y, hand.Direction.z);
-
-                Vector3 device_position = alignment.fromTrackingPositionToDevicePosition(position);
-                Vector3 device_normal = alignment.fromTrackingDirectionToDeviceDirection(normal).normalize();
-                Vector3 device_direction = alignment.fromTrackingDirectionToDeviceDirection(direction).normalize();
-                Vector3 device_palm_x = device_direction.cross(device_normal).normalize();
-
-                device_position += (device_direction * MathF.Cos(button.angle) + device_palm_x * MathF.Sin(button.angle)) * button.radius;
-
-                points[0].setPosition(device_position);
-                // Instruct the device to stop any existing actions and start producing this control point
-                emitter.update(points);
-                // The emitter will continue producing this point until instructed to stop
-
-                button.angle += 0.05f;
-                button.angle = button.angle % (2.0f * PI);
-            }
-            else if(!hands.IsEmpty && !button_on)
-            {
-                emitter.stop();
-
-                for(int i = 0; i < frame.Gestures().Count; i++)
-                {
-                    Gesture gesture = frame.Gestures()[i];
-
-                    if(gesture.Type == Gesture.GestureType.TYPE_KEY_TAP)
-                    {
-                        button_on = true;
-
-                        emitter.stop();
-                        break;
-                    }
-                }
-            }
-            else
-            {
-                emitter.stop();
-            }
-            System.Threading.Thread.Sleep(10);
-        }
-
         // Dispose/destroy the emitter
         emitter.Dispose();
         emitter = null;
