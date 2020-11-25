@@ -2,11 +2,11 @@ using Leap;
 
 public class Gesture {
 
-    private Queues q;
+    private Queues left;
+    private Queues right;
     private Controller c;
 
     public Gesture(Queues queues, Controller controller){
-        q = queues;
         c = controller;
     }
 

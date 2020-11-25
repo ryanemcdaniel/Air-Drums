@@ -9,20 +9,19 @@ public class Stats {
         hh = handHelper;
     }
 
-    public Joints positionAverage(List<Joints> jL) {
+    public Joints sum(List<Joints> jL){
         return null;
     }
 
-    public Joints positionRange(List<Joints> jL){
+    public Joints average(List<Joints> jL) {
         return null;
     }
 
-    public Joints velocityAverage(List<Joints> jL) {
+    public Joints range(List<Joints> jL){
         return null;
     }
 
-    public Joints velocityRange(List<Joints> jL){
+    public Joints velocities(List<Joints> jL){
         return null;
     }
-
 }

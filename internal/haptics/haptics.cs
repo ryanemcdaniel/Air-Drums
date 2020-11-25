@@ -9,7 +9,7 @@ public class Haptic{
     }
     public AmplitudeModulationControlPoint AquireTarget(Hand h)
     {
-        Vector temp = hh.lowestJoint(h);
+        Vector temp = hh.min(h);
         return new AmplitudeModulationControlPoint(
             temp.x,
             temp.z,

@@ -39,6 +39,16 @@ public class Data_Generator {
         return ret;
     }
 
+    public Vector newZeroVector(){
+        return new Vector(0,0,0);
+    }
+
+    public Vector[] newZeroVectors(int len){
+        Vector[] ret = new Vector[len];
+        for(int i = 0; i < len; i++) ret[i] = newZeroVector();
+        return ret;
+    }
+
     public AmplitudeModulationControlPoint newAmplitudeModulationControlPoint(){
         Vector3  Temp = new Vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
         return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));

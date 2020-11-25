@@ -84,4 +84,19 @@ public class Hand_Generator{
         dg.newVectors(5),
         dg.newVector()
     );
+    
+    public Joints zeroJoints() => new Joints(
+        dg.newZeroVectors(5),
+        dg.newZeroVectors(5),
+        dg.newZeroVectors(5),
+        dg.newZeroVectors(5),
+        dg.newZeroVectors(5),
+        dg.newVector()
+    );
+
+    public List<Joints> newJointsList(int len) {
+        List<Joints> ret = new List<Joints>();
+        for(int i = 0; i < len; i++) ret.Add(newJoints());
+        return ret;
+    }
 }

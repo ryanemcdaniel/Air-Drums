@@ -16,7 +16,7 @@ public class vectorHelper_test{
         };
 
         VectorHelper v = new VectorHelper();
-        Vector act = v.subtract(v1, v2);
+        Vector act = v.sub(v1, v2);
 
         test.vectorEqual(exp, act);
     }

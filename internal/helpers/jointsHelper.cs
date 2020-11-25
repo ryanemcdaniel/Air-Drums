@@ -27,7 +27,23 @@ public class JointsHelper {
         );
     }
 
-    public Vector lowestJoint(Hand h){
+    public Joints add(Joints j1, Joints j2){
+        return null;
+    }
+    
+    public Joints sub(Joints j1, Joints j2){
+        return null;
+    }
+
+    public Joints div(Joints j1, float scalar){
+        return null;
+    }
+
+    public Joints velocity(Joints j1, Joints j2, float frameRate){
+        return null;
+    }
+
+    public Vector min(Hand h){
         Joints j = handToJoints(h);
         Vector[] ret = new Vector[6];
         ret[0] = vh.min(j.pinky);
@@ -37,5 +53,9 @@ public class JointsHelper {
         ret[4] = vh.min(j.thumb);
         ret[5] = j.palm;
         return vh.min(ret);
+    }
+
+    public Vector max(Hand h){
+        return new Vector();
     }
 }

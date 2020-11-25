@@ -25,4 +25,7 @@ public class Joints {
     public Vector[] index;
     public Vector[] thumb;
     public Vector   palm;
+    public Vector   min;
+    public Vector   max;
+    public float    frameRate;
 }
