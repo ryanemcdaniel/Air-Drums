@@ -1,8 +1,8 @@
 using Ultrahaptics;
 using Leap;
 
-public static class Haptic{
-    public static AmplitudeModulationControlPoint SetHapticPoint(Vector LeapMotion, float intensity,float frequency)
+public class Haptic{
+    public AmplitudeModulationControlPoint SetHapticPoint(Vector LeapMotion, float intensity,float frequency)
     {
         Vector3 position = new Vector3(0,0,0);
         //Transforms LeapMotion Coordinate system to UltraHaptic Coordinate system

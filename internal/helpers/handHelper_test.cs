@@ -36,8 +36,8 @@ public class handHelper_test {
         }
         if(exp.y > h.PalmPosition.y) exp = h.PalmPosition;
 
-        Mock<VectorHelper> vh_mock = new Mock<VectorHelper>();
-        HandHelper hh = new HandHelper(vh_mock.Object);
+        VectorHelper vh = new VectorHelper();
+        HandHelper hh = new HandHelper(vh);
         Vector act = hh.lowestJoint(h);
 
         test.vectorEqual(exp, act);

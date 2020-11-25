@@ -19,7 +19,6 @@ public class HandHelper {
 
     public Vector[] handToVectors(Hand h){
         Vector[] ret = new Vector[25];
-
         return null;
     }
 
@@ -40,5 +39,4 @@ public class HandHelper {
         }
         return ret;
     }
-
 }

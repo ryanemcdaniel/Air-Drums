@@ -65,7 +65,8 @@ public static class test {
         Assert.Equal(h1.Id, h2.Id);
         Assert.Equal(h1.IsLeft, h2.IsLeft);
         Assert.Equal(h1.PalmWidth, h2.PalmWidth);
-        Assert.Equal(h1.PinchDistance, h2.PinchStrength);
+        Assert.Equal(h1.PinchDistance, h2.PinchDistance);
+        Assert.Equal(h1.PinchStrength, h2.PinchStrength);
         Assert.Equal(h1.TimeVisible, h2.TimeVisible);
     }
 
