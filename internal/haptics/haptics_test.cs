@@ -1,6 +1,3 @@
-using System;
-using System.Diagnostics;
-using System.Collections.Generic;
 using Ultrahaptics;
 using Leap;
 using Xunit;
@@ -11,7 +8,8 @@ public class Haptic_Test{
     public void AquireTarget_Passes(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
-        Hand inp_hand = hg.newHand();
+        var inp_fingerList = hg.newFingerList();
+        Hand inp_hand = hg.newHand(inp_fingerList);
         float org_UH_INTENSITY = GBL.UH_INTENSITY;
         float org_UH_FREQUENCY = GBL.UH_FREQUENCY;
 
@@ -30,7 +28,7 @@ public class Haptic_Test{
             1
         );
         
-        Haptic h = new Haptic(new HandHelper(new VectorHelper()));
+        Haptic h = new Haptic(new JointsHelper(new VectorHelper()));
         AmplitudeModulationControlPoint act = h.AquireTarget(inp_hand);
         GBL.UH_INTENSITY = org_UH_INTENSITY;
         GBL.UH_FREQUENCY = org_UH_FREQUENCY;

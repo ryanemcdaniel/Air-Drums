@@ -44,7 +44,7 @@ public class vectorHelper_test{
     public void Average_Passes(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
-        Vector[] vL = dg.newVectorList(len);
+        Vector[] vL = dg.newVectors(len);
 
         Vector exp = new Vector(0,0,0);
         for(int i = 0; i < len; i++){
@@ -63,10 +63,10 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Lowest_Passes(){
+    public void Min_Passes(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
-        Vector[] input = dg.newVectorList(len);
+        Vector[] input = dg.newVectors(len);
         
         Vector exp = input[0];
         foreach (Vector v in input) {
@@ -78,7 +78,7 @@ public class vectorHelper_test{
         }
 
         VectorHelper vh = new VectorHelper();
-        Vector act = vh.lowest(input);
+        Vector act = vh.min(input);
 
         test.vectorEqual(exp, act);
     }

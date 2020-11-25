@@ -33,7 +33,7 @@ public class VectorHelper{
         return ret;
     }
 
-    public Vector lowest(Vector[] vList){
+    public Vector min(Vector[] vList){
         Vector ret = vList[0];
         foreach (Vector v in vList) {
             if(v.y < ret.y){

@@ -2,10 +2,9 @@ using Ultrahaptics;
 using Leap;
 using Global;
 
-
 public class Haptic{
-    public HandHelper hh;
-    public Haptic(HandHelper hand){
+    public JointsHelper hh;
+    public Haptic(JointsHelper hand){
         hh = hand;
     }
     public AmplitudeModulationControlPoint AquireTarget(Hand h)

@@ -11,7 +11,7 @@ public static class test {
         Assert.Equal(v1.z, v2.z);
     }
 
-    public static void vectorListEqual(Vector[] vL1, Vector[] vL2){
+    public static void vectorsEqual(Vector[] vL1, Vector[] vL2){
         Assert.Equal(vL1.Length, vL2.Length);
         for(int i = 0; i < vL1.Length; i++){
             vectorEqual(vL1[i], vL2[i]);
@@ -79,4 +79,12 @@ public static class test {
         }
     }
 
+    public static void jointsEqual(Joints j1, Joints j2){
+        vectorsEqual(j1.pinky, j2.pinky);
+        vectorsEqual(j1.ring, j2.ring);
+        vectorsEqual(j1.middle, j2.middle);
+        vectorsEqual(j1.index, j2.index);
+        vectorsEqual(j1.thumb, j2.thumb);
+        vectorEqual(j1.palm, j2.palm);
+    }
 }
