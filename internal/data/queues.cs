@@ -10,10 +10,17 @@ public interface IQueues {
 
 public class Queues : IQueues {
 
-    private List<Hand> samples;
+    private JointsHelper jH;
 
-    public Queues(List<Hand> s){
-        samples = s;
+    private List<Hand> samples;
+    private List<Joints> position;
+    private List<Joints> velocity;
+
+    public Queues(JointsHelper jointsHelper){
+        jH = jointsHelper;
+        samples = new List<Hand>();
+        position = new List<Joints>();
+        velocity = new List<Joints>();
     }
 
     public List<Hand> GetSamples() => samples;

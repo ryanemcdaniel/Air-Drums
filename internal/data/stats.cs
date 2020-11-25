@@ -5,7 +5,6 @@ public interface IStats {
     public Joints sum(List<Joints> jL);
     public Joints ave(List<Joints> jL);
     public Joints range(List<Joints> jL);
-    public List<Joints> velocities(List<Joints> jL);
 }
 
 public class Stats : IStats {
@@ -31,9 +30,5 @@ public class Stats : IStats {
     public Joints range(List<Joints> jL){
         (Joints min, Joints max) = jh.minMax(jL);
         return jh.sub(max, min);
-    }
-
-    public List<Joints> velocities(List<Joints> jL){
-        return null;
     }
 }
