@@ -1,15 +1,23 @@
 using Ultrahaptics;
 using Leap;
+using Global;
+
 
 public class Haptic{
-    public AmplitudeModulationControlPoint SetHapticPoint(Vector LeapMotion, float intensity,float frequency)
+    public HandHelper hh;
+    public Haptic(HandHelper hand){
+        hh = hand;
+    }
+    public AmplitudeModulationControlPoint AquireTarget(Hand h)
     {
-        Vector3 position = new Vector3(0,0,0);
-        //Transforms LeapMotion Coordinate system to UltraHaptic Coordinate system
-        position.x = LeapMotion.x;
-        position.z = LeapMotion.y;
-        position.y = -1 * LeapMotion.z;
-
-        return new AmplitudeModulationControlPoint(position, intensity, frequency);
+        Vector temp = hh.lowestJoint(h);
+        return new AmplitudeModulationControlPoint(
+            temp.x,
+            temp.z,
+            -1 * temp.y,
+            GBL.UH_INTENSITY,
+            GBL.UH_FREQUENCY
+        );
     }
 }
+
