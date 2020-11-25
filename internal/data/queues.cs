@@ -1,5 +1,6 @@
-using System.Collections.Generic;
 using Leap;
+using Global;
+using System.Collections.Generic;
 
 public class Queues {
 
@@ -9,13 +10,14 @@ public class Queues {
         samples = s;
     }
 
-    public void Load(Hand h){
-        
+    public List<Hand> GetSamples() => samples;
+
+    public void LoadSample(Hand h){
+        samples.Add(h);
+        if(samples.Count > GBL.N_SAMPLES) samples.RemoveAt(0);
     }
 
     public void Clear(){
-
+        samples.Clear();
     }
-
-    public List<Hand> GetSamples() => samples;
 }
