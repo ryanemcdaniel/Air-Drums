@@ -4,6 +4,10 @@ public static class Global {
 
     static Global(){
         N_SAMPLES           = 0;    // Controls number of frames we analyze at a time
+        DIV_P               = new Vector();
+        DIV_N               = new Vector();
+        TAP_VEL             = new Vector();
+        SWP_VEL             = new Vector();
     }
 
     public static int       N_SAMPLES;
