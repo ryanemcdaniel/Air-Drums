@@ -3,23 +3,19 @@ using Leap;
 
 public class Queues {
 
-    private Queue<Hand> samples;
+    private List<Hand> samples;
 
-    public Queues(HandHelper handHelper){
-        samples = new Queue<Hand>();
-    }
-
-    private bool canCalculate(){
-        return samples.Count < Global.N_SAMPLES;
+    public Queues(List<Hand> s){
+        samples = s;
     }
 
     public void Load(Hand h){
-
-    }
-
-    public void Clear(){
         
     }
 
-    public Queue<Hand> GetSamples() => samples;
+    public void Clear(){
+
+    }
+
+    public List<Hand> GetSamples() => samples;
 }

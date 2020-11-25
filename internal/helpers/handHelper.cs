@@ -8,22 +8,29 @@ public class HandHelper {
         vh = vectorHelper;
     }
 
-    public Vector[] fingerToVectorList(Finger f){
+    public Vector fingertipToVector(Finger f) => f.bones[3].NextJoint;
+
+    public Vector[] fingerToVectors(Finger f){
         Vector[] ret = new Vector[f.bones.Length + 1];
         for(int i = 0; i < f.bones.Length; i++) ret[i] = f.bones[i].PrevJoint;
         ret[ret.Length - 1] = f.bones[f.bones.Length - 1].NextJoint;
         return ret;
     }
 
+    public Vector[] handToVectors(Hand h){
+        Vector[] ret = new Vector[25];
+
+        return null;
+    }
+
     public Vector lowestJoint(Hand h){
         Vector ret = h.Fingers[0].bones[0].PrevJoint;
-        foreach (Finger f in h.Fingers) {
-            foreach (Vector v in fingerToVectorList(f)){
-                if(ret.y > v.y) ret = v;
-            }
+        Vector temp;
+        foreach (Finger f in h.Fingers){
+            temp = vh.lowest(fingerToVectors(f));
+            ret = ret.y > temp.y ? temp : ret;
         }
-        if(ret.y > h.PalmPosition.y) ret = h.PalmPosition;
-        return ret;
+        return ret.y > h.PalmPosition.y ? h.PalmPosition : ret;
     }
 
     public Vector[] fingerTips(Hand h){
@@ -33,4 +40,5 @@ public class HandHelper {
         }
         return ret;
     }
+
 }

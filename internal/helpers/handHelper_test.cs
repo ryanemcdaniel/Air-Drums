@@ -16,13 +16,13 @@ public class handHelper_test {
         
         Mock<VectorHelper> vh_mock = new Mock<VectorHelper>();
         HandHelper hh = new HandHelper(vh_mock.Object);
-        Vector[] act = hh.fingerToVectorList(f);
+        Vector[] act = hh.fingerToVectors(f);
 
         test.vectorListEqual(exp, act);
     }
 
     [Fact]
-    public void LowestJoint(){
+    public void LowestJoint_Passes(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand h = hg.newHand();
@@ -44,7 +44,7 @@ public class handHelper_test {
     }
 
     [Fact]
-    public void FingerTips(){
+    public void FingerTips_Passes(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand h = hg.newHand();
