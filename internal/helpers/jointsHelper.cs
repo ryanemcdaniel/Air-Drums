@@ -10,6 +10,7 @@ public interface IJointsHelper {
     public Joints div(Joints j1, float f);
     public Joints velocity(Joints j1, Joints j2, float f);
     public Vector lowestJoint(Hand h);
+    public (Joints, Joints) minMax(List<Joints> jL);
 }
 
 public class JointsHelper : IJointsHelper {
@@ -68,5 +69,9 @@ public class JointsHelper : IJointsHelper {
         ret[4] = vh.min(j.thumb);
         ret[5] = j.palm;
         return vh.min(ret);
+    }
+
+    public (Joints, Joints) minMax(List<Joints> jL){
+        return (null, null); 
     }
 }

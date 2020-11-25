@@ -61,9 +61,21 @@ public class stats_test {
         int dat_len = dg.newInt(100);
         List<Joints> dat_jL = hg.newJointsList(dat_len);
 
-        Joints exp_ave = hg.newJoints();
+        Joints exp_range = hg.newJoints();
+        Joints exp_min = hg.newJoints();
+        Joints exp_max = hg.newJoints();
 
         Mock<IJointsHelper> mock_jh = new Mock<IJointsHelper>();
+        mock_jh.Setup(m => m.minMax(dat_jL)).Returns((exp_min, exp_max));
+        mock_jh.Setup(m => m.sub(exp_max, exp_min)).Returns(exp_range);
+
+        Stats s = new Stats(mock_jh.Object);
+        Joints act_range = s.range(dat_jL);
+
+        mock_jh.Verify(m => m.minMax(dat_jL), Times.Once());
+        mock_jh.Verify(m => m.sub(exp_max, exp_min), Times.Once());
+        test.jointsEqual(exp_range, act_range);
+
     }
 
     [Fact]

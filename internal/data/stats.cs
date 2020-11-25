@@ -30,14 +30,11 @@ public class Stats : IStats {
     }
 
     public Joints range(List<Joints> jL){
-        return null;
+        (Joints min, Joints max) = jh.minMax(jL);
+        return jh.sub(max, min);
     }
 
     public List<Joints> velocities(List<Joints> jL){
-        return null;
-    }
-
-    public Joints velocitiesAve(List<Joints> jL){
         return null;
     }
 }
