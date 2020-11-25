@@ -17,8 +17,8 @@ public class DataManager : IDataManager {
 
     public void Extract(Frame f){
         foreach(var h in f.Hands){
-            if(h.IsLeft) left.LoadSample(h);
-            else right.LoadSample(h); 
+            if(h.IsLeft) left.LoadSample(h, f.CurrentFramesPerSecond);
+            else right.LoadSample(h, f.CurrentFramesPerSecond); 
         }
 
     }

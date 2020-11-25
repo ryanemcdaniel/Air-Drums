@@ -13,15 +13,15 @@ public class dataManager_test {
         dat_f.Hands[1].IsLeft = true;
 
         var mock_l = new Mock<IQueues>();
-        mock_l.Setup(m => m.LoadSample(dat_f.Hands[1]));
+        mock_l.Setup(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond));
         var mock_r = new Mock<IQueues>();
-        mock_r.Setup(m => m.LoadSample(dat_f.Hands[0]));
+        mock_r.Setup(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond));
 
         var dm = new DataManager(mock_l.Object, mock_r.Object);
 
         dm.Extract(dat_f);
 
-        mock_l.Verify(m => m.LoadSample(dat_f.Hands[1]), Times.Once());
-        mock_r.Verify(m => m.LoadSample(dat_f.Hands[0]), Times.Once());
+        mock_l.Verify(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond), Times.Once());
+        mock_r.Verify(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond), Times.Once());
     }
 }
