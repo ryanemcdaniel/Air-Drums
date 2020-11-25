@@ -4,7 +4,11 @@ public class VectorHelper{
 
     public VectorHelper(){}
 
-    public Vector subtract(Vector v1, Vector v2){
+    public Vector add(Vector v1, Vector v2){
+        return new Vector();
+    }
+
+    public Vector sub(Vector v1, Vector v2){
         return new Vector(
             v1.x - v2.x,
             v1.y - v2.y,
@@ -13,7 +17,7 @@ public class VectorHelper{
     }
 
     public Vector velocity(Vector v1, Vector v2, float frameRate){
-        Vector ret = subtract(v1, v2);
+        Vector ret = sub(v1, v2);
         ret.x /= frameRate;
         ret.y /= frameRate;
         ret.z /= frameRate;
@@ -33,7 +37,7 @@ public class VectorHelper{
         return ret;
     }
 
-    public Vector lowest(Vector[] vList){
+    public Vector min(Vector[] vList){
         Vector ret = vList[0];
         foreach (Vector v in vList) {
             if(v.y < ret.y){
@@ -43,6 +47,10 @@ public class VectorHelper{
             }
         }
         return ret;
+    }
+
+    public Vector max(Vector[] vList){
+        return new Vector();
     }
 
     public bool greater(Vector v1, Vector v2, char mode){

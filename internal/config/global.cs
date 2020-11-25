@@ -1,7 +1,7 @@
 using Leap;
 
 namespace Global {
-        public static class GBL {
+    public static class GBL {
 
         static GBL(){
             N_SAMPLES           = 0;            // Controls number of frames we analyze at a time

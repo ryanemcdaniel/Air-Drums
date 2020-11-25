@@ -11,7 +11,7 @@ public class Queue_Generator {
     public List<Hand> newHandList(int len) {
         List<Hand> ret = new List<Hand>();
         for(int i = 0; i < len; i++){
-            ret.Add(hg.newHand());
+            ret.Add(hg.newHand(hg.newFingerList()));
         }
         return ret;
     }
