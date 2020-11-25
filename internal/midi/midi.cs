@@ -1,7 +1,7 @@
 ﻿using System;
 using TobiasErichsen.teVirtualMIDI;
 
-public class Driver
+public class MIDI
 {
     private static TeVirtualMIDI port;
 
@@ -13,7 +13,7 @@ public class Driver
     private static Guid manufacturer = new Guid("aa4e075f-3504-4aab-9b06-9a4104a91cf0");
     private static Guid product = new Guid("bb4e075f-3504-4aab-9b06-9a4104a91cf0");
 
-    public Driver()
+    public MIDI()
     {
         TeVirtualMIDI.logging(TeVirtualMIDI.TE_VM_LOGGING_MISC | TeVirtualMIDI.TE_VM_LOGGING_RX | TeVirtualMIDI.TE_VM_LOGGING_TX);
         port = new TeVirtualMIDI("C# loopback", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref manufacturer, ref product);
