@@ -90,7 +90,8 @@ public class Hand_Generator{
         dg.newVectors(5),
         dg.newVectors(5),
         dg.newVectors(5),
-        dg.newVector()
+        dg.newVector(),
+        dg.newFloat(100)
     );
     
     public Joints zeroJoints() => new Joints(
@@ -99,7 +100,8 @@ public class Hand_Generator{
         dg.newZeroVectors(5),
         dg.newZeroVectors(5),
         dg.newZeroVectors(5),
-        dg.newVector()
+        dg.newVector(),
+        0
     );
 
     public List<Joints> newJointsList(int len) {

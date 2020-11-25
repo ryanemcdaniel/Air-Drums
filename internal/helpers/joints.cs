@@ -18,7 +18,8 @@ public class Joints {
         Vector[]    in3,
         Vector[]    in4,
         Vector[]    in5,
-        Vector      in6
+        Vector      in6,
+        float       in7
     ){
         pinky   =   in1;
         ring    =   in2;
@@ -26,6 +27,7 @@ public class Joints {
         index   =   in4;
         thumb   =   in5;
         palm    =   in6;
+        frameRate=  in7;
     }
 
     public Vector[] pinky;

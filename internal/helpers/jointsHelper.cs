@@ -35,7 +35,8 @@ public class JointsHelper : IJointsHelper {
             fingerToVectors(h.Fingers[2]),
             fingerToVectors(h.Fingers[3]),
             fingerToVectors(h.Fingers[4]),
-            h.PalmPosition
+            h.PalmPosition,
+            0
         );
     }
 
