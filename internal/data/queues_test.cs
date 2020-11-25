@@ -2,76 +2,49 @@ using Xunit;
 using Moq;
 using Leap;
 using Global;
-using System.Collections.Generic;
 
 public class queues_test {
 
     [Fact]
-    public void Queue_GetSamples_Passes(){
+    public void Load_Once_Passes() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
-        Queue_Generator qg = new Queue_Generator(hg);
-        List<Hand> exp = qg.newHandList(dg.newInt(100));
+        var dat_hnd = hg.newHand(hg.newFingerList());
+        var dat_fps = dg.newFloat(100);
+
+        var exp_hnd = dat_hnd;
+        var exp_pos = hg.newJoints();
+
+        var mock_jh = new Mock<IJointsHelper>();
+        mock_jh.Setup(m => m.handToJoints(dat_hnd)).Returns(exp_pos);
+
+        var org_N_SAMPLES = GBL.N_SAMPLES;
+        GBL.N_SAMPLES = dg.newInt(100);
+        var q = new Queues(mock_jh.Object);
+        q.LoadSample(dat_hnd, dat_fps);
+        var act_hnd = q.GetSamples();
+        var act_pos = q.GetPositions();
+        var act_vel = q.GetVelocities();
+        GBL.N_SAMPLES = org_N_SAMPLES;
+
+        mock_jh.Verify(m => m.handToJoints(dat_hnd), Times.Once());
+        mock_jh.Verify(m => m.sub(It.IsAny<Joints>(), It.IsAny<Joints>()), Times.Never());
+        mock_jh.Verify(m => m.div(It.IsAny<Joints>(), It.IsAny<float>()), Times.Never());
+        test.handEqual(exp_hnd, act_hnd[0]);
+        test.jointsEqual(exp_pos, act_pos[0]);
+        Assert.Single<Hand>(act_hnd);
+        Assert.Single<Joints>(act_pos);
+        Assert.Empty(act_vel);
+    }
+
+    [Fact]
+    public void Load_Multiple_Passes() {
         
-        Queues q = new Queues(exp);
-        List<Hand> act = q.GetSamples();
-
-        test.handQueueEqual(exp, act);
     }
 
     [Fact]
-    public void Load_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Hand_Generator hg = new Hand_Generator(dg);
-        Queue_Generator qg = new Queue_Generator(hg);
+    public void Clear_Passes() {
 
-        int exp_N_SAMPLES = dg.newInt(100);
-        List<Hand> input = qg.newHandList(exp_N_SAMPLES + dg.newInt(100));
-
-        List<Hand> exp = new List<Hand>(input);
-        int i = 0;
-        foreach (var h in input)
-        {
-            if(i++ < input.Count - exp_N_SAMPLES) exp.Remove(h);
-        }
-
-        int org_N_SAMPLES = GBL.N_SAMPLES;
-        GBL.N_SAMPLES = exp_N_SAMPLES;
-        Queues q = new Queues(new List<Hand>());
-        foreach (var h in input){
-            q.LoadSample(h);
-        }
-        List<Hand> act = q.GetSamples();
-
-        GBL.N_SAMPLES = org_N_SAMPLES;
-        Assert.Equal(exp_N_SAMPLES, act.Count);
-        test.handQueueEqual(exp, act);
-    }
-
-    [Fact]
-    public void Clear_Passes()
-    {
-        Data_Generator dg = new Data_Generator();
-        Hand_Generator hg = new Hand_Generator(dg);
-        Queue_Generator qg = new Queue_Generator(hg);
-
-        int inp_N_SAMPLES = dg.newInt(100);
-        List<Hand> inp_list = qg.newHandList(inp_N_SAMPLES + dg.newInt(100));
-
-        List<Hand> exp_list = new List<Hand>();
-
-        int org_N_SAMPLES = GBL.N_SAMPLES;
-        GBL.N_SAMPLES = inp_N_SAMPLES;
-        Queues q = new Queues(new List<Hand>());
-        foreach (var h in inp_list){
-            q.LoadSample(h);
-        }
-        q.Clear();
-        List<Hand> act_list = q.GetSamples();
-
-        GBL.N_SAMPLES = org_N_SAMPLES;
-        Assert.Equal(exp_list.Count, act_list.Count);
-        test.handQueueEqual(exp_list, act_list);
     }
 
 }

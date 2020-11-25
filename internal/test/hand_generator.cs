@@ -76,13 +76,22 @@ public class Hand_Generator{
         WristPosition = dg.newVector()
     };
 
+    public List<Hand> newHandList(int len) {
+        List<Hand> ret = new List<Hand>();
+        for( int i = 0; i < len; i++ ) {
+            ret.Add(newHand(newFingerList(dg.newVectorsList(5,5))));
+        }
+        return ret;
+    }
+
     public Joints newJoints() => new Joints(
         dg.newVectors(5),
         dg.newVectors(5),
         dg.newVectors(5),
         dg.newVectors(5),
         dg.newVectors(5),
-        dg.newVector()
+        dg.newVector(),
+        dg.newFloat(100)
     );
     
     public Joints zeroJoints() => new Joints(
@@ -91,12 +100,26 @@ public class Hand_Generator{
         dg.newZeroVectors(5),
         dg.newZeroVectors(5),
         dg.newZeroVectors(5),
-        dg.newVector()
+        dg.newVector(),
+        0
     );
 
     public List<Joints> newJointsList(int len) {
         List<Joints> ret = new List<Joints>();
-        for(int i = 0; i < len; i++) ret.Add(newJoints());
+        for (int i = 0; i < len; i++) ret.Add(newJoints());
         return ret;
     }
+    
+    public Frame newFrame() {
+        return new Frame{
+            Id = dg.newLong(100),
+            Timestamp = dg.newLong(100),
+            CurrentFramesPerSecond = dg.newFloat(100),
+            InteractionBox = new InteractionBox(),
+            Hands = newHandList(2)
+        };
+    }
+
+
+
 }

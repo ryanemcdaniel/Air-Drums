@@ -1,27 +1,34 @@
 using System.Collections.Generic;
 using Leap;
 
-public class Stats {
+public interface IStats {
+    public Joints sum(List<Joints> jL);
+    public Joints ave(List<Joints> jL);
+    public Joints range(List<Joints> jL);
+}
 
-    private JointsHelper hh;
+public class Stats : IStats {
 
-    public Stats(JointsHelper handHelper) {
-        hh = handHelper;
+    private IJointsHelper jh;
+
+    public Stats(IJointsHelper jointsHelper) {
+        jh = jointsHelper;
     }
 
     public Joints sum(List<Joints> jL){
-        return null;
+        Joints ret = new Joints();
+        foreach (Joints j in jL){
+            ret = jh.add(ret, j);
+        }
+        return ret;
     }
 
-    public Joints average(List<Joints> jL) {
-        return null;
+    public Joints ave(List<Joints> jL) {
+        return jh.div(sum(jL), jL.Count);
     }
 
     public Joints range(List<Joints> jL){
-        return null;
-    }
-
-    public Joints velocities(List<Joints> jL){
-        return null;
+        (Joints min, Joints max) = jh.minMax(jL);
+        return jh.sub(max, min);
     }
 }
