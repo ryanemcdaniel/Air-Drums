@@ -1,11 +1,22 @@
 using System.Collections.Generic;
 using Leap;
 
-public class JointsHelper {
-    
-    private VectorHelper vh;
+public interface IJointsHelper {
+    public Vector[] fingerToVectors(Finger f);
+    public Joints handToJoints(Hand h);
+    public Joints add(Joints j1, Joints j2);
+    public Joints sub(Joints j1, Joints j2);
+    public Joints div(Joints j1, int i);
+    public Joints div(Joints j1, float f);
+    public Joints velocity(Joints j1, Joints j2, float f);
+    public Vector lowestJoint(Hand h);
+}
 
-    public JointsHelper(VectorHelper vectorHelper){
+public class JointsHelper : IJointsHelper {
+    
+    private IVectorHelper vh;
+
+    public JointsHelper(IVectorHelper vectorHelper){
         vh = vectorHelper;
     }
 
@@ -35,7 +46,11 @@ public class JointsHelper {
         return null;
     }
 
-    public Joints div(Joints j1, float scalar){
+    public Joints div(Joints j1, int i){
+        return null;
+    }
+
+    public Joints div(Joints j1, float i){
         return null;
     }
 
@@ -43,7 +58,7 @@ public class JointsHelper {
         return null;
     }
 
-    public Vector min(Hand h){
+    public Vector lowestJoint(Hand h){
         Joints j = handToJoints(h);
         Vector[] ret = new Vector[6];
         ret[0] = vh.min(j.pinky);
@@ -53,9 +68,5 @@ public class JointsHelper {
         ret[4] = vh.min(j.thumb);
         ret[5] = j.palm;
         return vh.min(ret);
-    }
-
-    public Vector max(Hand h){
-        return new Vector();
     }
 }

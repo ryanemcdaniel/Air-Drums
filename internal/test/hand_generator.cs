@@ -96,7 +96,7 @@ public class Hand_Generator{
 
     public List<Joints> newJointsList(int len) {
         List<Joints> ret = new List<Joints>();
-        for(int i = 0; i < len; i++) ret.Add(newJoints());
+        for (int i = 0; i < len; i++) ret.Add(newJoints());
         return ret;
     }
 }

@@ -2,7 +2,16 @@ using Leap;
 
 public class Joints {
 
-    public Joints(){}
+    public Joints(){
+        pinky       =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
+        ring        =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
+        middle      =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
+        index       =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
+        thumb       =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
+        palm        =   new Vector();
+        frameRate   =   0;
+    }
+
     public Joints(
         Vector[]    in1,
         Vector[]    in2,
@@ -25,7 +34,5 @@ public class Joints {
     public Vector[] index;
     public Vector[] thumb;
     public Vector   palm;
-    public Vector   min;
-    public Vector   max;
     public float    frameRate;
 }

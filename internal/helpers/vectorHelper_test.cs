@@ -82,19 +82,4 @@ public class vectorHelper_test{
 
         test.vectorEqual(exp, act);
     }
-
-    [Fact]
-    public void Greater_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Vector v1 = dg.newVector();
-        Vector v2 = dg.newVector();
-        float[] f1 = v1.ToFloatArray();
-        float[] f2 = v2.ToFloatArray();
-        char[] mode = {'x', 'y', 'z'};
-        bool[] act = new bool[3];
-        VectorHelper vh = new VectorHelper();
-        for(int i = 0; i < act.Length; i++) act[i] = vh.greater(v1, v2, mode[i]);
-        for(int i = 0; i < act.Length; i++) Assert.Equal(f1[i] > f2[i], act[i]);
-    }
-    
 }

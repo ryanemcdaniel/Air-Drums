@@ -1,6 +1,17 @@
 using Leap;
 
-public class VectorHelper{
+
+public interface IVectorHelper{
+    public Vector add(Vector v1, Vector v2);
+    public Vector sub(Vector v1, Vector v2);
+    public Vector velocity(Vector v1, Vector v2, float f);
+    public Vector average(Vector[] vA);
+    public Vector range(Vector[] vA);
+    public Vector min(Vector[] vA);
+    public Vector max(Vector[] vA);
+}
+
+public class VectorHelper : IVectorHelper{
 
     public VectorHelper(){}
 
@@ -24,22 +35,26 @@ public class VectorHelper{
         return ret;
     }
 
-    public Vector average(Vector[] vList){
+    public Vector average(Vector[] vA){
         Vector ret = new Vector(0,0,0);
-        for(int i = 0; i < vList.Length; i++){
-            ret.x += vList[i].x;
-            ret.y += vList[i].y;
-            ret.z += vList[i].z;
+        for(int i = 0; i < vA.Length; i++){
+            ret.x += vA[i].x;
+            ret.y += vA[i].y;
+            ret.z += vA[i].z;
         }
-        ret.x /= (float) vList.Length;
-        ret.y /= (float) vList.Length;
-        ret.z /= (float) vList.Length;
+        ret.x /= (float) vA.Length;
+        ret.y /= (float) vA.Length;
+        ret.z /= (float) vA.Length;
         return ret;
     }
 
-    public Vector min(Vector[] vList){
-        Vector ret = vList[0];
-        foreach (Vector v in vList) {
+    public Vector range(Vector[] vA){
+        return new Vector();
+    }
+
+    public Vector min(Vector[] vA){
+        Vector ret = vA[0];
+        foreach (Vector v in vA) {
             if(v.y < ret.y){
                 ret.x = v.x;
                 ret.y = v.y;
@@ -49,22 +64,7 @@ public class VectorHelper{
         return ret;
     }
 
-    public Vector max(Vector[] vList){
+    public Vector max(Vector[] vA){
         return new Vector();
     }
-
-    public bool greater(Vector v1, Vector v2, char mode){
-        if(mode == 'x') return v1.x > v2.x;
-        if(mode == 'y') return v1.y > v2.y;
-        if(mode == 'z') return v1.z > v2.z;
-        return false;
-    }
-
-    public bool equal(Vector v1, Vector v2, char mode){
-        if(mode == 'x') return v1.x == v2.x;
-        if(mode == 'y') return v1.y == v2.y;
-        if(mode == 'z') return v1.z == v2.z;
-        return false;
-    }
-
 }

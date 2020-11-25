@@ -68,6 +68,6 @@ public class jointsHelper_test {
 
         VectorHelper vh = new VectorHelper();
         JointsHelper jh = new JointsHelper(vh);
-        Vector act_joint = jh.min(dat_hand);
+        Vector act_joint = jh.lowestJoint(dat_hand);
     }
 }
