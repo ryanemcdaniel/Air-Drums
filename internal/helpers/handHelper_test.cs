@@ -60,4 +60,24 @@ public class handHelper_test {
 
         test.vectorListEqual(exp, act);
     }
+
+    [Fact]
+    public void handToJoints_Passes() {
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        Hand h = hg.newHand();
+
+        Joints exp = new Joints {
+            pinky =  ;
+            ring = ;
+            middle = ;
+            index = ;
+            thumb = ;
+
+        };
+    
+    //When
+    
+    //Then
+    }
 }

@@ -39,4 +39,8 @@ public class HandHelper {
         }
         return ret;
     }
+
+    public Joints handToJoints(Hand h) {
+        return null;
+    }
 }
