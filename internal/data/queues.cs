@@ -2,7 +2,13 @@ using Leap;
 using Global;
 using System.Collections.Generic;
 
-public class Queues {
+public interface IQueues {
+    public List<Hand> GetSamples();
+    public void LoadSample(Hand h);
+    public void Clear();
+}
+
+public class Queues : IQueues {
 
     private List<Hand> samples;
 

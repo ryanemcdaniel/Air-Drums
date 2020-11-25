@@ -6,6 +6,7 @@ public interface IStats {
     public Joints ave(List<Joints> jL);
     public Joints range(List<Joints> jL);
     public List<Joints> velocities(List<Joints> jL);
+    public Joints velocitiesAve(List<Joints> jL);
 }
 
 public class Stats : IStats {
@@ -33,6 +34,10 @@ public class Stats : IStats {
     }
 
     public List<Joints> velocities(List<Joints> jL){
+        return null;
+    }
+
+    public Joints velocitiesAve(List<Joints> jL){
         return null;
     }
 }
