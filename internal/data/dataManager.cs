@@ -7,8 +7,8 @@ public interface IDataManager {
 
 public class DataManager : IDataManager {
 
-    public IQueues left;
-    public IQueues right;
+    private IQueues left;
+    private IQueues right;
 
     public DataManager(IQueues l, IQueues r){
         left = l;
@@ -16,6 +16,10 @@ public class DataManager : IDataManager {
     }
 
     public void Extract(Frame f){
+        foreach(var h in f.Hands){
+            if(h.IsLeft) left.LoadSample(h);
+            else right.LoadSample(h); 
+        }
 
     }
 
