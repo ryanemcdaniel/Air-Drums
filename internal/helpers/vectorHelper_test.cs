@@ -14,6 +14,8 @@ public class vectorHelper_test{
             y = v1.y + v2.y,
             z = v1.z + v2.z
         };
+        VectorHelper v = new VectorHelper();
+        Vector act = v.sub(v1,v2);
     }
 
     [Fact]
@@ -36,21 +38,6 @@ public class vectorHelper_test{
 
     [Fact]
     public void Div(){
-        
-    }
-
-    [Fact]
-    public void ArrAdd(){
-        
-    }
-
-    [Fact]
-    public void ArrSub(){
-        
-    }
-
-    [Fact]
-    public void ArrDiv(){
         
     }
 
