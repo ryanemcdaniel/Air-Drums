@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Leap;
 
@@ -41,7 +42,15 @@ public class JointsHelper : IJointsHelper {
     }
 
     public Joints add(Joints j1, Joints j2){
-        return null;
+        return new Joints(
+            vh.arrAdd(j1.pinky, j2.pinky),
+            vh.arrAdd(j1.ring, j2.ring),
+            vh.arrAdd(j1.middle, j2.middle),
+            vh.arrAdd(j1.index, j2.index),
+            vh.arrAdd(j1.thumb, j2.thumb),
+            vh.add(j1.palm, j2.palm),
+            Math.Max(j1.frameRate, j2.frameRate)
+        );
     }
     
     public Joints sub(Joints j1, Joints j2){

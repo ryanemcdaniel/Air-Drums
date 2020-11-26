@@ -1,3 +1,5 @@
+using System;
+using System.Threading.Tasks.Dataflow;
 using Xunit;
 using Moq;
 using Leap;
@@ -68,11 +70,23 @@ public class jointsHelper_test {
 
         var mock_vh = new Mock<IVectorHelper>();
         mock_vh.Setup(m => m.arrAdd(dat_j1.pinky, dat_j2.pinky)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrAdd(dat_j1.ring, dat_j2.ring)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrAdd(dat_j1.middle, dat_j2.middle)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrAdd(dat_j1.index, dat_j2.index)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrAdd(dat_j1.thumb, dat_j2.thumb)).Returns(exp_j.pinky);
-        
+        mock_vh.Setup(m => m.arrAdd(dat_j1.ring, dat_j2.ring)).Returns(exp_j.ring);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.middle, dat_j2.middle)).Returns(exp_j.middle);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.index, dat_j2.index)).Returns(exp_j.index);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.thumb, dat_j2.thumb)).Returns(exp_j.thumb);
+        mock_vh.Setup(m => m.add(dat_j1.palm, dat_j2.palm)).Returns(exp_j.palm);
+
+        JointsHelper jh = new JointsHelper(mock_vh.Object);
+        var act_j = jh.add(dat_j1, dat_j2);
+
+        mock_vh.Verify(m => m.arrAdd(dat_j1.pinky, dat_j2.pinky), Times.Once());
+        mock_vh.Verify(m => m.arrAdd(dat_j1.ring, dat_j2.ring), Times.Once());
+        mock_vh.Verify(m => m.arrAdd(dat_j1.middle, dat_j2.middle), Times.Once());
+        mock_vh.Verify(m => m.arrAdd(dat_j1.index, dat_j2.index), Times.Once());
+        mock_vh.Verify(m => m.arrAdd(dat_j1.thumb, dat_j2.thumb), Times.Once());
+        mock_vh.Verify(m => m.add(dat_j1.palm, dat_j2.palm), Times.Once());
+
+        test.jointsEqual(exp_j, act_j);
     }
 
     [Fact]
