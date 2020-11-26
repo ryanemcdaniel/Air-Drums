@@ -1,5 +1,7 @@
+using System.Net.Http.Headers;
 using Xunit;
 using Leap;
+using System.Linq;
 
 public class vectorHelper_test{
 
@@ -82,7 +84,7 @@ public class vectorHelper_test{
         test.vectorEqual(expMin,actMin);
     }
 
-        [Fact]
+    [Fact]
     public void arrAdd(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
@@ -119,7 +121,6 @@ public class vectorHelper_test{
         Vector[] act = v.arrSub(v1,v2);
         test.vectorsEqual(exp,act);
     }
-
     
     [Fact]
     public void arrDiv(){
@@ -142,7 +143,30 @@ public class vectorHelper_test{
 
     [Fact]
     public void arrMinMax(){
+        var dg = new Data_Generator();
+        var dat_len = dg.newInt(100);
+        var dat_vA1 = dg.newVectors(dat_len);
+        var dat_vA2 = new Vector[dat_len];
         
+        foreach (var v in dat_vA1.Reverse()) {
+            dat_vA2[--dat_len] = new Vector{
+                x = dat_len % 2 == 0 ? v.x - dg.newFloat(100) : v.x + dg.newFloat(100),
+                y = dat_len % 2 == 0 ? v.y - dg.newFloat(100) : v.y + dg.newFloat(100),
+                z = dat_len % 2 == 0 ? v.z - dg.newFloat(100) : v.z + dg.newFloat(100)
+            };
+        }
+        dat_len = dat_vA1.Length;
+
+        (var exp_min, var exp_max) = (new Vector[dat_len], new Vector[dat_len]);
+        foreach (var v in dat_vA1.Zip(dat_vA2).Reverse()){
+            (exp_min[--dat_len], exp_max[dat_len]) = dat_len % 2 == 0 ? (v.Second, v.First) : (v.First, v.Second);
+        }
+
+        var vh = new VectorHelper();
+        (var act_min, var act_max) = vh.arrMinMax(dat_vA1, dat_vA2);
+
+        test.vectorsEqual(exp_min, act_min);
+        test.vectorsEqual(exp_max, act_max);
     }
 
     [Fact]

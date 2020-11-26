@@ -1,5 +1,5 @@
-using System;
 using Leap;
+using System.Linq;
 
 
 public interface IVectorHelper{
@@ -93,7 +93,12 @@ public class VectorHelper : IVectorHelper{
     }
 
     public (Vector[], Vector[]) arrMinMax(Vector[] vA1, Vector[] vA2){
-        return (null, null);
+        var len = vA1.Length;
+        (var min, var max) = (new Vector[len], new Vector[len]);
+        foreach (var v in vA1.Zip(vA2).Reverse()){
+            (min[--len], max[len]) = minMax(v.First, v.Second);
+        }
+        return (min, max);
     }
 
     public Vector average(Vector[] vA){
