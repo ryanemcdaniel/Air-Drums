@@ -77,8 +77,18 @@ public class VectorHelper : IVectorHelper{
     }
 
     public (Vector, Vector) minMax(Vector v1, Vector v2){
-        
-        return (new Vector(), new Vector());
+        return (
+            new Vector{
+                x = v1.x >= v2.x ? v2.x : v1.x,
+                y = v1.y >= v2.y ? v2.y : v1.y,
+                z = v1.z >= v2.z ? v2.z : v1.z
+            },
+            new Vector{
+                x = v1.x < v2.x ? v2.x : v1.x,
+                y = v1.y < v2.y ? v2.y : v1.y,
+                z = v1.z < v2.z ? v2.z : v1.z
+            }  
+        );
     }
 
     public Vector average(Vector[] vA){
