@@ -5,7 +5,15 @@ public class vectorHelper_test{
 
     [Fact]
     public void Add(){
-        
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        Vector v2 = dg.newVector();
+
+        Vector exp = new Vector{
+            x = v1.x + v2.x,
+            y = v1.y + v2.y,
+            z = v1.z + v2.z
+        };
     }
 
     [Fact]
