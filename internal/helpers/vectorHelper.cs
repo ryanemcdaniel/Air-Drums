@@ -62,9 +62,7 @@ public class VectorHelper : IVectorHelper{
         int length = vA1.Length;
         Vector[] ret = new Vector[length];
         for(int i =0; i<length; i++){
-            ret[i].x = vA1[i].x + vA2[i].x;
-            ret[i].y = vA1[i].y + vA2[i].y;
-            ret[i].z = vA1[i].z + vA2[i].z;
+            ret[i] = add(vA1[i], vA2[i]);
         }
         return ret;
     }
@@ -73,9 +71,7 @@ public class VectorHelper : IVectorHelper{
         int length = vA1.Length;
         Vector[] ret = new Vector[length];
         for(int i =0; i<length; i++){
-            ret[i].x = vA1[i].x - vA2[i].x;
-            ret[i].y = vA1[i].y - vA2[i].y;
-            ret[i].z = vA1[i].z - vA2[i].z;
+            ret[i] = sub(vA1[i],vA2[i]);
         }
         return ret;
     }
@@ -84,9 +80,7 @@ public class VectorHelper : IVectorHelper{
         int length = vA.Length;
         Vector[] ret = new Vector[length];
         for(int i =0; i<length; i++){
-            ret[i].x = vA[i].x / f;
-            ret[i].y = vA[i].y / f;
-            ret[i].z = vA[i].z / f;
+            ret[i] = div(vA[i],f);
         }
         return ret;
     }
