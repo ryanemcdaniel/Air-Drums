@@ -67,7 +67,7 @@ public class jointsHelper_test {
         var exp_joint = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        
+        mock_vh.Setup(m => ())
     }
 
     [Fact]
