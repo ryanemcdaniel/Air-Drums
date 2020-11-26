@@ -4,7 +4,7 @@ using Leap;
 public class vectorHelper_test{
 
     [Fact]
-    public void Test(){
+    public void Add(){
         
     }
 
@@ -28,6 +28,11 @@ public class vectorHelper_test{
 
     [Fact]
     public void Div(){
+        
+    }
+
+    [Fact]
+    public void MinMax(){
         
     }
 
