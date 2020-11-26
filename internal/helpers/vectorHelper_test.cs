@@ -59,7 +59,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Lowest_Passes(){
+    public void Lowest(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectors(len);
