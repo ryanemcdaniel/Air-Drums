@@ -61,13 +61,18 @@ public class jointsHelper_test {
     public void Add(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
-        var dat_joint1 = hg.newJoints();
-        var dat_joint2 = hg.newJoints();
+        var dat_j1 = hg.newJoints();
+        var dat_j2 = hg.newJoints();
 
-        var exp_joint = hg.newJoints();
+        var exp_j = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        mock_vh.Setup(m => ())
+        mock_vh.Setup(m => m.arrAdd(dat_j1.pinky, dat_j2.pinky)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.ring, dat_j2.ring)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.middle, dat_j2.middle)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.index, dat_j2.index)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.arrAdd(dat_j1.thumb, dat_j2.thumb)).Returns(exp_j.pinky);
+        
     }
 
     [Fact]
