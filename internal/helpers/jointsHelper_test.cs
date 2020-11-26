@@ -1,5 +1,3 @@
-using System;
-using System.Threading.Tasks.Dataflow;
 using Xunit;
 using Moq;
 using Leap;
@@ -195,7 +193,7 @@ public class jointsHelper_test {
 
     [Fact]
     public void MinMax() {
-
+        
     }
 
 }
