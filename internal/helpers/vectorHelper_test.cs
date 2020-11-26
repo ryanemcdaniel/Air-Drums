@@ -82,29 +82,7 @@ public class vectorHelper_test{
         test.vectorEqual(expMin,actMin);
     }
 
-    [Fact]
-    public void Average(){
-        Data_Generator dg = new Data_Generator();
-        int len = dg.newInt(100);
-        Vector[] vL = dg.newVectors(len);
-
-        Vector exp = new Vector(0,0,0);
-        for(int i = 0; i < len; i++){
-            exp.x += vL[i].x;
-            exp.y += vL[i].y;
-            exp.z += vL[i].z;
-        }
-        exp.x /= (float) len;
-        exp.y /= (float) len;
-        exp.z /= (float) len;
-
-        VectorHelper vh = new VectorHelper();
-        Vector act = vh.average(vL);
-
-        test.vectorEqual(exp, act);
-    }
-
-    [Fact]
+        [Fact]
     public void arrAdd(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
@@ -162,6 +140,32 @@ public class vectorHelper_test{
         test.vectorsEqual(exp,act);
     }
 
+    [Fact]
+    public void arrMinMax(){
+        
+    }
+
+    [Fact]
+    public void Average(){
+        Data_Generator dg = new Data_Generator();
+        int len = dg.newInt(100);
+        Vector[] vL = dg.newVectors(len);
+
+        Vector exp = new Vector(0,0,0);
+        for(int i = 0; i < len; i++){
+            exp.x += vL[i].x;
+            exp.y += vL[i].y;
+            exp.z += vL[i].z;
+        }
+        exp.x /= (float) len;
+        exp.y /= (float) len;
+        exp.z /= (float) len;
+
+        VectorHelper vh = new VectorHelper();
+        Vector act = vh.average(vL);
+
+        test.vectorEqual(exp, act);
+    }
 
     [Fact]
     public void Lowest(){
