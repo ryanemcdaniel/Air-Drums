@@ -4,7 +4,12 @@ using Leap;
 public class vectorHelper_test{
 
     [Fact]
-    public void Substract_Passes(){
+    public void Test(){
+        
+    }
+
+    [Fact]
+    public void Sub(){
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -22,26 +27,12 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Velocity_Passes(){
-        Data_Generator dg = new Data_Generator();
-        Vector v1 = dg.newVector(); 
-        Vector v2 = dg.newVector();
-        float frameRate = dg.newFloat(100);
-
-        Vector exp = new Vector{
-            x = (v1.x - v2.x) / frameRate,
-            y = (v1.y - v2.y) / frameRate,
-            z = (v1.z - v2.z) / frameRate
-        };
-
-        VectorHelper vec = new VectorHelper();
-        Vector act = vec.velocity(v1, v2, frameRate);
-
-        test.vectorEqual(exp, act);
+    public void Div(){
+        
     }
 
     [Fact]
-    public void Average_Passes(){
+    public void Average(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] vL = dg.newVectors(len);
@@ -63,22 +54,16 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Min_Passes(){
+    public void Lowest_Passes(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectors(len);
-        
+        input[0] = new Vector(-1,-1,-1);
+
         Vector exp = input[0];
-        foreach (Vector v in input) {
-            if(v.y < exp.y){
-                exp.x = v.x;
-                exp.y = v.y;
-                exp.z = v.z;
-            }
-        }
 
         VectorHelper vh = new VectorHelper();
-        Vector act = vh.min(input);
+        Vector act = vh.lowest(input);
 
         test.vectorEqual(exp, act);
     }

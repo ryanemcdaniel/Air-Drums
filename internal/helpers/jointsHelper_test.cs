@@ -6,7 +6,7 @@ using System.Collections.Generic;
 public class jointsHelper_test {
 
     [Fact]
-    public void FingerToVectorList_Passes(){
+    public void FingerToVectors(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Finger inp_finger = hg.newFinger(dg.newVectors(5));
@@ -27,7 +27,7 @@ public class jointsHelper_test {
     }
 
     [Fact]
-    public void HandToJoints_Passes()
+    public void HandToJoints()
     {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
@@ -58,7 +58,12 @@ public class jointsHelper_test {
     }
 
     [Fact]
-    public void LowestJoint_Passes(){
+    public void Test(){
+        
+    }
+
+    [Fact]
+    public void LowestJoint(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand dat_hand = hg.newHand(hg.newFingerList());

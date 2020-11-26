@@ -4,11 +4,11 @@ using Leap;
 public interface IVectorHelper{
     public Vector add(Vector v1, Vector v2);
     public Vector sub(Vector v1, Vector v2);
-    public Vector velocity(Vector v1, Vector v2, float f);
+    public Vector div(Vector v, float f);
+    public (Vector, Vector) minMax(Vector v1, Vector v2);
     public Vector average(Vector[] vA);
-    public Vector range(Vector[] vA);
-    public Vector min(Vector[] vA);
-    public Vector max(Vector[] vA);
+    public Vector lowest(Vector[] vA);
+    
 }
 
 public class VectorHelper : IVectorHelper{
@@ -27,12 +27,12 @@ public class VectorHelper : IVectorHelper{
         );
     }
 
-    public Vector velocity(Vector v1, Vector v2, float frameRate){
-        Vector ret = sub(v1, v2);
-        ret.x /= frameRate;
-        ret.y /= frameRate;
-        ret.z /= frameRate;
-        return ret;
+    public Vector div(Vector v1, float f){
+        return new Vector();
+    }
+
+    public (Vector, Vector) minMax(Vector v1, Vector v2){
+        return (new Vector(), new Vector());
     }
 
     public Vector average(Vector[] vA){
@@ -48,11 +48,7 @@ public class VectorHelper : IVectorHelper{
         return ret;
     }
 
-    public Vector range(Vector[] vA){
-        return new Vector();
-    }
-
-    public Vector min(Vector[] vA){
+    public Vector lowest(Vector[] vA){
         Vector ret = vA[0];
         foreach (Vector v in vA) {
             if(v.y < ret.y){
@@ -62,9 +58,5 @@ public class VectorHelper : IVectorHelper{
             }
         }
         return ret;
-    }
-
-    public Vector max(Vector[] vA){
-        return new Vector();
     }
 }

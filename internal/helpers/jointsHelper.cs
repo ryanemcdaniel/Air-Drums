@@ -63,13 +63,13 @@ public class JointsHelper : IJointsHelper {
     public Vector lowestJoint(Hand h){
         Joints j = handToJoints(h);
         Vector[] ret = new Vector[6];
-        ret[0] = vh.min(j.pinky);
-        ret[1] = vh.min(j.ring);
-        ret[2] = vh.min(j.middle);
-        ret[3] = vh.min(j.index);
-        ret[4] = vh.min(j.thumb);
+        ret[0] = vh.lowest(j.pinky);
+        ret[1] = vh.lowest(j.ring);
+        ret[2] = vh.lowest(j.middle);
+        ret[3] = vh.lowest(j.index);
+        ret[4] = vh.lowest(j.thumb);
         ret[5] = j.palm;
-        return vh.min(ret);
+        return vh.lowest(ret);
     }
 
     public (Joints, Joints) minMax(List<Joints> jL){
