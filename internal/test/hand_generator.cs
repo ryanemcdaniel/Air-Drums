@@ -119,7 +119,4 @@ public class Hand_Generator{
             Hands = newHandList(2)
         };
     }
-
-
-
 }

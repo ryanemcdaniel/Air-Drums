@@ -193,4 +193,9 @@ public class jointsHelper_test {
         Vector act_joint = jh.lowestJoint(dat_hand);
     }
 
+    [Fact]
+    public void MinMax() {
+
+    }
+
 }

@@ -1,4 +1,3 @@
-using System.Net.Http.Headers;
 using Xunit;
 using Leap;
 using System.Linq;
