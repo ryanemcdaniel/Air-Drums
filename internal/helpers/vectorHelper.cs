@@ -36,22 +36,48 @@ public class VectorHelper : IVectorHelper{
     }
 
     public Vector div(Vector v1, float f){
-        return new Vector();
+        return new Vector(
+            v1.x/f,
+            v1.y/f,
+            v1.z/f
+        );
     }
 
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){
-        return null;
+        int length = vA1.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i].x = vA1[i].x + vA2[i].x;
+            ret[i].y = vA1[i].y + vA2[i].y;
+            ret[i].z = vA1[i].z + vA2[i].z;
+        }
+        return ret;
     }
 
     public Vector[] arrSub(Vector[] vA1, Vector[] vA2){
-        return null;
+        int length = vA1.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i].x = vA1[i].x - vA2[i].x;
+            ret[i].y = vA1[i].y - vA2[i].y;
+            ret[i].z = vA1[i].z - vA2[i].z;
+        }
+        return ret;
     }
 
     public Vector[] arrDiv(Vector[] vA, float f){
-        return null;
+        int length = vA.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i].x = vA[i].x / f;
+            ret[i].y = vA[i].y / f;
+            ret[i].z = vA[i].z / f;
+        }
+        return ret;
     }
 
     public (Vector, Vector) minMax(Vector v1, Vector v2){
+        
         return (new Vector(), new Vector());
     }
 
