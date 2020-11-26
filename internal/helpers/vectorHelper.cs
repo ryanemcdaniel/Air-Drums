@@ -1,14 +1,19 @@
 using Leap;
+using System.Linq;
 
 
 public interface IVectorHelper{
     public Vector add(Vector v1, Vector v2);
     public Vector sub(Vector v1, Vector v2);
-    public Vector velocity(Vector v1, Vector v2, float f);
+    public Vector div(Vector v, float f);
+    public (Vector, Vector) minMax(Vector v1, Vector v2);
+    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2);
+    public Vector[] arrSub(Vector[] vA1, Vector[] vA2);
+    public Vector[] arrDiv(Vector[] vA, float f);
+    public (Vector[], Vector[]) arrMinMax(Vector[] vA1, Vector[] vA2);
     public Vector average(Vector[] vA);
-    public Vector range(Vector[] vA);
-    public Vector min(Vector[] vA);
-    public Vector max(Vector[] vA);
+    public Vector lowest(Vector[] vA);
+    
 }
 
 public class VectorHelper : IVectorHelper{
@@ -16,7 +21,11 @@ public class VectorHelper : IVectorHelper{
     public VectorHelper(){}
 
     public Vector add(Vector v1, Vector v2){
-        return new Vector();
+        return new Vector(
+            v1.x + v2.x,
+            v1.y + v2.y,
+            v1.z + v2.z
+        );
     }
 
     public Vector sub(Vector v1, Vector v2){
@@ -27,12 +36,62 @@ public class VectorHelper : IVectorHelper{
         );
     }
 
-    public Vector velocity(Vector v1, Vector v2, float frameRate){
-        Vector ret = sub(v1, v2);
-        ret.x /= frameRate;
-        ret.y /= frameRate;
-        ret.z /= frameRate;
+    public Vector div(Vector v1, float f){
+        return new Vector(
+            v1.x/f,
+            v1.y/f,
+            v1.z/f
+        );
+    }
+    public (Vector, Vector) minMax(Vector v1, Vector v2){
+        return (
+            new Vector{
+                x = v1.x >= v2.x ? v2.x : v1.x,
+                y = v1.y >= v2.y ? v2.y : v1.y,
+                z = v1.z >= v2.z ? v2.z : v1.z
+            },
+            new Vector{
+                x = v1.x < v2.x ? v2.x : v1.x,
+                y = v1.y < v2.y ? v2.y : v1.y,
+                z = v1.z < v2.z ? v2.z : v1.z
+            }  
+        );
+    }
+
+    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){
+        int length = vA1.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i] = add(vA1[i], vA2[i]);
+        }
         return ret;
+    }
+
+    public Vector[] arrSub(Vector[] vA1, Vector[] vA2){
+        int length = vA1.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i] = sub(vA1[i],vA2[i]);
+        }
+        return ret;
+    }
+
+    public Vector[] arrDiv(Vector[] vA, float f){
+        int length = vA.Length;
+        Vector[] ret = new Vector[length];
+        for(int i =0; i<length; i++){
+            ret[i] = div(vA[i],f);
+        }
+        return ret;
+    }
+
+    public (Vector[], Vector[]) arrMinMax(Vector[] vA1, Vector[] vA2){
+        var len = vA1.Length;
+        (var min, var max) = (new Vector[len], new Vector[len]);
+        foreach (var v in vA1.Zip(vA2).Reverse()){
+            (min[--len], max[len]) = minMax(v.First, v.Second);
+        }
+        return (min, max);
     }
 
     public Vector average(Vector[] vA){
@@ -48,11 +107,7 @@ public class VectorHelper : IVectorHelper{
         return ret;
     }
 
-    public Vector range(Vector[] vA){
-        return new Vector();
-    }
-
-    public Vector min(Vector[] vA){
+    public Vector lowest(Vector[] vA){
         Vector ret = vA[0];
         foreach (Vector v in vA) {
             if(v.y < ret.y){
@@ -62,9 +117,5 @@ public class VectorHelper : IVectorHelper{
             }
         }
         return ret;
-    }
-
-    public Vector max(Vector[] vA){
-        return new Vector();
     }
 }

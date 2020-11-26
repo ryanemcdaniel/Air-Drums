@@ -1,10 +1,28 @@
 using Xunit;
 using Leap;
+using System.Linq;
 
 public class vectorHelper_test{
 
     [Fact]
-    public void Substract_Passes(){
+    public void Add(){
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        Vector v2 = dg.newVector();
+
+        Vector exp = new Vector{
+            x = v1.x + v2.x,
+            y = v1.y + v2.y,
+            z = v1.z + v2.z
+        };
+        VectorHelper v = new VectorHelper();
+        Vector act = v.add(v1,v2);
+
+        test.vectorEqual(exp,act);
+    }
+
+    [Fact]
+    public void Sub(){
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -22,26 +40,136 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Velocity_Passes(){
+    public void Div(){
         Data_Generator dg = new Data_Generator();
-        Vector v1 = dg.newVector(); 
-        Vector v2 = dg.newVector();
-        float frameRate = dg.newFloat(100);
-
+        Vector v1 = dg.newVector();
+        float v2 = dg.newFloat(100);
+        
         Vector exp = new Vector{
-            x = (v1.x - v2.x) / frameRate,
-            y = (v1.y - v2.y) / frameRate,
-            z = (v1.z - v2.z) / frameRate
+            x = v1.x/v2,
+            y = v1.y/v2,
+            z = v1.z/v2
         };
 
-        VectorHelper vec = new VectorHelper();
-        Vector act = vec.velocity(v1, v2, frameRate);
-
-        test.vectorEqual(exp, act);
+        VectorHelper v = new VectorHelper();
+        Vector act = v.div(v1, v2);
+        test.vectorEqual(exp,act);
     }
 
     [Fact]
-    public void Average_Passes(){
+    public void MinMax(){
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        Vector v2 = new Vector{
+            x = v1.x + dg.newFloat(100),
+            y = v1.y - dg.newFloat(100),
+            z = v1.z - dg.newFloat(100)
+        };
+
+        Vector expMin = new Vector{
+            x = v1.x,
+            y = v2.y,
+            z = v2.z
+        };
+
+        Vector expMax = new Vector{
+            x = v2.x,
+            y = v1.y,
+            z = v1.z
+        };
+        VectorHelper v = new VectorHelper();
+        (Vector actMin,Vector actMax) = v.minMax(v1,v2);
+        test.vectorEqual(expMax,actMax);
+        test.vectorEqual(expMin,actMin);
+    }
+
+    [Fact]
+    public void arrAdd(){
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector[] v2 = dg.newVectors(length);
+        Vector[] exp = dg.newZeroVectors(length);
+
+        for(int i =0; i < length; i++)
+        {
+            exp[i].x = v1[i].x + v2[i].x;
+            exp[i].y = v1[i].y + v2[i].y;
+            exp[i].z = v1[i].z + v2[i].z;
+        }
+        VectorHelper v = new VectorHelper();
+        Vector[] act = v.arrAdd(v1,v2);
+        test.vectorsEqual(exp,act);
+    }
+
+    [Fact]
+    public void arrSub(){
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector[] v2 = dg.newVectors(length);
+        Vector[] exp = dg.newZeroVectors(length);
+
+        for(int i =0; i < length; i++)
+        {
+            exp[i].x = v1[i].x - v2[i].x;
+            exp[i].y = v1[i].y - v2[i].y;
+            exp[i].z = v1[i].z - v2[i].z;
+        }
+        VectorHelper v = new VectorHelper();
+        Vector[] act = v.arrSub(v1,v2);
+        test.vectorsEqual(exp,act);
+    }
+    
+    [Fact]
+    public void arrDiv(){
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        Vector[] v1 = dg.newVectors(length);
+        float v2 = dg.newFloat(100);
+        Vector[] exp = dg.newZeroVectors(length);
+
+        for(int i =0; i < length; i++)
+        {
+            exp[i].x = v1[i].x / v2;
+            exp[i].y = v1[i].y / v2;
+            exp[i].z = v1[i].z / v2;
+        }
+        VectorHelper v = new VectorHelper();
+        Vector[] act = v.arrDiv(v1,v2);
+        test.vectorsEqual(exp,act);
+    }
+
+    [Fact]
+    public void arrMinMax(){
+        var dg = new Data_Generator();
+        var dat_len = dg.newInt(100);
+        var dat_vA1 = dg.newVectors(dat_len);
+        var dat_vA2 = new Vector[dat_len];
+        
+        foreach (var v in dat_vA1.Reverse()) {
+            dat_vA2[--dat_len] = new Vector{
+                x = dat_len % 2 == 0 ? v.x - dg.newFloat(100) : v.x + dg.newFloat(100),
+                y = dat_len % 2 == 0 ? v.y - dg.newFloat(100) : v.y + dg.newFloat(100),
+                z = dat_len % 2 == 0 ? v.z - dg.newFloat(100) : v.z + dg.newFloat(100)
+            };
+        }
+        dat_len = dat_vA1.Length;
+
+        (var exp_min, var exp_max) = (new Vector[dat_len], new Vector[dat_len]);
+        foreach (var v in dat_vA1.Zip(dat_vA2).Reverse()){
+            (exp_min[--dat_len], exp_max[dat_len]) = dat_len % 2 == 0 ? (v.Second, v.First) : (v.First, v.Second);
+        }
+
+        var vh = new VectorHelper();
+        (var act_min, var act_max) = vh.arrMinMax(dat_vA1, dat_vA2);
+
+        test.vectorsEqual(exp_min, act_min);
+        test.vectorsEqual(exp_max, act_max);
+    }
+
+    [Fact]
+    public void Average(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] vL = dg.newVectors(len);
@@ -63,22 +191,16 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Min_Passes(){
+    public void Lowest(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectors(len);
-        
+        input[0] = new Vector(-1,-1,-1);
+
         Vector exp = input[0];
-        foreach (Vector v in input) {
-            if(v.y < exp.y){
-                exp.x = v.x;
-                exp.y = v.y;
-                exp.z = v.z;
-            }
-        }
 
         VectorHelper vh = new VectorHelper();
-        Vector act = vh.min(input);
+        Vector act = vh.lowest(input);
 
         test.vectorEqual(exp, act);
     }
