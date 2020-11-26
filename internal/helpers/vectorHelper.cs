@@ -19,7 +19,12 @@ public class VectorHelper : IVectorHelper{
     public VectorHelper(){}
 
     public Vector add(Vector v1, Vector v2){
-        return new Vector();
+        
+        return new Vector(
+            v1.x + v2.x,
+            v1.y + v2.y,
+            v1.z + v2.z
+        );
     }
 
     public Vector sub(Vector v1, Vector v2){

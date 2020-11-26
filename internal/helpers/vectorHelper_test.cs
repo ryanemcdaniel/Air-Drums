@@ -15,7 +15,9 @@ public class vectorHelper_test{
             z = v1.z + v2.z
         };
         VectorHelper v = new VectorHelper();
-        Vector act = v.sub(v1,v2);
+        Vector act = v.add(v1,v2);
+
+        test.vectorEqual(exp,act);
     }
 
     [Fact]
