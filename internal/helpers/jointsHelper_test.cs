@@ -58,7 +58,30 @@ public class jointsHelper_test {
     }
 
     [Fact]
-    public void Test(){
+    public void Add(){
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        var dat_joint1 = hg.newJoints();
+        var dat_joint2 = hg.newJoints();
+
+        var exp_joint = hg.newJoints();
+
+        var mock_vh = new Mock<IVectorHelper>();
+        
+    }
+
+    [Fact]
+    public void Sub(){
+        
+    }
+
+    [Fact]
+    public void Div_Int(){
+        
+    }
+
+    [Fact]
+    public void Div_Float(){
         
     }
 

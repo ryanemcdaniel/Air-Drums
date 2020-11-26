@@ -40,6 +40,21 @@ public class vectorHelper_test{
     }
 
     [Fact]
+    public void ArrAdd(){
+        
+    }
+
+    [Fact]
+    public void ArrSub(){
+        
+    }
+
+    [Fact]
+    public void ArrDiv(){
+        
+    }
+
+    [Fact]
     public void MinMax(){
         
     }
