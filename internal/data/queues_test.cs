@@ -6,7 +6,7 @@ using Global;
 public class queues_test {
 
     [Fact]
-    public void Load_Once_Passes() {
+    public void Load_Once() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_hnd = hg.newHand(hg.newFingerList());
@@ -38,12 +38,12 @@ public class queues_test {
     }
 
     [Fact]
-    public void Load_Multiple_Passes() {
+    public void Load_Multiple() {
         
     }
 
     [Fact]
-    public void Clear_Passes() {
+    public void Clear() {
 
     }
 

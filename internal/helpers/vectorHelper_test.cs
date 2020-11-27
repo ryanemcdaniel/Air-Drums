@@ -4,8 +4,12 @@ using System.Linq;
 
 public class vectorHelper_test{
 
+    [Fact] void GreaterEqual() {
+        Assert.True(false);
+    }
+
     [Fact]
-    public void Add(){
+    public void Add() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         Vector v2 = dg.newVector();
@@ -22,7 +26,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Sub(){
+    public void Sub() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -40,7 +44,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void Div(){
+    public void Div() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         float v2 = dg.newFloat(100);
@@ -59,32 +63,23 @@ public class vectorHelper_test{
     [Fact]
     public void MinMax(){
         Data_Generator dg = new Data_Generator();
-        Vector v1 = dg.newVector();
-        Vector v2 = new Vector{
-            x = v1.x + dg.newFloat(100),
-            y = v1.y - dg.newFloat(100),
-            z = v1.z - dg.newFloat(100)
-        };
+        (Vector min, Vector max, Vector v) dat;
+        dat.v = dg.newVector();
+        dat.min = new Vector(float.MinValue, float.MinValue, float.MinValue);
+        dat.max = dg.newZeroVector();
 
-        Vector expMin = new Vector{
-            x = v1.x,
-            y = v2.y,
-            z = v2.z
-        };
+        (Vector min, Vector max) exp;
+        exp.min = dat.min;
+        exp.max = dat.v;
 
-        Vector expMax = new Vector{
-            x = v2.x,
-            y = v1.y,
-            z = v1.z
-        };
-        VectorHelper v = new VectorHelper();
-        (Vector actMin,Vector actMax) = v.minMax(v1,v2);
-        test.vectorEqual(expMax,actMax);
-        test.vectorEqual(expMin,actMin);
+        var v = new VectorHelper();
+        var act = v.minMax(dat.min, dat.max, dat.v);
+        test.vectorEqual(exp.min, act.min);
+        test.vectorEqual(exp.max, act.max);
     }
 
     [Fact]
-    public void arrAdd(){
+    public void ArrAdd(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -103,7 +98,7 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void arrSub(){
+    public void ArrSub(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -122,7 +117,7 @@ public class vectorHelper_test{
     }
     
     [Fact]
-    public void arrDiv(){
+    public void ArrDiv(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -141,31 +136,32 @@ public class vectorHelper_test{
     }
 
     [Fact]
-    public void arrMinMax(){
+    public void ArrMinMax(){
         var dg = new Data_Generator();
+        var dat_i = 0;
         var dat_len = dg.newInt(100);
-        var dat_vA1 = dg.newVectors(dat_len);
-        var dat_vA2 = new Vector[dat_len];
+        var dat_vA = dg.newVectors(dat_len);
+        var dat_min = new Vector[dat_len];
+        var dat_max = dg.newZeroVectors(dat_len);
         
-        foreach (var v in dat_vA1.Reverse()) {
-            dat_vA2[--dat_len] = new Vector{
-                x = dat_len % 2 == 0 ? v.x - dg.newFloat(100) : v.x + dg.newFloat(100),
-                y = dat_len % 2 == 0 ? v.y - dg.newFloat(100) : v.y + dg.newFloat(100),
-                z = dat_len % 2 == 0 ? v.z - dg.newFloat(100) : v.z + dg.newFloat(100)
+        foreach (var v in dat_vA) {
+            dat_min[dat_i++] = new Vector{
+                x = dat_i % 2 == 0 ? v.x - dg.newFloat(100) : v.x + dg.newFloat(100),
+                y = dat_i % 2 == 0 ? v.y - dg.newFloat(100) : v.y + dg.newFloat(100),
+                z = dat_i % 2 == 0 ? v.z - dg.newFloat(100) : v.z + dg.newFloat(100)
             };
         }
-        dat_len = dat_vA1.Length;
 
-        (var exp_min, var exp_max) = (new Vector[dat_len], new Vector[dat_len]);
-        foreach (var v in dat_vA1.Zip(dat_vA2).Reverse()){
-            (exp_min[--dat_len], exp_max[dat_len]) = dat_len % 2 == 0 ? (v.Second, v.First) : (v.First, v.Second);
+        (Vector[] min, Vector[] max) exp = (new Vector[dat_len], new Vector[dat_len]);
+        foreach (var v in dat_vA.Zip(dat_min).Reverse()){
+            (exp.min[--dat_len], exp.max[dat_len]) = dat_len % 2 == 0 ? (v.Second, v.First) : (v.First, v.Second);
         }
 
         var vh = new VectorHelper();
-        (var act_min, var act_max) = vh.arrMinMax(dat_vA1, dat_vA2);
+        var act = vh.arrMinMax(dat_min, dat_max, dat_vA);
 
-        test.vectorsEqual(exp_min, act_min);
-        test.vectorsEqual(exp_max, act_max);
+        test.vectorsEqual(exp.min, act.min);
+        test.vectorsEqual(exp.max, act.max);
     }
 
     [Fact]

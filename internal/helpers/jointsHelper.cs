@@ -1,4 +1,4 @@
-using System;
+using System.Reflection;
 using System.Collections.Generic;
 using Leap;
 
@@ -10,12 +10,12 @@ public interface IJointsHelper {
     public Joints div(Joints j1, int i);
     public Joints div(Joints j1, float f);
     public Vector lowestJoint(Hand h);
-    public (Joints, Joints) minMax(List<Joints> jL);
+    public (Joints min, Joints max) minMax(Joints curMin, Joints curMax, Joints j);
 }
 
 public class JointsHelper : IJointsHelper {
     
-    private IVectorHelper vh;
+    public IVectorHelper vh;
 
     public JointsHelper(IVectorHelper vectorHelper){
         vh = vectorHelper;
@@ -100,7 +100,13 @@ public class JointsHelper : IJointsHelper {
         return vh.lowest(ret);
     }
 
-    public (Joints, Joints) minMax(List<Joints> jL){
-        return (null, null); 
+    public (Joints min, Joints max) minMax(Joints curMin, Joints curMax, Joints j){
+        (curMin.pinky  , curMax.pinky  ) = vh.arrMinMax(curMin.pinky  , curMax.pinky  , j.pinky  );
+        (curMin.ring   , curMax.ring   ) = vh.arrMinMax(curMin.ring   , curMax.ring   , j.ring   );
+        (curMin.middle , curMax.middle ) = vh.arrMinMax(curMin.middle , curMax.middle , j.middle );
+        (curMin.index  , curMax.index  ) = vh.arrMinMax(curMin.index  , curMax.index  , j.index  );
+        (curMin.thumb  , curMax.thumb  ) = vh.arrMinMax(curMin.thumb  , curMax.thumb  , j.thumb  );
+        (curMin.palm   , curMax.palm   ) =    vh.minMax(curMin.palm   , curMax.palm   , j.palm   );
+        return (null, null);
     }
 }

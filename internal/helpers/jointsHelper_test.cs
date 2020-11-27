@@ -2,6 +2,7 @@ using Xunit;
 using Moq;
 using Leap;
 using System.Collections.Generic;
+using System.Linq;
 
 public class jointsHelper_test {
 
@@ -193,7 +194,6 @@ public class jointsHelper_test {
 
     [Fact]
     public void MinMax() {
-        
+        Assert.True(false);
     }
-
 }
