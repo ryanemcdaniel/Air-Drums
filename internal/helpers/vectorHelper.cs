@@ -3,22 +3,30 @@ using System.Linq;
 
 
 public interface IVectorHelper{
+    public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2);
     public Vector add(Vector v1, Vector v2);
     public Vector sub(Vector v1, Vector v2);
     public Vector div(Vector v, float f);
-    public (Vector, Vector) minMax(Vector v1, Vector v2);
+    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v);
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2);
     public Vector[] arrSub(Vector[] vA1, Vector[] vA2);
     public Vector[] arrDiv(Vector[] vA, float f);
-    public (Vector[], Vector[]) arrMinMax(Vector[] vA1, Vector[] vA2);
+    public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA);
     public Vector average(Vector[] vA);
     public Vector lowest(Vector[] vA);
-    
 }
 
 public class VectorHelper : IVectorHelper{
 
     public VectorHelper(){}
+
+    public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2){
+        return (
+            v1.x >= v2.x,
+            v1.y >= v2.y,
+            v1.z >= v2.z
+        );
+    }
 
     public Vector add(Vector v1, Vector v2){
         return new Vector(
@@ -43,19 +51,16 @@ public class VectorHelper : IVectorHelper{
             v1.z/f
         );
     }
-    public (Vector, Vector) minMax(Vector v1, Vector v2){
-        return (
-            new Vector{
-                x = v1.x >= v2.x ? v2.x : v1.x,
-                y = v1.y >= v2.y ? v2.y : v1.y,
-                z = v1.z >= v2.z ? v2.z : v1.z
-            },
-            new Vector{
-                x = v1.x < v2.x ? v2.x : v1.x,
-                y = v1.y < v2.y ? v2.y : v1.y,
-                z = v1.z < v2.z ? v2.z : v1.z
-            }  
-        );
+    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
+        var flags = greaterEqual(curMin, v);
+        if(flags.x) curMin.x = v.x;
+        if(flags.y) curMin.y = v.y;
+        if(flags.z) curMin.z = v.z;
+        flags = greaterEqual(curMax, v);
+        if(!flags.x) curMax.x = v.x;
+        if(!flags.y) curMax.y = v.y;
+        if(!flags.z) curMax.z = v.z;
+        return (curMin, curMax);
     }
 
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){
@@ -85,13 +90,11 @@ public class VectorHelper : IVectorHelper{
         return ret;
     }
 
-    public (Vector[], Vector[]) arrMinMax(Vector[] vA1, Vector[] vA2){
-        var len = vA1.Length;
-        (var min, var max) = (new Vector[len], new Vector[len]);
-        foreach (var v in vA1.Zip(vA2).Reverse()){
-            (min[--len], max[len]) = minMax(v.First, v.Second);
+    public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA){
+        for (int i = 0; i < vA.Length; i++){
+            (curMin[i], curMax[i]) = minMax(curMin[i], curMax[i], vA[i]);
         }
-        return (min, max);
+        return (curMin, curMax);
     }
 
     public Vector average(Vector[] vA){

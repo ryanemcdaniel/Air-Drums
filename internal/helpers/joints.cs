@@ -1,3 +1,4 @@
+using System.Runtime.Intrinsics.X86;
 using Leap;
 
 public class Joints {
@@ -10,6 +11,34 @@ public class Joints {
         thumb       =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
         palm        =   new Vector();
         frameRate   =   0;
+    }
+
+    public Joints(bool min){
+        pinky       =   new Vector[5];
+        ring        =   new Vector[5];
+        middle      =   new Vector[5];
+        index       =   new Vector[5];
+        thumb       =   new Vector[5];
+        palm        =   new Vector(float.MinValue, float.MinValue, float.MinValue);
+        frameRate   =   0;
+        if(min){
+            for(int i = 0 ; i < 5; i++) {
+                pinky[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);      
+                ring[i]     = new Vector(float.MinValue, float.MinValue, float.MinValue);
+                middle[i]   = new Vector(float.MinValue, float.MinValue, float.MinValue);
+                index[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);
+                thumb[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);
+            }
+        }else{
+            for(int i = 0 ; i < 5; i++) {
+                pinky[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);      
+                ring[i]     = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
+                middle[i]   = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
+                index[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
+                thumb[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
+            }
+            palm        =   new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
+        }
     }
 
     public Joints(
