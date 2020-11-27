@@ -196,4 +196,8 @@ public class jointsHelper_test {
     public void MinMax() {
         Assert.True(false);
     }
+
+    [Fact] public void Square(){
+        Assert.True(false);
+    }
 }

@@ -5,7 +5,7 @@ using Leap;
 public class dataManager_test {
     
     [Fact]
-    public void Extract_Single_Passes(){
+    public void Extract_Single(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_f = hg.newFrame();
@@ -19,9 +19,14 @@ public class dataManager_test {
 
         var dm = new DataManager(mock_l.Object, mock_r.Object);
 
-        dm.Extract(dat_f);
+        dm.extract(dat_f);
 
         mock_l.Verify(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond), Times.Once());
         mock_r.Verify(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond), Times.Once());
+    }
+
+    [Fact]
+    public void Extract_Multiple(){
+        Assert.True(false);
     }
 }

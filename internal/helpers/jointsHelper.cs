@@ -11,6 +11,7 @@ public interface IJointsHelper {
     public Joints div(Joints j1, float f);
     public Vector lowestJoint(Hand h);
     public (Joints min, Joints max) minMax(Joints curMin, Joints curMax, Joints j);
+    public Joints square(Joints j);
 }
 
 public class JointsHelper : IJointsHelper {
@@ -108,5 +109,17 @@ public class JointsHelper : IJointsHelper {
         (curMin.thumb  , curMax.thumb  ) = vh.arrMinMax(curMin.thumb  , curMax.thumb  , j.thumb  );
         (curMin.palm   , curMax.palm   ) =    vh.minMax(curMin.palm   , curMax.palm   , j.palm   );
         return (null, null);
+    }
+
+    public Joints square(Joints j){
+        return new Joints(
+            vh.squareList(j.pinky),
+            vh.squareList(j.ring),
+            vh.squareList(j.middle),
+            vh.squareList(j.index),
+            vh.squareList(j.thumb),
+            vh.square(j.palm),
+            0
+        );
     }
 }

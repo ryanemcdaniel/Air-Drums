@@ -82,4 +82,8 @@ public class stats_test {
         mock_jh.Verify(m => m.sub(exp_max, exp_min), Times.Once());
         test.jointsEqual(exp_range, act_range);
     }
+
+    [Fact] public void Variance(){
+        Assert.True(false);
+    }
 }

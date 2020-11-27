@@ -1,6 +1,6 @@
+using System;
 using Leap;
-using System.Linq;
-
+using System.Collections.Generic;
 
 public interface IVectorHelper{
     public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2);
@@ -8,6 +8,8 @@ public interface IVectorHelper{
     public Vector sub(Vector v1, Vector v2);
     public Vector div(Vector v, float f);
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v);
+    public Vector square(Vector v);
+    public Vector[] squareList(Vector[] vA);
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2);
     public Vector[] arrSub(Vector[] vA1, Vector[] vA2);
     public Vector[] arrDiv(Vector[] vA, float f);
@@ -51,6 +53,7 @@ public class VectorHelper : IVectorHelper{
             v1.z/f
         );
     }
+
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
         var flags = greaterEqual(curMin, v);
         if(flags.x) curMin.x = v.x;
@@ -61,6 +64,20 @@ public class VectorHelper : IVectorHelper{
         if(!flags.y) curMax.y = v.y;
         if(!flags.z) curMax.z = v.z;
         return (curMin, curMax);
+    }
+
+    public Vector square(Vector v){
+        return new Vector{
+            x = (float) Math.Pow(v.x, 2),
+            y = (float) Math.Pow(v.y, 2),
+            z = (float) Math.Pow(v.z, 2)
+        };
+    }
+
+    public Vector[] squareList(Vector[] vA){
+        var ret = new List<Vector>();
+        foreach(var v in vA) ret.Add(square(v));
+        return ret.ToArray();
     }
 
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){
