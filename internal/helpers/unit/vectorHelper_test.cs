@@ -54,8 +54,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp,act);
     }
 
-    [Fact]
-    public void Sub() {
+    [Fact] public void Sub() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -72,8 +71,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp, act);
     }
 
-    [Fact]
-    public void Div() {
+    [Fact] public void Div() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         float v2 = dg.newFloat(100);
@@ -89,8 +87,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp,act);
     }
 
-    [Fact]
-    public void MinMax(){
+    [Fact] public void MinMax(){
         Data_Generator dg = new Data_Generator();
         (Vector min, Vector max, Vector v) dat;
         dat.v = dg.newVector();
@@ -107,8 +104,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp.max, act.max);
     }
 
-    [Fact]
-    public void ArrAdd(){
+    [Fact] public void AddList(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -126,8 +122,7 @@ public class vectorHelper_test{
         test.vectorsEqual(exp,act);
     }
 
-    [Fact]
-    public void ArrSub(){
+    [Fact] public void SubList(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -145,8 +140,7 @@ public class vectorHelper_test{
         test.vectorsEqual(exp,act);
     }
     
-    [Fact]
-    public void ArrDiv(){
+    [Fact] public void DivList(){
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -164,8 +158,7 @@ public class vectorHelper_test{
         test.vectorsEqual(exp,act);
     }
 
-    [Fact]
-    public void ArrMinMax(){
+    [Fact] public void MinMaxList(){
         var dg = new Data_Generator();
         var dat_i = 0;
         var dat_len = dg.newInt(100);
@@ -193,8 +186,7 @@ public class vectorHelper_test{
         test.vectorsEqual(exp.max, act.max);
     }
 
-    [Fact]
-    public void Average(){
+    [Fact] public void Average(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] vL = dg.newVectors(len);
@@ -215,8 +207,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp, act);
     }
 
-    [Fact]
-    public void Lowest(){
+    [Fact] public void Lowest(){
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectors(len);
