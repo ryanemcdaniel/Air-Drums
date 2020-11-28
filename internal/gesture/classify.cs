@@ -1,15 +1,12 @@
 using Leap;
+using Global;
 
 public class Classify : IClassify {
 
-    public IStats s;
+    public Classify(){}
 
-    public Classify(IStats stats){
-        s = stats;
-    }
-
-    public bool NoGesture() {
-        
+    public bool IsGesture(Joints range) {
+        var check = GBL.NO_GESTURE_RANGE;
         
 
 

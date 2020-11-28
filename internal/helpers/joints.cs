@@ -63,12 +63,13 @@ public class Joints {
         return ret;
     }
     
-    public string TipsToString() {
+    public override string ToString() {
         return  "Finger Tips:\n" + 
-                "pinky  =" + pinky [4].ToString() + "\n" +
-                "ring   =" + ring  [4].ToString() + "\n" +
-                "middle =" + middle[4].ToString() + "\n" +
-                "index  =" + index [4].ToString() + "\n" +
-                "thumb  =" + thumb [4].ToString() + "\n";
+                "pinky  = " + pinky [4].ToString() + "\n" +
+                "ring   = " + ring  [4].ToString() + "\n" +
+                "middle = " + middle[4].ToString() + "\n" +
+                "index  = " + index [4].ToString() + "\n" +
+                "thumb  = " + thumb [4].ToString() + "\n" +
+                "palm   = " + palm.ToString() + "\n";
     }
 }
