@@ -2,6 +2,7 @@ using Xunit;
 using Leap;
 using System;
 using System.Linq;
+using System.Collections.Generic;
 
 public class vectorHelper_test{
 
@@ -222,11 +223,45 @@ public class vectorHelper_test{
     }
 
     [Fact] public void GreaterEqual() {
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        Vector v2 = dg.newVector();
+        (bool exp_x, bool exp_y, bool exp_z) = (false,false,false);
+        if(v1.x >= v2.x){
+            exp_x = true;
+        }
+        if(v1.y >= v2.y){
+            exp_y = true;
+        }
+        if(v1.z >= v2.z){
+            exp_z = true;
+        }
+        VectorHelper v = new VectorHelper();
+        (bool act_x, bool act_y, bool act_z) = v.greaterEqual(v1,v2);
+        test.Equals(exp_x,act_x);
+        test.Equals(exp_y,act_y);
+        test.Equals(exp_z,act_z);
     }
 
     [Fact] public void GreaterEqualList() {
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector[] v2 = dg.newVectors(length);
+        
+        (bool exp_x, bool exp_y, bool exp_z)[] = new (false,false,false)[];
+        for(int i = 0; i< length;i++)
+        {
+            if(v1[i].x >= v2[i].x){
+                
+            }
+            if(v1[i].y >= v2[i].y){
+
+            }
+            if(v1[i].z >= v2[i].z){
+
+            }
+        }
     }
 
 }
