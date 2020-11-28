@@ -29,7 +29,7 @@ public class Queues : IQueues {
         samples.Add(h);
         positions.Add(jh.handToJoints(h));
 
-        if(samples.Count > 1){
+        if(samples.Count > GBL.N_SAMPLES){
             var temp = jh.sub(positions[GBL.N_SAMPLES], positions[GBL.N_SAMPLES-1]);
             velocities.Add(jh.div(temp, fps));
         }

@@ -4,12 +4,19 @@ using System.Linq;
 
 public class vectorHelper_test{
 
-    [Fact] void GreaterEqual() {
+    [Fact] public void GreaterEqual() {
         Assert.True(false);
     }
 
-    [Fact]
-    public void Add() {
+    [Fact] public void Pow(){
+        Assert.True(false);
+    }
+
+    [Fact] public void PowList(){
+        Assert.True(false);
+    }
+
+    [Fact] public void Add() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         Vector v2 = dg.newVector();

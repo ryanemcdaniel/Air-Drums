@@ -1,20 +1,6 @@
+using System;
 using Leap;
-using System.Linq;
-
-
-public interface IVectorHelper{
-    public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2);
-    public Vector add(Vector v1, Vector v2);
-    public Vector sub(Vector v1, Vector v2);
-    public Vector div(Vector v, float f);
-    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v);
-    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2);
-    public Vector[] arrSub(Vector[] vA1, Vector[] vA2);
-    public Vector[] arrDiv(Vector[] vA, float f);
-    public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA);
-    public Vector average(Vector[] vA);
-    public Vector lowest(Vector[] vA);
-}
+using System.Collections.Generic;
 
 public class VectorHelper : IVectorHelper{
 
@@ -51,6 +37,7 @@ public class VectorHelper : IVectorHelper{
             v1.z/f
         );
     }
+
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
         var flags = greaterEqual(curMin, v);
         if(flags.x) curMin.x = v.x;
@@ -61,6 +48,20 @@ public class VectorHelper : IVectorHelper{
         if(!flags.y) curMax.y = v.y;
         if(!flags.z) curMax.z = v.z;
         return (curMin, curMax);
+    }
+
+    public Vector pow(Vector v, float f){
+        return new Vector{
+            x = (float) Math.Pow(v.x, f),
+            y = (float) Math.Pow(v.y, f),
+            z = (float) Math.Pow(v.z, f)
+        };
+    }
+
+    public Vector[] powList(Vector[] vA, float f){
+        var ret = new List<Vector>();
+        foreach(var v in vA) ret.Add(pow(v, f));
+        return ret.ToArray();
     }
 
     public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){

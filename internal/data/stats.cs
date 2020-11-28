@@ -1,3 +1,4 @@
+using System.Net.Http.Headers;
 using System.Collections.Generic;
 using Leap;
 
@@ -36,6 +37,11 @@ public class Stats : IStats {
     }
 
     public Joints variance(List<Joints> jL){
-        return null;
+        var ave = average(jL);
+        var num = new List<Joints>();
+        foreach (var j in jL){
+            num.Add(jh.square(jh.sub(j, ave)));
+        }
+        return jh.div(sum(num), jL.Count);
     }
 }

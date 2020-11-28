@@ -1,8 +1,10 @@
 using Leap;
-
+using System.Collections.Generic;
 
 public interface IDataManager {
-    public void Extract(Frame f);
+    public void extract(Frame f);
+    public (List<Joints> left, List<Joints> right) positions();
+    public (List<Joints> left, List<Joints> right) velocities();
 }
 
 public class DataManager : IDataManager {
@@ -15,12 +17,13 @@ public class DataManager : IDataManager {
         right = r;
     }
 
-    public void Extract(Frame f){
+    public void extract(Frame f){
         foreach(var h in f.Hands){
             if(h.IsLeft) left.LoadSample(h, f.CurrentFramesPerSecond);
             else right.LoadSample(h, f.CurrentFramesPerSecond); 
         }
-
     }
 
+    public (List<Joints> left, List<Joints> right) positions() => (left.GetPositions(), right.GetPositions());
+    public (List<Joints> left, List<Joints> right) velocities() => (left.GetVelocities(), right.GetVelocities());
 }
