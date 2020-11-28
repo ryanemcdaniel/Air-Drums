@@ -33,8 +33,6 @@ public class JointsHelper : IJointsHelper {
 
     public Joints div(Joints j, float f) => wholeJoint(vh.div, vh.arrDiv, j, f);
 
-    public Joints pow(Joints j, float f)  => wholeJoint(vh.pow, vh.powList, j, f);
-
     public Vector lowestJoint(Hand h){
         Joints j = handToJoints(h);
         Vector[] ret = new Vector[6];
@@ -57,17 +55,7 @@ public class JointsHelper : IJointsHelper {
         return (curMin, curMax);
     }
 
-    public Joints square(Joints j){
-        return new Joints(
-            vh.powList(j.pinky  , 2),
-            vh.powList(j.ring   , 2),
-            vh.powList(j.middle , 2),
-            vh.powList(j.index  , 2),
-            vh.powList(j.thumb  , 2),
-            vh.    pow(j.palm   , 2),
-            0
-        );
-    }
+    public Joints pow(Joints j, float f) => wholeJoint(vh.pow,vh.powList,j, f);
 
     public Joints wholeJoint(Apply_Vectors toPalm, Apply_VectorLists toFinger, Joints j1, Joints j2){
         return new Joints(

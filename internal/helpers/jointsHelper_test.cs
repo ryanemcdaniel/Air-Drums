@@ -198,6 +198,27 @@ public class jointsHelper_test {
     }
 
     [Fact] public void Square(){
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        var dat_j1 = hg.newJoints();
+        var exp_j = hg.newJoints();
+        var mock_vh = new Mock<IVectorHelper>();
+        mock_vh.Setup(m => m.powList(dat_j1.pinky, 2)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.powList(dat_j1.ring,  2)).Returns(exp_j.ring);
+        mock_vh.Setup(m => m.powList(dat_j1.middle,2)).Returns(exp_j.middle);
+        mock_vh.Setup(m => m.powList(dat_j1.index, 2)).Returns(exp_j.index);
+        mock_vh.Setup(m => m.powList(dat_j1.thumb, 2)).Returns(exp_j.thumb);
+        mock_vh.Setup(m => m.pow( dat_j1.palm, 2)).Returns(exp_j.palm);
+
+        JointsHelper jh = new JointsHelper(mock_vh.Object);
+        var act_j = jh.pow(dat_j1, 2);
+
+        mock_vh.Verify(m => m.powList(dat_j1.pinky, 2),Times.Once());
+        mock_vh.Verify(m => m.powList(dat_j1.ring,  2),Times.Once());
+        mock_vh.Verify(m => m.powList(dat_j1.middle,2),Times.Once());
+        mock_vh.Verify(m => m.powList(dat_j1.index, 2),Times.Once());
+        mock_vh.Verify(m => m.powList(dat_j1.thumb, 2),Times.Once());
+        mock_vh.Verify(m => m.pow( dat_j1.palm, 2),Times.Once());
+        test.jointsEqual(act_j,exp_j);
     }
 }

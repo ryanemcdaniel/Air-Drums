@@ -32,7 +32,7 @@ public class Stats : IStats {
         var ave = average(jL);
         var num = new List<Joints>();
         foreach (var j in jL){
-            num.Add(jh.square(jh.sub(j, ave)));
+            num.Add(jh.pow(jh.sub(j, ave),2));
         }
         return jh.div(sum(num), jL.Count);
     }
