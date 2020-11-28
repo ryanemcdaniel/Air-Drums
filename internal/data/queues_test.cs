@@ -5,8 +5,7 @@ using Global;
 
 public class queues_test {
 
-    [Fact]
-    public void Load_Once() {
+    [Fact] public void Load_Once() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_hnd = hg.newHand(hg.newFingerList());
@@ -37,13 +36,11 @@ public class queues_test {
         Assert.Empty(act_vel);
     }
 
-    [Fact]
-    public void Load_Multiple() {
+    [Fact] public void Load_Multiple() {
         Assert.True(false);
     }
 
-    [Fact]
-    public void Clear() {
+    [Fact] public void Clear() {
         Assert.True(false);
     }
 

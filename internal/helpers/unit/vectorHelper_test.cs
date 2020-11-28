@@ -1,19 +1,41 @@
 using Xunit;
 using Leap;
+using System;
 using System.Linq;
 
 public class vectorHelper_test{
 
-    [Fact] public void GreaterEqual() {
-        Assert.True(false);
-    }
-
     [Fact] public void Pow(){
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        float f = dg.newFloat(100);
+
+        Vector exp = new Vector{
+            x =(float) Math.Pow(v1.x, f),
+            y = (float) Math.Pow(v1.y,f),
+            z = (float) Math.Pow(v1.z, f)
+        };
+
+        VectorHelper v = new VectorHelper();
+        Vector act = v.pow(v1,f);
+        test.vectorEqual(act,exp);
     }
 
     [Fact] public void PowList(){
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        float f = dg.newFloat(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector[] exp = dg.newZeroVectors(length);
+        for(int i =0; i<length; i++)
+        {
+            exp[i].x = (float) Math.Pow(v1[i].x,f);
+            exp[i].y = (float) Math.Pow(v1[i].y,f);
+            exp[i].z = (float) Math.Pow(v1[i].z,f);
+        }
+        VectorHelper v = new VectorHelper();
+        Vector[] act = v.powList(v1,f);
+        test.vectorsEqual(act,exp);
     }
 
     [Fact] public void Add() {
@@ -32,8 +54,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp,act);
     }
 
-    [Fact]
-    public void Sub() {
+    [Fact] public void Sub() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector(); 
         Vector v2 = dg.newVector();
@@ -50,8 +71,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp, act);
     }
 
-    [Fact]
-    public void Div() {
+    [Fact] public void Div() {
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         float v2 = dg.newFloat(100);
@@ -67,8 +87,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp,act);
     }
 
-    [Fact]
-    public void MinMax(){
+    [Fact] public void MinMax() {
         Data_Generator dg = new Data_Generator();
         (Vector min, Vector max, Vector v) dat;
         dat.v = dg.newVector();
@@ -85,8 +104,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp.max, act.max);
     }
 
-    [Fact]
-    public void ArrAdd(){
+    [Fact] public void AddList() {
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -100,12 +118,11 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z + v2[i].z;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrAdd(v1,v2);
+        Vector[] act = v.addList(v1,v2);
         test.vectorsEqual(exp,act);
     }
 
-    [Fact]
-    public void ArrSub(){
+    [Fact] public void SubList() {
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -119,12 +136,11 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z - v2[i].z;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrSub(v1,v2);
+        Vector[] act = v.subList(v1,v2);
         test.vectorsEqual(exp,act);
     }
     
-    [Fact]
-    public void ArrDiv(){
+    [Fact] public void DivList() {
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -138,12 +154,11 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z / v2;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrDiv(v1,v2);
+        Vector[] act = v.divList(v1,v2);
         test.vectorsEqual(exp,act);
     }
 
-    [Fact]
-    public void ArrMinMax(){
+    [Fact] public void MinMaxList() {
         var dg = new Data_Generator();
         var dat_i = 0;
         var dat_len = dg.newInt(100);
@@ -165,14 +180,13 @@ public class vectorHelper_test{
         }
 
         var vh = new VectorHelper();
-        var act = vh.arrMinMax(dat_min, dat_max, dat_vA);
+        var act = vh.minMaxList(dat_min, dat_max, dat_vA);
 
         test.vectorsEqual(exp.min, act.min);
         test.vectorsEqual(exp.max, act.max);
     }
 
-    [Fact]
-    public void Average(){
+    [Fact] public void Average() {
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] vL = dg.newVectors(len);
@@ -193,8 +207,7 @@ public class vectorHelper_test{
         test.vectorEqual(exp, act);
     }
 
-    [Fact]
-    public void Lowest(){
+    [Fact] public void Lowest() {
         Data_Generator dg = new Data_Generator();
         int len = dg.newInt(100);
         Vector[] input = dg.newVectors(len);
@@ -207,4 +220,13 @@ public class vectorHelper_test{
 
         test.vectorEqual(exp, act);
     }
+
+    [Fact] public void GreaterEqual() {
+        Assert.True(false);
+    }
+
+    [Fact] public void GreaterEqualList() {
+        Assert.True(false);
+    }
+
 }

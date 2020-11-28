@@ -28,7 +28,7 @@ public class ButtonExample
 
     const float PI = (float)Math.PI;
 
-    public static void Main(string[] args)
+    public static void ope(string[] args)
     {
         // Create an emitter, which connects to the first connected device
         AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();

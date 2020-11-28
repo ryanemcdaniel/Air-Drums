@@ -1,14 +1,7 @@
+using System;
 using Leap;
 using Global;
 using System.Collections.Generic;
-
-public interface IQueues {
-    public void LoadSample(Hand h, float f);
-    public void Clear();
-    public List<Hand> GetSamples();
-    public List<Joints> GetPositions();
-    public List<Joints> GetVelocities();
-}
 
 public class Queues : IQueues {
 
@@ -29,9 +22,9 @@ public class Queues : IQueues {
         samples.Add(h);
         positions.Add(jh.handToJoints(h));
 
-        if(samples.Count > GBL.N_SAMPLES){
-            var temp = jh.sub(positions[GBL.N_SAMPLES], positions[GBL.N_SAMPLES-1]);
-            velocities.Add(jh.div(temp, fps));
+        if(samples.Count > 1){
+            var temp = jh.sub(positions[positions.Count - 1], positions[positions.Count - 2]);
+            velocities.Add(jh.div(temp, 0.05f));
         }
 
         if(samples.Count > GBL.N_SAMPLES){

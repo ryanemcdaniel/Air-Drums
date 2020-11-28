@@ -1,12 +1,4 @@
-using System.Net.Http.Headers;
 using System.Collections.Generic;
-using Leap;
-
-public interface IStats {
-    public Joints sum(List<Joints> jL);
-    public Joints average(List<Joints> jL);
-    public Joints range(List<Joints> jL);
-}
 
 public class Stats : IStats {
 
@@ -29,7 +21,7 @@ public class Stats : IStats {
     }
 
     public Joints range(List<Joints> jL){
-        (var min, var max) = (new Joints(false), new Joints(true));
+        (var min, var max) = (jL[0].Clone(), jL[0].Clone());
         foreach (var j in jL) {
             (min, max) = jh.minMax(min, max, j);
         }
@@ -40,8 +32,9 @@ public class Stats : IStats {
         var ave = average(jL);
         var num = new List<Joints>();
         foreach (var j in jL){
-            num.Add(jh.square(jh.sub(j, ave)));
+            num.Add(jh.pow(jh.sub(j, ave),2));
         }
-        return jh.div(sum(num), jL.Count);
+        return jh.div(sum(num), jL.Count -1);
     }
+    
 }
