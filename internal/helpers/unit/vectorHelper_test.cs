@@ -226,7 +226,7 @@ public class vectorHelper_test{
         Data_Generator dg = new Data_Generator();
         Vector v1 = dg.newVector();
         Vector v2 = dg.newVector();
-        (bool exp_x, bool exp_y, bool exp_z) = (false,false,false);
+        (bool exp_x, bool exp_y, bool exp_z) = dg.newBoolTuple();
         if(v1.x >= v2.x){
             exp_x = true;
         }
@@ -249,18 +249,25 @@ public class vectorHelper_test{
         Vector[] v1 = dg.newVectors(length);
         Vector[] v2 = dg.newVectors(length);
         
-        (bool exp_x, bool exp_y, bool exp_z)[] = new (false,false,false)[];
+        var exp_tupleList = new (bool exp_x, bool exp_y, bool exp_z)[length];
+        exp_tupleList = dg.newBoolTupleList(length);
         for(int i = 0; i< length;i++)
         {
             if(v1[i].x >= v2[i].x){
-                
+                exp_tupleList[i].exp_x = true;
             }
             if(v1[i].y >= v2[i].y){
-
+                exp_tupleList[i].exp_y = true;
             }
             if(v1[i].z >= v2[i].z){
-
+                exp_tupleList[i].exp_z = true;
             }
+        }
+        VectorHelper v = new VectorHelper();
+        var act_tupleList = new (bool act_x, bool act_y, bool act_z)[length];
+        act_tupleList = v.greaterEqualList(v1,v2);
+        for(int i = 0; i<length; i++){
+            test.Equals(act_tupleList[i],exp_tupleList[i]);
         }
     }
 
