@@ -19,7 +19,7 @@ public class dataManager_test {
 
         var dm = new DataManager(mock_l.Object, mock_r.Object);
 
-        dm.extract(dat_f);
+        dm.Extract(dat_f);
 
         mock_l.Verify(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond), Times.Once());
         mock_r.Verify(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond), Times.Once());

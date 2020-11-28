@@ -59,6 +59,26 @@ public class Joints {
         frameRate=  in7;
     }
 
+    public Vector[] ToArray() {
+        var ret = new Vector[26];
+        pinky  .CopyTo(ret, 0);
+        ring   .CopyTo(ret, 5);
+        middle .CopyTo(ret, 10);
+        index  .CopyTo(ret, 15);
+        thumb  .CopyTo(ret, 20);
+        ret[25] = palm;
+        return null;
+    }
+    
+    public string TipsToString() {
+        return  "Finger Tips:\n" + 
+                "pinky  =" + pinky [4].ToString() + "\n" +
+                "ring   =" + ring  [4].ToString() + "\n" +
+                "middle =" + middle[4].ToString() + "\n" +
+                "index  =" + index [4].ToString() + "\n" +
+                "thumb  =" + thumb [4].ToString() + "\n";
+    }
+
     public Vector[] pinky;
     public Vector[] ring;
     public Vector[] middle;

@@ -1,12 +1,4 @@
-using System.Net.Http.Headers;
 using System.Collections.Generic;
-using Leap;
-
-public interface IStats {
-    public Joints sum(List<Joints> jL);
-    public Joints average(List<Joints> jL);
-    public Joints range(List<Joints> jL);
-}
 
 public class Stats : IStats {
 

@@ -15,7 +15,7 @@ public class Gesture {
     public void printOuts(){
         
         for (;;) {
-            dm.extract(c.Frame());
+            dm.Extract(c.Frame());
             (var l, var r) = dm.positions();
             if(l.Count > 1){
                 Console.Write(l[0].palm.ToString() + "\n");

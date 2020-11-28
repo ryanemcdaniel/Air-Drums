@@ -7,12 +7,11 @@ public class VectorHelper : IVectorHelper{
 
     public VectorHelper(){}
 
-    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
-        curMin = wholeVector((c1, c2) => c1 >= c2 ? c2 : c1, curMin, v);
-        curMax = wholeVector((c1, c2) => c1 >= c2 ? c1 : c2, curMin, v);
-        return (curMin, curMax);
-    }
+    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v) => (min(curMin, v), max(curMax, v));
 
+    public Vector min(Vector min, Vector v) => wholeVector((c1, c2) => c1 >= c2 ? c2 : c1, min, v);
+
+    public Vector max(Vector max, Vector v) => wholeVector((c1, c2) => c1 >= c2 ? c1 : c2, max, v);
     public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2){
         return (
             v1.x >= v2.x,
@@ -21,11 +20,11 @@ public class VectorHelper : IVectorHelper{
         );
     }
 
-    public Vector add(Vector v1, Vector v2) =>  wholeVector((x, y) => x + y, v1, v2);
+    public Vector add(Vector v1, Vector v2) => wholeVector((x, y) => x + y, v1, v2);
 
-    public Vector sub(Vector v1, Vector v2) =>  wholeVector((x, y) => x - y, v1, v2);
+    public Vector sub(Vector v1, Vector v2) => wholeVector((x, y) => x - y, v1, v2);
 
-    public Vector div(Vector v, float f) =>     wholeVector((x, y) => x / y, v, f);
+    public Vector div(Vector v, float f) => wholeVector((x, y) => x / y, v, f);
 
     public Vector pow(Vector v, float f) => wholeVector((x, y) => (float) Math.Pow(x, y), v, f);
 
@@ -38,6 +37,7 @@ public class VectorHelper : IVectorHelper{
     public Vector[] powList(Vector[] vA, float f) => wholeVectorList(pow, vA, f);
 
     public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA){
+        
         for (int i = 0; i < vA.Length; i++){
             (curMin[i], curMax[i]) = minMax(curMin[i], curMax[i], vA[i]);
         }
