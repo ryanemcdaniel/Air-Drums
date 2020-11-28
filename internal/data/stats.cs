@@ -42,6 +42,6 @@ public class Stats : IStats {
         foreach (var j in jL){
             num.Add(jh.pow(jh.sub(j, ave),2));
         }
-        return jh.div(sum(num), jL.Count);
+        return jh.div(sum(num), jL.Count -1);
     }
 }
