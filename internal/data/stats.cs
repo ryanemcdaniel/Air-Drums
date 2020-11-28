@@ -36,4 +36,5 @@ public class Stats : IStats {
         }
         return jh.div(sum(num), jL.Count -1);
     }
+    
 }

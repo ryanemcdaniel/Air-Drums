@@ -68,21 +68,21 @@ public class jointsHelper_test {
         var exp_j = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        mock_vh.Setup(m => m.arrAdd( dat_j1.pinky  , dat_j2.pinky  )).Returns( exp_j.pinky  );
-        mock_vh.Setup(m => m.arrAdd( dat_j1.ring   , dat_j2.ring   )).Returns( exp_j.ring   );
-        mock_vh.Setup(m => m.arrAdd( dat_j1.middle , dat_j2.middle )).Returns( exp_j.middle );
-        mock_vh.Setup(m => m.arrAdd( dat_j1.index  , dat_j2.index  )).Returns( exp_j.index  );
-        mock_vh.Setup(m => m.arrAdd( dat_j1.thumb  , dat_j2.thumb  )).Returns( exp_j.thumb  );
+        mock_vh.Setup(m => m.addList( dat_j1.pinky  , dat_j2.pinky  )).Returns( exp_j.pinky  );
+        mock_vh.Setup(m => m.addList( dat_j1.ring   , dat_j2.ring   )).Returns( exp_j.ring   );
+        mock_vh.Setup(m => m.addList( dat_j1.middle , dat_j2.middle )).Returns( exp_j.middle );
+        mock_vh.Setup(m => m.addList( dat_j1.index  , dat_j2.index  )).Returns( exp_j.index  );
+        mock_vh.Setup(m => m.addList( dat_j1.thumb  , dat_j2.thumb  )).Returns( exp_j.thumb  );
         mock_vh.Setup(m => m   .add( dat_j1.palm   , dat_j2.palm   )).Returns( exp_j.palm   );
 
         JointsHelper jh = new JointsHelper(mock_vh.Object);
         var act_j = jh.add(dat_j1, dat_j2);
 
-        mock_vh.Verify(m => m.arrAdd( dat_j1.pinky  , dat_j2.pinky  ), Times.Once());
-        mock_vh.Verify(m => m.arrAdd( dat_j1.ring   , dat_j2.ring   ), Times.Once());
-        mock_vh.Verify(m => m.arrAdd( dat_j1.middle , dat_j2.middle ), Times.Once());
-        mock_vh.Verify(m => m.arrAdd( dat_j1.index  , dat_j2.index  ), Times.Once());
-        mock_vh.Verify(m => m.arrAdd( dat_j1.thumb  , dat_j2.thumb  ), Times.Once());
+        mock_vh.Verify(m => m.addList( dat_j1.pinky  , dat_j2.pinky  ), Times.Once());
+        mock_vh.Verify(m => m.addList( dat_j1.ring   , dat_j2.ring   ), Times.Once());
+        mock_vh.Verify(m => m.addList( dat_j1.middle , dat_j2.middle ), Times.Once());
+        mock_vh.Verify(m => m.addList( dat_j1.index  , dat_j2.index  ), Times.Once());
+        mock_vh.Verify(m => m.addList( dat_j1.thumb  , dat_j2.thumb  ), Times.Once());
         mock_vh.Verify(m => m   .add( dat_j1.palm   , dat_j2.palm   ), Times.Once());
 
         test.jointsEqual(exp_j, act_j);
@@ -98,21 +98,21 @@ public class jointsHelper_test {
         var exp_j = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        mock_vh.Setup(m => m.arrSub(dat_j1.pinky,   dat_j2.pinky)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrSub(dat_j1.ring,    dat_j2.ring)).Returns(exp_j.ring);
-        mock_vh.Setup(m => m.arrSub(dat_j1.middle,  dat_j2.middle)).Returns(exp_j.middle);
-        mock_vh.Setup(m => m.arrSub(dat_j1.index,   dat_j2.index)).Returns(exp_j.index);
-        mock_vh.Setup(m => m.arrSub(dat_j1.thumb,   dat_j2.thumb)).Returns(exp_j.thumb);
+        mock_vh.Setup(m => m.subList(dat_j1.pinky,   dat_j2.pinky)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.subList(dat_j1.ring,    dat_j2.ring)).Returns(exp_j.ring);
+        mock_vh.Setup(m => m.subList(dat_j1.middle,  dat_j2.middle)).Returns(exp_j.middle);
+        mock_vh.Setup(m => m.subList(dat_j1.index,   dat_j2.index)).Returns(exp_j.index);
+        mock_vh.Setup(m => m.subList(dat_j1.thumb,   dat_j2.thumb)).Returns(exp_j.thumb);
         mock_vh.Setup(m => m.sub(   dat_j1.palm,    dat_j2.palm)).Returns(exp_j.palm);
 
         JointsHelper jh = new JointsHelper(mock_vh.Object);
         var act_j = jh.sub(dat_j1, dat_j2);
 
-        mock_vh.Verify(m => m.arrSub(dat_j1.pinky, dat_j2.pinky), Times.Once());
-        mock_vh.Verify(m => m.arrSub(dat_j1.ring, dat_j2.ring), Times.Once());
-        mock_vh.Verify(m => m.arrSub(dat_j1.middle, dat_j2.middle), Times.Once());
-        mock_vh.Verify(m => m.arrSub(dat_j1.index, dat_j2.index), Times.Once());
-        mock_vh.Verify(m => m.arrSub(dat_j1.thumb, dat_j2.thumb), Times.Once());
+        mock_vh.Verify(m => m.subList(dat_j1.pinky, dat_j2.pinky), Times.Once());
+        mock_vh.Verify(m => m.subList(dat_j1.ring, dat_j2.ring), Times.Once());
+        mock_vh.Verify(m => m.subList(dat_j1.middle, dat_j2.middle), Times.Once());
+        mock_vh.Verify(m => m.subList(dat_j1.index, dat_j2.index), Times.Once());
+        mock_vh.Verify(m => m.subList(dat_j1.thumb, dat_j2.thumb), Times.Once());
         mock_vh.Verify(m => m.sub(dat_j1.palm, dat_j2.palm), Times.Once());
 
         test.jointsEqual(exp_j, act_j);
@@ -128,21 +128,21 @@ public class jointsHelper_test {
         var exp_j = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        mock_vh.Setup(m => m.arrDiv(dat_j1.pinky,   dat_f)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.ring,    dat_f)).Returns(exp_j.ring);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.middle,  dat_f)).Returns(exp_j.middle);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.index,   dat_f)).Returns(exp_j.index);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.thumb,   dat_f)).Returns(exp_j.thumb);
+        mock_vh.Setup(m => m.divList(dat_j1.pinky,   dat_f)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.divList(dat_j1.ring,    dat_f)).Returns(exp_j.ring);
+        mock_vh.Setup(m => m.divList(dat_j1.middle,  dat_f)).Returns(exp_j.middle);
+        mock_vh.Setup(m => m.divList(dat_j1.index,   dat_f)).Returns(exp_j.index);
+        mock_vh.Setup(m => m.divList(dat_j1.thumb,   dat_f)).Returns(exp_j.thumb);
         mock_vh.Setup(m => m.div(   dat_j1.palm,    dat_f)).Returns(exp_j.palm);
 
         JointsHelper jh = new JointsHelper(mock_vh.Object);
         var act_j = jh.div(dat_j1, dat_f);
 
-        mock_vh.Verify(m => m.arrDiv(dat_j1.pinky,  dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.ring,   dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.middle, dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.index,  dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.thumb,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.pinky,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.ring,   dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.middle, dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.index,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.thumb,  dat_f), Times.Once());
         mock_vh.Verify(m => m.div(dat_j1.palm,      dat_f), Times.Once());
 
         test.jointsEqual(exp_j, act_j);
@@ -158,21 +158,21 @@ public class jointsHelper_test {
         var exp_j = hg.newJoints();
 
         var mock_vh = new Mock<IVectorHelper>();
-        mock_vh.Setup(m => m.arrDiv(dat_j1.pinky,   dat_f)).Returns(exp_j.pinky);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.ring,    dat_f)).Returns(exp_j.ring);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.middle,  dat_f)).Returns(exp_j.middle);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.index,   dat_f)).Returns(exp_j.index);
-        mock_vh.Setup(m => m.arrDiv(dat_j1.thumb,   dat_f)).Returns(exp_j.thumb);
+        mock_vh.Setup(m => m.divList(dat_j1.pinky,   dat_f)).Returns(exp_j.pinky);
+        mock_vh.Setup(m => m.divList(dat_j1.ring,    dat_f)).Returns(exp_j.ring);
+        mock_vh.Setup(m => m.divList(dat_j1.middle,  dat_f)).Returns(exp_j.middle);
+        mock_vh.Setup(m => m.divList(dat_j1.index,   dat_f)).Returns(exp_j.index);
+        mock_vh.Setup(m => m.divList(dat_j1.thumb,   dat_f)).Returns(exp_j.thumb);
         mock_vh.Setup(m => m.div(   dat_j1.palm,    dat_f)).Returns(exp_j.palm);
 
         JointsHelper jh = new JointsHelper(mock_vh.Object);
         var act_j = jh.div(dat_j1, dat_f);
 
-        mock_vh.Verify(m => m.arrDiv(dat_j1.pinky,  dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.ring,   dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.middle, dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.index,  dat_f), Times.Once());
-        mock_vh.Verify(m => m.arrDiv(dat_j1.thumb,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.pinky,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.ring,   dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.middle, dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.index,  dat_f), Times.Once());
+        mock_vh.Verify(m => m.divList(dat_j1.thumb,  dat_f), Times.Once());
         mock_vh.Verify(m => m.div(dat_j1.palm,      dat_f), Times.Once());
 
         test.jointsEqual(exp_j, act_j);

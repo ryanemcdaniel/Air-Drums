@@ -1,13 +1,10 @@
 using Xunit;
-
 using Moq;
 using System.Collections.Generic;
-using System.Linq;
 
 public class stats_test {
     
-    [Fact]
-    public void Sum(){
+    [Fact] public void Sum(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         int dat_len = dg.newInt(100);
@@ -29,8 +26,7 @@ public class stats_test {
         test.jointsEqual(exp_sum, act_sum);
     }
 
-    [Fact]
-    public void Average(){
+    [Fact] public void Average(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         int dat_len = dg.newInt(100);
@@ -56,8 +52,7 @@ public class stats_test {
         test.jointsEqual(exp_ave, act_ave);
     }
 
-    [Fact]
-    public void Range(){
+    [Fact] public void Range(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         int dat_len = dg.newInt(100);
@@ -125,7 +120,6 @@ public class stats_test {
         }
 
         test.jointsEqual(exp_Variance,act_Variance);
-
-
     }
+
 }

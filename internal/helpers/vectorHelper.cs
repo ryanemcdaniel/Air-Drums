@@ -1,9 +1,7 @@
 using System;
 using Leap;
-using System.Collections.Generic;
-using System.Linq;
 
-public class VectorHelper : IVectorHelper{
+public partial class VectorHelper : IVectorHelper{
 
     public VectorHelper(){}
 
@@ -20,24 +18,16 @@ public class VectorHelper : IVectorHelper{
         );
     }
 
-    public Vector add(Vector v1, Vector v2) => wholeVector((x, y) => x + y, v1, v2);
-
-    public Vector sub(Vector v1, Vector v2) => wholeVector((x, y) => x - y, v1, v2);
-
-    public Vector div(Vector v, float f) => wholeVector((x, y) => x / y, v, f);
-
-    public Vector pow(Vector v, float f) => wholeVector((x, y) => (float) Math.Pow(x, y), v, f);
-
-    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2)  => wholeVectorList(add, vA1, vA2);
-
-    public Vector[] arrSub(Vector[] vA1, Vector[] vA2)  => wholeVectorList(sub, vA1, vA2);
-
-    public Vector[] arrDiv(Vector[] vA, float f) => wholeVectorList(div, vA, f);
-    
+    public Vector   add(Vector v1, Vector v2) => wholeVector((x, y) => x + y, v1, v2);
+    public Vector   sub(Vector v1, Vector v2) => wholeVector((x, y) => x - y, v1, v2);
+    public Vector   div(Vector v, float f) => wholeVector((x, y) => x / y, v, f);
+    public Vector   pow(Vector v, float f) => wholeVector((x, y) => (float) Math.Pow(x, y), v, f);
+    public Vector[] addList(Vector[] vA1, Vector[] vA2)  => wholeVectorList(add, vA1, vA2);
+    public Vector[] subList(Vector[] vA1, Vector[] vA2)  => wholeVectorList(sub, vA1, vA2);
+    public Vector[] divList(Vector[] vA, float f) => wholeVectorList(div, vA, f);
     public Vector[] powList(Vector[] vA, float f) => wholeVectorList(pow, vA, f);
 
-    public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA){
-        
+    public (Vector[] min, Vector[] max) minMaxList(Vector[] curMin, Vector[] curMax, Vector[] vA){
         for (int i = 0; i < vA.Length; i++){
             (curMin[i], curMax[i]) = minMax(curMin[i], curMax[i], vA[i]);
         }
@@ -60,40 +50,9 @@ public class VectorHelper : IVectorHelper{
     public Vector lowest(Vector[] vA){
         Vector ret = vA[0];
         foreach (Vector v in vA) {
-            if(v.y < ret.y){
-                wholeVector((x, y) => x = y , ret, v);
-            }
+            if(v.y < ret.y) wholeVector((x, y) => x = y , ret, v);
         }
         return ret;
     }
-
-    public Vector[] wholeVectorList(Apply_Vectors toVectorList, Vector[] vL1, Vector[] vL2){
-        var ret = new List<Vector>();
-        foreach (var v in vL1.Zip(vL2)) 
-            ret.Add(toVectorList(v.First, v.Second));
-        return ret.ToArray();
-    }
-
-    public Vector[] wholeVectorList(Scale_Vectors toVectorList, Vector[] vL, float f){
-        var ret = new List<Vector>();
-        foreach (var v in vL) 
-            ret.Add(toVectorList(v, f));
-        return ret.ToArray();
-    }
-
-    public Vector wholeVector(Apply toComponent, Vector v1, Vector v2){
-        return new Vector{
-            x = toComponent(v1.x , v2.x),
-            y = toComponent(v1.y , v2.y),
-            z = toComponent(v1.z , v2.z)
-        };
-    }
-
-    public Vector wholeVector(Apply toComponent, Vector v, float f){
-        return new Vector{
-            x = toComponent(v.x, f),
-            y = toComponent(v.y, f),
-            z = toComponent(v.z, f)
-        };
-    }
+    
 }

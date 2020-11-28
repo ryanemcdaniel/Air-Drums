@@ -4,8 +4,7 @@ using Leap;
 
 public class dataManager_test {
     
-    [Fact]
-    public void Extract_Single(){
+    [Fact] public void Extract_Single(){
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_f = hg.newFrame();
@@ -25,8 +24,7 @@ public class dataManager_test {
         mock_r.Verify(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond), Times.Once());
     }
 
-    [Fact]
-    public void Extract_Multiple(){
+    [Fact] public void Extract_Multiple(){
         Assert.True(false);
     }
 }

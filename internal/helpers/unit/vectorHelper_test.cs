@@ -122,7 +122,7 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z + v2[i].z;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrAdd(v1,v2);
+        Vector[] act = v.addList(v1,v2);
         test.vectorsEqual(exp,act);
     }
 
@@ -141,7 +141,7 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z - v2[i].z;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrSub(v1,v2);
+        Vector[] act = v.subList(v1,v2);
         test.vectorsEqual(exp,act);
     }
     
@@ -160,7 +160,7 @@ public class vectorHelper_test{
             exp[i].z = v1[i].z / v2;
         }
         VectorHelper v = new VectorHelper();
-        Vector[] act = v.arrDiv(v1,v2);
+        Vector[] act = v.divList(v1,v2);
         test.vectorsEqual(exp,act);
     }
 
@@ -187,7 +187,7 @@ public class vectorHelper_test{
         }
 
         var vh = new VectorHelper();
-        var act = vh.arrMinMax(dat_min, dat_max, dat_vA);
+        var act = vh.minMaxList(dat_min, dat_max, dat_vA);
 
         test.vectorsEqual(exp.min, act.min);
         test.vectorsEqual(exp.max, act.max);
