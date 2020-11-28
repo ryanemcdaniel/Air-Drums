@@ -64,8 +64,6 @@ public class ButtonExample
             Console.WriteLine("\n");
         }
 
-        controller.EnableGesture (Gesture.GestureType.TYPE_KEY_TAP);
-
         if(controller.Config.SetFloat("Gesture.Swipe.MinDistance", 30) &&
             controller.Config.SetFloat("Gesture.Swipe.MinDownVelocity", 30) &&
             controller.Config.SetFloat("Gesture.Swipe.MinSeconds", 0.01f))
@@ -83,24 +81,12 @@ public class ButtonExample
                 break;
 
             Frame frame = controller.Frame();
-            HandList hands = frame.Hands;
+            var hands = frame.Hands;
 
-            if(!hands.IsEmpty && button_on)
+            if(hands.Count != 0 && button_on)
             {
                 Hand hand = hands[0];
 
-                for(int i = 0; i < frame.Gestures().Count; i++)
-                {
-                    Gesture gesture = frame.Gestures()[i];
-
-                    if(gesture.Type == Gesture.GestureType.TYPE_KEY_TAP)
-                    {
-                        button_on = false;
-
-                        emitter.stop();
-                        break;
-                    }
-                }
                 position = new Vector3(hand.PalmPosition.x, hand.PalmPosition.y, hand.PalmPosition.z);
                 Vector3 normal = new Vector3(-hand.PalmNormal.x, -hand.PalmNormal.y, -hand.PalmNormal.z);
                 Vector3 direction = new Vector3(hand.Direction.x, hand.Direction.y, hand.Direction.z);
@@ -120,22 +106,9 @@ public class ButtonExample
                 button.angle += 0.05f;
                 button.angle = button.angle % (2.0f * PI);
             }
-            else if(!hands.IsEmpty && !button_on)
+            else if(hands.Count != 0 && !button_on)
             {
                 emitter.stop();
-
-                for(int i = 0; i < frame.Gestures().Count; i++)
-                {
-                    Gesture gesture = frame.Gestures()[i];
-
-                    if(gesture.Type == Gesture.GestureType.TYPE_KEY_TAP)
-                    {
-                        button_on = true;
-
-                        emitter.stop();
-                        break;
-                    }
-                }
             }
             else
             {
