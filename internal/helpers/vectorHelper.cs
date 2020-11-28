@@ -1,10 +1,17 @@
 using System;
 using Leap;
 using System.Collections.Generic;
+using System.Linq;
 
 public class VectorHelper : IVectorHelper{
 
     public VectorHelper(){}
+
+    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
+        curMin = wholeVector((c1, c2) => c1 >= c2 ? c2 : c1, curMin, v);
+        curMax = wholeVector((c1, c2) => c1 >= c2 ? c1 : c2, curMin, v);
+        return (curMin, curMax);
+    }
 
     public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2){
         return (
@@ -14,82 +21,21 @@ public class VectorHelper : IVectorHelper{
         );
     }
 
-    public Vector add(Vector v1, Vector v2){
-        return new Vector(
-            v1.x + v2.x,
-            v1.y + v2.y,
-            v1.z + v2.z
-        );
-    }
+    public Vector add(Vector v1, Vector v2) =>  wholeVector((x, y) => x + y, v1, v2);
 
-    public Vector sub(Vector v1, Vector v2){
-        return new Vector(
-            v1.x - v2.x,
-            v1.y - v2.y,
-            v1.z - v2.z
-        );
-    }
+    public Vector sub(Vector v1, Vector v2) =>  wholeVector((x, y) => x - y, v1, v2);
 
-    public Vector div(Vector v1, float f){
-        return new Vector(
-            v1.x/f,
-            v1.y/f,
-            v1.z/f
-        );
-    }
+    public Vector div(Vector v, float f) =>     wholeVector((x, y) => x / y, v, f);
 
-    public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v){
-        var flags = greaterEqual(curMin, v);
-        if(flags.x) curMin.x = v.x;
-        if(flags.y) curMin.y = v.y;
-        if(flags.z) curMin.z = v.z;
-        flags = greaterEqual(curMax, v);
-        if(!flags.x) curMax.x = v.x;
-        if(!flags.y) curMax.y = v.y;
-        if(!flags.z) curMax.z = v.z;
-        return (curMin, curMax);
-    }
+    public Vector pow(Vector v, float f) => wholeVector((x, y) => (float) Math.Pow(x, y), v, f);
 
-    public Vector pow(Vector v, float f){
-        return new Vector{
-            x = (float) Math.Pow(v.x, f),
-            y = (float) Math.Pow(v.y, f),
-            z = (float) Math.Pow(v.z, f)
-        };
-    }
+    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2)  => wholeVectorList(add, vA1, vA2);
 
-    public Vector[] powList(Vector[] vA, float f){
-        var ret = new List<Vector>();
-        foreach(var v in vA) ret.Add(pow(v, f));
-        return ret.ToArray();
-    }
+    public Vector[] arrSub(Vector[] vA1, Vector[] vA2)  => wholeVectorList(sub, vA1, vA2);
 
-    public Vector[] arrAdd(Vector[] vA1, Vector[] vA2){
-        int length = vA1.Length;
-        Vector[] ret = new Vector[length];
-        for(int i =0; i<length; i++){
-            ret[i] = add(vA1[i], vA2[i]);
-        }
-        return ret;
-    }
-
-    public Vector[] arrSub(Vector[] vA1, Vector[] vA2){
-        int length = vA1.Length;
-        Vector[] ret = new Vector[length];
-        for(int i =0; i<length; i++){
-            ret[i] = sub(vA1[i],vA2[i]);
-        }
-        return ret;
-    }
-
-    public Vector[] arrDiv(Vector[] vA, float f){
-        int length = vA.Length;
-        Vector[] ret = new Vector[length];
-        for(int i =0; i<length; i++){
-            ret[i] = div(vA[i],f);
-        }
-        return ret;
-    }
+    public Vector[] arrDiv(Vector[] vA, float f) => wholeVectorList(div, vA, f);
+    
+    public Vector[] powList(Vector[] vA, float f) => wholeVectorList(pow, vA, f);
 
     public (Vector[] min, Vector[] max) arrMinMax(Vector[] curMin, Vector[] curMax, Vector[] vA){
         for (int i = 0; i < vA.Length; i++){
@@ -115,15 +61,39 @@ public class VectorHelper : IVectorHelper{
         Vector ret = vA[0];
         foreach (Vector v in vA) {
             if(v.y < ret.y){
-                ret.x = v.x;
-                ret.y = v.y;
-                ret.z = v.z;
+                wholeVector((x, y) => x = y , ret, v);
             }
         }
         return ret;
     }
 
-    public Vector wholeVector(){
-        return new Vector();
+    public Vector[] wholeVectorList(Apply_Vectors toVectorList, Vector[] vL1, Vector[] vL2){
+        var ret = new List<Vector>();
+        foreach (var v in vL1.Zip(vL2)) 
+            ret.Add(toVectorList(v.First, v.Second));
+        return ret.ToArray();
+    }
+
+    public Vector[] wholeVectorList(Scale_Vectors toVectorList, Vector[] vL, float f){
+        var ret = new List<Vector>();
+        foreach (var v in vL) 
+            ret.Add(toVectorList(v, f));
+        return ret.ToArray();
+    }
+
+    public Vector wholeVector(Apply toComponent, Vector v1, Vector v2){
+        return new Vector{
+            x = toComponent(v1.x , v2.x),
+            y = toComponent(v1.y , v2.y),
+            z = toComponent(v1.z , v2.z)
+        };
+    }
+
+    public Vector wholeVector(Apply toComponent, Vector v, float f){
+        return new Vector{
+            x = toComponent(v.x, f),
+            y = toComponent(v.y, f),
+            z = toComponent(v.z, f)
+        };
     }
 }

@@ -54,7 +54,7 @@ public class JointsHelper : IJointsHelper {
         (curMin.index  , curMax.index  ) = vh.arrMinMax(curMin.index  , curMax.index  , j.index  );
         (curMin.thumb  , curMax.thumb  ) = vh.arrMinMax(curMin.thumb  , curMax.thumb  , j.thumb  );
         (curMin.palm   , curMax.palm   ) =    vh.minMax(curMin.palm   , curMax.palm   , j.palm   );
-        return (null, null);
+        return (curMin, curMax);
     }
 
     public Joints square(Joints j){

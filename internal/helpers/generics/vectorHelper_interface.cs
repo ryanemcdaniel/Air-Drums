@@ -1,5 +1,9 @@
 using Leap;
 
+public delegate float Apply(float v1, float v2);
+public delegate Vector Apply_Vectors(Vector v1, Vector v2);
+public delegate Vector Scale_Vectors(Vector v, float f);
+
 public interface IVectorHelper{
 
     public (bool x, bool y, bool z) greaterEqual(Vector v1, Vector v2);
