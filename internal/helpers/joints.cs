@@ -1,4 +1,3 @@
-using System.Runtime.Intrinsics.X86;
 using Leap;
 
 public class Joints {
@@ -21,34 +20,6 @@ public class Joints {
         frameRate   =   0;
     }
 
-    public Joints(bool min){
-        pinky       =   new Vector[5];
-        ring        =   new Vector[5];
-        middle      =   new Vector[5];
-        index       =   new Vector[5];
-        thumb       =   new Vector[5];
-        palm        =   new Vector(float.MinValue, float.MinValue, float.MinValue);
-        frameRate   =   0;
-        if(min){
-            for(int i = 0 ; i < 5; i++) {
-                pinky[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);      
-                ring[i]     = new Vector(float.MinValue, float.MinValue, float.MinValue);
-                middle[i]   = new Vector(float.MinValue, float.MinValue, float.MinValue);
-                index[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);
-                thumb[i]    = new Vector(float.MinValue, float.MinValue, float.MinValue);
-            }
-        }else{
-            for(int i = 0 ; i < 5; i++) {
-                pinky[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);      
-                ring[i]     = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
-                middle[i]   = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
-                index[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
-                thumb[i]    = new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
-            }
-            palm        =   new Vector(float.MaxValue, float.MaxValue, float.MaxValue);
-        }
-    }
-
     public Joints(
         Vector[]    in1,
         Vector[]    in2,
@@ -58,14 +29,28 @@ public class Joints {
         Vector      in6,
         float       in7
     ){
-        pinky   =   in1;
-        ring    =   in2;
-        middle  =   in3;
-        index   =   in4;
-        thumb   =   in5;
-        palm    =   in6;
-        frameRate=  in7;
+        pinky     = in1;
+        ring      = in2;
+        middle    = in3;
+        index     = in4;
+        thumb     = in5;
+        palm      = in6;
+        frameRate = in7;
     }
+
+    public Joints Clone() {
+        return new Joints{
+            pinky     = this.pinky    ,
+            ring      = this.ring     ,
+            middle    = this.middle   ,
+            index     = this.index    ,
+            thumb     = this.thumb    ,
+            palm      = this.palm     ,
+            frameRate = this.frameRate
+        };
+    }
+
+    public Vector[] Tips() => new[]{pinky[4], ring[4], middle[4], index[4], thumb[4]};
 
     public Vector[] ToArray() {
         var ret = new Vector[26];
@@ -75,7 +60,7 @@ public class Joints {
         index  .CopyTo(ret, 15);
         thumb  .CopyTo(ret, 20);
         ret[25] = palm;
-        return null;
+        return ret;
     }
     
     public string TipsToString() {

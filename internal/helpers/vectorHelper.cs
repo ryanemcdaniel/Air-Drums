@@ -30,7 +30,6 @@ public partial class VectorHelper : IVectorHelper{
         return ret.ToArray();
     }
     
-    
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v) => (min(curMin, v), max(curMax, v));
 
     public (Vector[] min, Vector[] max) minMaxList(Vector[] curMin, Vector[] curMax, Vector[] vA){

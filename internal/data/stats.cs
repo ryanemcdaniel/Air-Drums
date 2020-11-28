@@ -21,7 +21,7 @@ public class Stats : IStats {
     }
 
     public Joints range(List<Joints> jL){
-        (var min, var max) = (new Joints(false), new Joints(true));
+        (var min, var max) = (jL[0].Clone(), jL[0].Clone());
         foreach (var j in jL) {
             (min, max) = jh.minMax(min, max, j);
         }

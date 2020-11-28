@@ -6,7 +6,7 @@ using System.Linq;
 
 public class jointsHelper_test {
 
-    [Fact] public void Add(){
+    [Fact] public void Add() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_j1 = hg.newJoints();
@@ -35,7 +35,7 @@ public class jointsHelper_test {
         test.jointsEqual(exp_j, act_j);
     }
 
-    [Fact] public void Sub(){
+    [Fact] public void Sub() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_j1 = hg.newJoints();
@@ -64,7 +64,7 @@ public class jointsHelper_test {
         test.jointsEqual(exp_j, act_j);
     }
 
-    [Fact] public void Div_Int(){
+    [Fact] public void Div_Int() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_j1 = hg.newJoints();
@@ -93,7 +93,7 @@ public class jointsHelper_test {
         test.jointsEqual(exp_j, act_j);
     }
 
-    [Fact] public void Div_Float(){
+    [Fact] public void Div_Float() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_j1 = hg.newJoints();
@@ -122,7 +122,7 @@ public class jointsHelper_test {
         test.jointsEqual(exp_j, act_j);
     }
 
-    [Fact] public void Pow(){
+    [Fact] public void Pow() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         var dat_j1 = hg.newJoints();
@@ -147,7 +147,7 @@ public class jointsHelper_test {
         test.jointsEqual(act_j,exp_j);
     }
 
-    [Fact] public void LowestJoint(){
+    [Fact] public void LowestJoint() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         Hand dat_hand = hg.newHand(hg.newFingerList());
