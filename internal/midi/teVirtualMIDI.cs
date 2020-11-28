@@ -130,7 +130,7 @@ namespace TobiasErichsen.teVirtualMIDI {
 	// Only change we have made to TeVirtualMIDI is shortening lines
 	// This change is solely for the purpose of Moq unit testing
 	// We now have TeVirtualMIDI implementing our custom interface
-	public class TeVirtualMIDI : IteVirtualMIDI {
+	public class TeVirtualMIDI : ITeVirtualMIDI {
 
 		/* default size of sysex-buffer */
 		private const UInt32 TE_VM_DEFAULT_SYSEX_SIZE = 65535;
@@ -280,14 +280,12 @@ namespace TobiasErichsen.teVirtualMIDI {
 			return virtualMIDILogging(loggingMask);
 		}
 
-
 		public void shutdown() {
 			if ( !virtualMIDIShutdown( fInstance ) ) {
 				int lastError = Marshal.GetLastWin32Error();
 				TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
 			}
 		}
-
 
 		public void sendCommand( byte[] command ) {
 			if ( ( command == null ) || ( command.Length == 0 ) ) {
@@ -299,7 +297,6 @@ namespace TobiasErichsen.teVirtualMIDI {
 				TeVirtualMIDIException.ThrowExceptionForReasonCode(lastError);
 			}
 		}
-
 
 		public byte[] getCommand( ) {
 			UInt32 length = fMaxSysexLength;
@@ -329,7 +326,6 @@ namespace TobiasErichsen.teVirtualMIDI {
 			Array.Copy( fReadProcessIds, outIds, count );
 			return outIds;
 		}
- 
 
 		private byte[] fReadBuffer;
 		private IntPtr fInstance;

@@ -1,6 +1,6 @@
 using System;
 
-public interface IteVirtualMIDI {
+public interface ITeVirtualMIDI {
     public UInt32 logWithMask(UInt32 loggingMask);
     public void shutdown();
     public void sendCommand( byte[] command );

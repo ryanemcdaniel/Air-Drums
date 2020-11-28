@@ -2,7 +2,7 @@
 using TobiasErichsen.teVirtualMIDI;
 
 public class Port : IPort {
-    private static TeVirtualMIDI port;
+    private static ITeVirtualMIDI port;
     private static byte[] c_midC_on = { 0b10011010, 0b00111100, 0b01111111 };
     private static byte[] c_midC_off = { 0b10001010, 0b00111100, 0b01111111 };
     private static byte[] c_play = { 0b11111010, 0 ,0 };
