@@ -4,7 +4,7 @@ namespace Global {
     public static class GBL {
 
         static GBL(){
-            N_SAMPLES           = 0;            // Controls number of frames we analyze at a time
+            N_SAMPLES           = 15;            // Controls number of frames we analyze at a time
 
             UH_FREQUENCY        = 0;
 

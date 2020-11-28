@@ -1,18 +1,4 @@
-using System.Reflection;
-using System.Collections.Generic;
 using Leap;
-
-public interface IJointsHelper {
-    public Vector[] fingerToVectors(Finger f);
-    public Joints handToJoints(Hand h);
-    public Joints add(Joints j1, Joints j2);
-    public Joints sub(Joints j1, Joints j2);
-    public Joints div(Joints j1, int i);
-    public Joints div(Joints j1, float f);
-    public Vector lowestJoint(Hand h);
-    public (Joints min, Joints max) minMax(Joints curMin, Joints curMax, Joints j);
-    public Joints square(Joints j);
-}
 
 public class JointsHelper : IJointsHelper {
     
@@ -41,53 +27,13 @@ public class JointsHelper : IJointsHelper {
         );
     }
 
-    public Joints add(Joints j1, Joints j2){
-        return new Joints(
-            vh.arrAdd(j1.pinky, j2.pinky),
-            vh.arrAdd(j1.ring, j2.ring),
-            vh.arrAdd(j1.middle, j2.middle),
-            vh.arrAdd(j1.index, j2.index),
-            vh.arrAdd(j1.thumb, j2.thumb),
-            vh.add(j1.palm, j2.palm),
-            0
-        );
-    }
+    public Joints add(Joints j1, Joints j2) => wholeJoint(vh.add, vh.arrAdd, j1, j2);
     
-    public Joints sub(Joints j1, Joints j2){
-        return new Joints(
-            vh.arrSub(j1.pinky,     j2.pinky),
-            vh.arrSub(j1.ring,      j2.ring),
-            vh.arrSub(j1.middle,    j2.middle),
-            vh.arrSub(j1.index,     j2.index),
-            vh.arrSub(j1.thumb,     j2.thumb),
-            vh.sub(j1.palm,         j2.palm),
-            0
-        );
-    }
+    public Joints sub(Joints j1, Joints j2)  => wholeJoint(vh.sub, vh.arrSub, j1, j2);
 
-    public Joints div(Joints j1, int i){
-        return new Joints(
-            vh.arrDiv(j1.pinky, i),
-            vh.arrDiv(j1.ring,  i),
-            vh.arrDiv(j1.middle,i),
-            vh.arrDiv(j1.index, i),
-            vh.arrDiv(j1.thumb, i),
-            vh.div(j1.palm,     i),
-            0
-        );
-    }
+    public Joints div(Joints j, float f) => wholeJoint(vh.div, vh.arrDiv, j, f);
 
-    public Joints div(Joints j1, float i){
-        return new Joints(
-            vh.arrDiv(j1.pinky, i),
-            vh.arrDiv(j1.ring,  i),
-            vh.arrDiv(j1.middle,i),
-            vh.arrDiv(j1.index, i),
-            vh.arrDiv(j1.thumb, i),
-            vh.div(j1.palm,     i),
-            0
-        );
-    }
+    public Joints pow(Joints j, float f)  => wholeJoint(vh.pow, vh.powList, j, f);
 
     public Vector lowestJoint(Hand h){
         Joints j = handToJoints(h);
@@ -113,12 +59,36 @@ public class JointsHelper : IJointsHelper {
 
     public Joints square(Joints j){
         return new Joints(
-            vh.squareList(j.pinky),
-            vh.squareList(j.ring),
-            vh.squareList(j.middle),
-            vh.squareList(j.index),
-            vh.squareList(j.thumb),
-            vh.square(j.palm),
+            vh.powList(j.pinky  , 2),
+            vh.powList(j.ring   , 2),
+            vh.powList(j.middle , 2),
+            vh.powList(j.index  , 2),
+            vh.powList(j.thumb  , 2),
+            vh.    pow(j.palm   , 2),
+            0
+        );
+    }
+
+    public Joints wholeJoint(Apply_Vectors toPalm, Apply_VectorLists toFinger, Joints j1, Joints j2){
+        return new Joints(
+            toFinger(j1.pinky  , j2.pinky  ),
+            toFinger(j1.ring   , j2.ring   ),
+            toFinger(j1.middle , j2.middle ),
+            toFinger(j1.index  , j2.index  ),
+            toFinger(j1.thumb  , j2.thumb  ),
+            toPalm  (j1.palm   , j2.palm   ),
+            0
+        );
+    }
+
+    public Joints wholeJoint(Scale_Vectors toPalm, Scale_VectorLists toFinger, Joints j, float f){
+        return new Joints(
+            toFinger(j.pinky  , f),
+            toFinger(j.ring   , f),
+            toFinger(j.middle , f),
+            toFinger(j.index  , f),
+            toFinger(j.thumb  , f),
+            toPalm  (j.palm   , f),
             0
         );
     }

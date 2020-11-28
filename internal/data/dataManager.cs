@@ -9,7 +9,6 @@ public interface IDataManager {
 
 public class DataManager : IDataManager {
 
-    private Controller c;
     private IQueues left;
     private IQueues right;
 

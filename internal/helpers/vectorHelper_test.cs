@@ -8,11 +8,11 @@ public class vectorHelper_test{
         Assert.True(false);
     }
 
-    [Fact] public void Square(){
+    [Fact] public void Pow(){
         Assert.True(false);
     }
 
-    [Fact] public void SquareList(){
+    [Fact] public void PowList(){
         Assert.True(false);
     }
 
