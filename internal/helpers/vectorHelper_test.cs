@@ -1,19 +1,41 @@
 using Xunit;
 using Leap;
+using System;
 using System.Linq;
 
 public class vectorHelper_test{
 
-    [Fact] public void GreaterEqual() {
-        Assert.True(false);
-    }
-
     [Fact] public void Pow(){
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Vector v1 = dg.newVector();
+        float f = dg.newFloat(100);
+
+        Vector exp = new Vector{
+            x =(float) Math.Pow(v1.x, f),
+            y = (float) Math.Pow(v1.y,f),
+            z = (float) Math.Pow(v1.z, f)
+        };
+
+        VectorHelper v = new VectorHelper();
+        Vector act = v.pow(v1,f);
+        test.vectorEqual(act,exp);
     }
 
     [Fact] public void PowList(){
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        float f = dg.newFloat(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector[] exp = dg.newZeroVectors(length);
+        for(int i =0; i<length; i++)
+        {
+            exp[i].x = (float) Math.Pow(v1[i].x,f);
+            exp[i].y = (float) Math.Pow(v1[i].y,f);
+            exp[i].z = (float) Math.Pow(v1[i].z,f);
+        }
+        VectorHelper v = new VectorHelper();
+        Vector[] act = v.powList(v1,f);
+        test.vectorsEqual(act,exp);
     }
 
     [Fact] public void Add() {
