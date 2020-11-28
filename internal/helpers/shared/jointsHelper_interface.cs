@@ -16,6 +16,6 @@ public interface IJointsHelper {
 
     public (Joints min, Joints max) minMax(Joints curMin, Joints curMax, Joints j);
 
-    public Joints square(Joints j);
+    public Joints pow(Joints j,float f);
     
 }
