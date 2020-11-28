@@ -220,4 +220,13 @@ public class vectorHelper_test{
 
         test.vectorEqual(exp, act);
     }
+
+    [Fact] public void GreaterEqual() {
+        Assert.True(false);
+    }
+
+    [Fact] public void GreaterEqualList() {
+        Assert.True(false);
+    }
+
 }
