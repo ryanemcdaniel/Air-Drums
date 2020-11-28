@@ -1,3 +1,4 @@
+using System.Runtime.Serialization.Json;
 using System;
 using System.Collections.Generic;
 using Leap;
@@ -13,6 +14,10 @@ public class Data_Generator {
 
     public int newInt(int range){
         return rand.Next(range) + 1;
+    }
+
+    public bool newBool() {
+        return newInt(1) % 2 == 0 ? true : false;
     }
 
     public long newLong(long range){
@@ -52,6 +57,14 @@ public class Data_Generator {
     public AmplitudeModulationControlPoint newAmplitudeModulationControlPoint(){
         Vector3  Temp = new Vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
         return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));
+    }
+
+    public (bool x, bool y, bool z) newBoolTuple() => (newBool(), newBool(), newBool());
+
+    public (bool x, bool y, bool z)[] newBoolTupleList(int len) {
+        var ret = new (bool, bool, bool)[len];
+        for (int i = 0; i< ret.Length; i++) ret[i] = newBoolTuple();
+        return ret;
     }
 
 }

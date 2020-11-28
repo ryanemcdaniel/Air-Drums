@@ -3,11 +3,15 @@ using Global;
 
 public class Classify : IClassify {
 
-    public Classify(){}
+    private IVectorHelper vh;
+
+    public Classify(IVectorHelper vecH) {
+        vh = vecH;
+    }
 
     public bool IsGesture(Joints range) {
         var check = GBL.NO_GESTURE_RANGE;
-        
+
 
 
 
