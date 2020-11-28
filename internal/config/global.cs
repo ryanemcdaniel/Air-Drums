@@ -33,6 +33,12 @@ namespace Global {
                 y = 0,
                 z = 0
             };
+
+            NO_GESTURE_RANGE = new Vector{
+                x = 100,
+                y = 100,
+                z = 100
+            };
         }
 
         public static int       N_SAMPLES;

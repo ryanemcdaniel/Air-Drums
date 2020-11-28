@@ -17,7 +17,7 @@ public class Data_Generator {
     }
 
     public bool newBool() {
-        return newInt(1) % 2 == 0 ? true : false;
+        return newInt(2) % 2 == 0 ? true : false;
     }
 
     public long newLong(long range){

@@ -1,5 +1,6 @@
 using Leap;
 using Global;
+using System.Collections.Generic;
 
 public class Classify : IClassify {
 
@@ -10,13 +11,14 @@ public class Classify : IClassify {
     }
 
     public bool IsGesture(Joints range) {
-        var check = GBL.NO_GESTURE_RANGE;
+        var flag = false;
 
-
-
-
-
-        return false;
+        foreach (var v in range.ToArray()){
+            var checks = vh.greaterEqual(v, GBL.NO_GESTURE_RANGE);
+            if (checks.x || checks.y || checks.z) flag = true;
+        }
+        
+        return flag;
     }
 
     public bool IsTap() {
