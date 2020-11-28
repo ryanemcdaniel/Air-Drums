@@ -8,31 +8,13 @@ public partial class JointsHelper : IJointsHelper {
         vh = vectorHelper;
     }
 
-    public Vector[] fingerToVectors(Finger f){
-        Vector[] ret = new Vector[f.bones.Length + 1];
-        for(int i = 0; i < f.bones.Length; i++) ret[i] = f.bones[i].PrevJoint;
-        ret[ret.Length - 1] = f.bones[f.bones.Length - 1].NextJoint;
-        return ret;
-    }
+    // Basic Joint operations
+    public Joints add   (Joints j1, Joints j2)  => wholeJoint(vh.add, vh.addList, j1, j2 );
+    public Joints sub   (Joints j1, Joints j2)  => wholeJoint(vh.sub, vh.subList, j1, j2 );
+    public Joints div   (Joints j, float f)     => wholeJoint(vh.div, vh.divList, j, f );
+    public Joints pow   (Joints j, float f)     => wholeJoint(vh.pow, vh.powList, j, f );
 
-    public Joints handToJoints(Hand h){
-        return new Joints(
-            fingerToVectors(h.Fingers[0]),
-            fingerToVectors(h.Fingers[1]),
-            fingerToVectors(h.Fingers[2]),
-            fingerToVectors(h.Fingers[3]),
-            fingerToVectors(h.Fingers[4]),
-            h.PalmPosition,
-            0
-        );
-    }
-
-    public Joints add(Joints j1, Joints j2) => wholeJoint(vh.add, vh.addList, j1, j2);
-    
-    public Joints sub(Joints j1, Joints j2)  => wholeJoint(vh.sub, vh.subList, j1, j2);
-
-    public Joints div(Joints j, float f) => wholeJoint(vh.div, vh.divList, j, f);
-
+    // Advanced hand operations
     public Vector lowestJoint(Hand h){
         Joints j = handToJoints(h);
         Vector[] ret = new Vector[6];
@@ -51,10 +33,28 @@ public partial class JointsHelper : IJointsHelper {
         (curMin.middle , curMax.middle ) = vh.minMaxList(curMin.middle , curMax.middle , j.middle );
         (curMin.index  , curMax.index  ) = vh.minMaxList(curMin.index  , curMax.index  , j.index  );
         (curMin.thumb  , curMax.thumb  ) = vh.minMaxList(curMin.thumb  , curMax.thumb  , j.thumb  );
-        (curMin.palm   , curMax.palm   ) =    vh.minMax(curMin.palm   , curMax.palm   , j.palm   );
+        (curMin.palm   , curMax.palm   ) =     vh.minMax(curMin.palm   , curMax.palm   , j.palm   );
         return (curMin, curMax);
     }
 
-    public Joints pow(Joints j, float f) => wholeJoint(vh.pow,vh.powList,j, f);
+    // Joint building functions
+    public Vector[] fingerToVectors(Finger f){
+        Vector[] ret = new Vector[f.bones.Length + 1];
+        for(int i = 0; i < f.bones.Length; i++) ret[i] = f.bones[i].PrevJoint;
+        ret[ret.Length - 1] = f.bones[f.bones.Length - 1].NextJoint;
+        return ret;
+    }
+
+    public Joints handToJoints(Hand h){
+        return new Joints(
+            fingerToVectors(h.Fingers[0]),
+            fingerToVectors(h.Fingers[1]),
+            fingerToVectors(h.Fingers[2]),
+            fingerToVectors(h.Fingers[3]),
+            fingerToVectors(h.Fingers[4]),
+            h.PalmPosition,
+            0
+        );
+    }
 
 }

@@ -3,6 +3,14 @@ using Leap;
 
 public class Joints {
 
+    public Vector[] pinky;
+    public Vector[] ring;
+    public Vector[] middle;
+    public Vector[] index;
+    public Vector[] thumb;
+    public Vector   palm;
+    public float    frameRate;
+
     public Joints(){
         pinky       =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
         ring        =   new[]{new Vector(), new Vector(), new Vector(), new Vector(), new Vector()};
@@ -78,12 +86,4 @@ public class Joints {
                 "index  =" + index [4].ToString() + "\n" +
                 "thumb  =" + thumb [4].ToString() + "\n";
     }
-
-    public Vector[] pinky;
-    public Vector[] ring;
-    public Vector[] middle;
-    public Vector[] index;
-    public Vector[] thumb;
-    public Vector   palm;
-    public float    frameRate;
 }
