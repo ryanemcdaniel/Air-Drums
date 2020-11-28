@@ -1,13 +1,11 @@
 using Leap;
-using Global;
 
-public class Gesture : IGesture {
+public class Dispatch : IDispatch {
 
     private Controller c;
     private IDataManager dm;
-    private IStats s;
 
-    public Gesture(Controller controller, IDataManager dataManager, IStats stats){
+    public Dispatch(Controller controller, IDataManager dataManager){
         c = controller;
         dm = dataManager;
     }

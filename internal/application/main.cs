@@ -18,8 +18,7 @@ public class Air_Drums {
         Queues leftHand  = new Queues(jh);
         Queues rightHand = new Queues(jh);
         DataManager dm = new DataManager(leftHand, rightHand);
-        Stats s = new Stats(jh);
-        Gesture recognizer = new Gesture(leapMotion, dm, s);
-        recognizer.printOuts();
+        Dispatch threader = new Dispatch(leapMotion, dm);
+        threader.printOuts();
     }
 }

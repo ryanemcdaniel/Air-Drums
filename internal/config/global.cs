@@ -45,5 +45,6 @@ namespace Global {
         public static Vector    DIV_N;
         public static Vector    TAP_VEL;
         public static Vector    SWP_VEL;
+        public static Vector    NO_GESTURE_RANGE;
     }
 }
