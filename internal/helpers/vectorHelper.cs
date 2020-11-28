@@ -122,4 +122,8 @@ public class VectorHelper : IVectorHelper{
         }
         return ret;
     }
+
+    public Vector wholeVector(){
+        return new Vector();
+    }
 }
