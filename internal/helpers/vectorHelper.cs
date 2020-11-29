@@ -29,6 +29,12 @@ public partial class VectorHelper : IVectorHelper{
         foreach (var v in vA1.Zip(vA2)) ret.Add(greaterEqual(v.First, v.Second));
         return ret.ToArray();
     }
+    public (bool x, bool y, bool z)[] greaterEqualList(Vector[] vA1, Vector vA2){
+        var ret = new List<(bool x, bool y, bool z)>();
+        foreach (var v in vA1) ret.Add(greaterEqual(v,vA2));
+        return ret.ToArray();
+        
+    }
     
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v) => (min(curMin, v), max(curMax, v));
 

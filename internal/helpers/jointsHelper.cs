@@ -1,4 +1,5 @@
 using Leap;
+using System.Collections.Generic;
 
 public partial class JointsHelper : IJointsHelper {
     
@@ -55,6 +56,17 @@ public partial class JointsHelper : IJointsHelper {
             h.PalmPosition,
             0
         );
+    }
+
+    public (bool, bool, bool) greaterEqual(Joints j1, Joints j2)
+    {
+        return (false,false,false);
+    }
+
+    public (bool, bool, bool) greaterEqualList(Joints[] j1, Joints[] j2){
+        var ret = new List<(bool, bool, bool)>();
+
+        return (false, false,false);
     }
 
 }
