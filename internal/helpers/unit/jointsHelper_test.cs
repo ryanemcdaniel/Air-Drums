@@ -212,4 +212,22 @@ public class jointsHelper_test {
 
         test.jointsEqual(exp_joints, act_joints);
     }
+
+    [Fact] public void greaterEqual()
+    {
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        
+        var dat_j1 = hg.newJoints();
+        var dat_f = dg.newFloat(100);
+        var exp_j = hg.newJoints();
+        var mock_vh = new Mock<IVectorHelper>();
+        
+        Assert.True(false);
+    }
+
+        [Fact] public void greaterEqualList()
+    {
+        Assert.True(false);
+    }
 }
