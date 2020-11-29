@@ -50,7 +50,7 @@ public class Joints {
         };
     }
 
-    public Vector[] Tips() => new[]{pinky[4], ring[4], middle[4], index[4], thumb[4]};
+    public Vector[] TipsNoThumb() => new[]{pinky[4], ring[4], middle[4], index[4]};
 
     public Vector[] ToArray() {
         var ret = new Vector[26];
