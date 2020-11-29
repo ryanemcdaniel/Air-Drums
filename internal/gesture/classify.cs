@@ -7,15 +7,17 @@ public class Classify : IClassify {
 
     private IVectorHelper vh;
     private IStats s;
+    private List<Joints> pos;
+    private List<Joints> vel;
 
     public Classify(IVectorHelper vecH, IStats stats) {
         vh = vecH;
         s = stats;
     }
 
-    public bool IsMovement(List<Joints> pos) {
+    public bool IsMovement(List<Joints> positions) {
         var flag = false;
-        var range = s.range(pos);
+        var range = s.range(positions);
         foreach (var v in range.ToArray()){
             var checks = vh.greaterEqual(v, GBL.NO_GESTURE_RANGE);
             if (checks.x || checks.y || checks.z) flag = true;
