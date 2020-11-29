@@ -33,10 +33,11 @@ public partial class VectorHelper : IVectorHelper{
     public (Vector min, Vector max) minMax(Vector curMin, Vector curMax, Vector v) => (min(curMin, v), max(curMax, v));
 
     public (Vector[] min, Vector[] max) minMaxList(Vector[] curMin, Vector[] curMax, Vector[] vA){
+        (var retMin, var retMax) = (new Vector[curMin.Length], new Vector[curMin.Length]);
         for (int i = 0; i < vA.Length; i++){
-            (curMin[i], curMax[i]) = minMax(curMin[i], curMax[i], vA[i]);
+            (retMin[i], retMax[i]) = minMax(curMin[i], curMax[i], vA[i]);
         }
-        return (curMin, curMax);
+        return (retMin, retMax);
     }
 
     public Vector lowest(Vector[] vA) {

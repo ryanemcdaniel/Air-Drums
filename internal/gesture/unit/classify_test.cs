@@ -5,7 +5,7 @@ using Global;
 
 public class classify_test {
 
-    [Fact] public void IsGesture_True() {
+    [Fact] public void IsMovement_True() {
         var dg = new Data_Generator();
         var hg = new Hand_Generator(dg);
         
@@ -27,7 +27,7 @@ public class classify_test {
         mock_vh.Setup(m => m.greaterEqual(dat_range.palm, GBL.NO_GESTURE_RANGE)).Returns(exp_bool);
         
         var c = new Classify(mock_vh.Object);
-        var act = c.IsGesture(dat_range);
+        var act = c.IsMovement(dat_range);
 
         foreach (var v in dat_range.pinky) 
             mock_vh.Verify(m => m.greaterEqual(v, GBL.NO_GESTURE_RANGE), Times.Once());
@@ -44,7 +44,7 @@ public class classify_test {
         Assert.Equal(true, act);
     }
 
-    [Fact] public void IsGesture_False() {
+    [Fact] public void IsMovement_False() {
         var dg = new Data_Generator();
         var hg = new Hand_Generator(dg);
         
@@ -66,7 +66,7 @@ public class classify_test {
         mock_vh.Setup(m => m.greaterEqual(dat_range.palm, GBL.NO_GESTURE_RANGE)).Returns(exp_bool);
         
         var c = new Classify(mock_vh.Object);
-        var act = c.IsGesture(dat_range);
+        var act = c.IsMovement(dat_range);
 
         foreach (var v in dat_range.pinky) 
             mock_vh.Verify(m => m.greaterEqual(v, GBL.NO_GESTURE_RANGE), Times.Once());
@@ -81,6 +81,10 @@ public class classify_test {
         mock_vh.Verify(m => m.greaterEqual(dat_range.palm, GBL.NO_GESTURE_RANGE), Times.Once());
         
         Assert.Equal(false, act);
+    }
+
+    [Fact] public void IsTap_True() {
+        Assert.True(false);
     }
 
 }

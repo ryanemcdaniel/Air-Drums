@@ -24,7 +24,7 @@ public class Queues : IQueues {
 
         if(samples.Count > 1){
             var temp = jh.sub(positions[positions.Count - 1], positions[positions.Count - 2]);
-            velocities.Add(jh.div(temp, 0.05f));
+            velocities.Add(jh.div(temp, 0.02f));
         }
 
         if(samples.Count > GBL.N_SAMPLES){

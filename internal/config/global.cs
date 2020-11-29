@@ -22,9 +22,21 @@ namespace Global {
                 z = 0
             };
 
-            TAP_VEL             = new Vector{
+            TAP_VEL_RANGE             = new Vector{
                 x = 0,
-                y = 0,
+                y = 400,
+                z = 0
+            };
+
+            TAP_POS_RANGE             = new Vector{
+                x = 100,
+                y = 200,
+                z = 100
+            };
+
+            TAP_VEL_AVE             = new Vector{
+                x = 0,
+                y = -500,
                 z = 0
             };
             
@@ -35,9 +47,9 @@ namespace Global {
             };
 
             NO_GESTURE_RANGE = new Vector{
-                x = 100,
-                y = 100,
-                z = 100
+                x = 150,
+                y = 150,
+                z = 150
             };
         }
 
@@ -49,7 +61,9 @@ namespace Global {
 
         public static Vector    DIV_P;
         public static Vector    DIV_N;
-        public static Vector    TAP_VEL;
+        public static Vector    TAP_VEL_AVE;
+        public static Vector    TAP_VEL_RANGE;
+        public static Vector    TAP_POS_RANGE;
         public static Vector    SWP_VEL;
         public static Vector    NO_GESTURE_RANGE;
     }
