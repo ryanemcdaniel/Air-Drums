@@ -243,7 +243,7 @@ public class vectorHelper_test{
         test.Equals(exp_z,act_z);
     }
 
-    [Fact] public void GreaterEqualList() {
+    [Fact] public void greaterEqualListOneToOne() {
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
         Vector[] v1 = dg.newVectors(length);
@@ -265,7 +265,34 @@ public class vectorHelper_test{
         }
         VectorHelper v = new VectorHelper();
         var act_tupleList = new (bool act_x, bool act_y, bool act_z)[length];
-        act_tupleList = v.greaterEqualList(v1,v2);
+        act_tupleList = v.greaterEqualListOneToOne(v1,v2);
+        for(int i = 0; i<length; i++){
+            test.Equals(act_tupleList[i],exp_tupleList[i]);
+        }
+    }
+    [Fact] public void greaterEqualListOnetoMany() {
+        Data_Generator dg = new Data_Generator();
+        int length = dg.newInt(100);
+        Vector[] v1 = dg.newVectors(length);
+        Vector v2 = dg.newVector();
+        
+        var exp_tupleList = new (bool exp_x, bool exp_y, bool exp_z)[length];
+        exp_tupleList = dg.newBoolTupleList(length);
+        for(int i = 0; i< length;i++)
+        {
+            if(v1[i].x >= v2.x){
+                exp_tupleList[i].exp_x = true;
+            }
+            if(v1[i].y >= v2.y){
+                exp_tupleList[i].exp_y = true;
+            }
+            if(v1[i].z >= v2.z){
+                exp_tupleList[i].exp_z = true;
+            }
+        }
+        VectorHelper v = new VectorHelper();
+        var act_tupleList = new (bool act_x, bool act_y, bool act_z)[length];
+        act_tupleList = v.greaterEqualListOnetoMany(v1,v2);
         for(int i = 0; i<length; i++){
             test.Equals(act_tupleList[i],exp_tupleList[i]);
         }
