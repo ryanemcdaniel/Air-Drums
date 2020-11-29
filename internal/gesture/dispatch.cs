@@ -14,34 +14,24 @@ public class Dispatch : IDispatch {
     
     public void printOuts(){
         Stats s = new Stats(new JointsHelper(new VectorHelper()));
-        Classify classify = new Classify(new VectorHelper());
+        Classify gesture = new Classify(new VectorHelper(), s);
 
         for (;;) {
             dm.Extract(c.Frame());
             System.Threading.Thread.Sleep(20);
 
-            var positions = dm.positions();
-            
-            if(positions.right.Count == Global.GBL.N_SAMPLES) {
-                var rangeRight = s.range(positions.right);
-                var velocities = dm.velocities();
-                
-                if ( classify.IsMovement(rangeRight)) {
-                    // Console.WriteLine(positions.right[Global.GBL.N_SAMPLES - 2].ToString());
-                    // Console.WriteLine(rangeRight);
+            var pos = dm.positions();
+            var vel = dm.velocities();
 
-                    if ( classify.IsTap(rangeRight, s.average(velocities.right), s.range(velocities.right)) ){
-                        Console.WriteLine("Tap!");
-                    }
+            if(pos.right.Count != Global.GBL.N_SAMPLES) continue;
 
+            if(gesture.IsMovement(pos.right)){
+
+                if(gesture.IsTap(pos.right, vel.right)){
+                    Console.WriteLine("Tap!");
                 }
 
-
             }
-            
-
-
-
         }
 
     }

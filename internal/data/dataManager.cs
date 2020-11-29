@@ -12,6 +12,10 @@ public class DataManager : IDataManager {
     }
 
     public void Extract(Frame f){
+        if(f.Hands.Count == 0) {
+            left.Clear();
+            right.Clear();
+        }
         foreach(var h in f.Hands){
             if(h.IsLeft) left.LoadSample(h, f.CurrentFramesPerSecond);
             else right.LoadSample(h, f.CurrentFramesPerSecond); 
