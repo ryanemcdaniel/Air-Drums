@@ -2,8 +2,9 @@ using Ultrahaptics;
 using Leap;
 using Xunit;
 using Global;
-public class Haptic_Test{
-
+using System.Collections.Generic;
+public class Target_Test{
+    
     [Fact]
     public void AquireTarget_Passes(){
         Data_Generator dg = new Data_Generator();
@@ -35,5 +36,17 @@ public class Haptic_Test{
         Assert.Equal(exp.getPosition().x,act.getPosition().x);
         Assert.Equal(exp.getPosition().y,act.getPosition().z);
         Assert.Equal(-1 * exp.getPosition().z,act.getPosition().y);
+    }
+
+    [Fact]
+    public void updateEmitter_Passes()
+    {
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        int length = dg.newInt(100);
+
+        List<AmplitudeModulationControlPoint> points = dg.newAmplitudeModulationControlPointList(length);
+        AmplitudeModulationEmitter exp = new AmplitudeModulationEmitter();
+        Assert.True(false);
     }
 }

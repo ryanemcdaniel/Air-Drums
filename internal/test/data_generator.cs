@@ -59,6 +59,12 @@ public class Data_Generator {
         return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));
     }
 
+    public List<AmplitudeModulationControlPoint> newAmplitudeModulationControlPointList(int len){
+        List<AmplitudeModulationControlPoint> ret = new List<AmplitudeModulationControlPoint>();
+        for (int i = 0; i < len; i++){ ret.Add(newAmplitudeModulationControlPoint()); }
+        return ret;
+    }
+
     public (bool x, bool y, bool z) newBoolTuple() => (newBool(), newBool(), newBool());
 
     public (bool x, bool y, bool z)[] newBoolTupleList(int len) {
