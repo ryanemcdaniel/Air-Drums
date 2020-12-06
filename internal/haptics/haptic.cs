@@ -6,8 +6,10 @@ using System;
 
 public class Haptic{
     public JointsHelper hh;
-    public Haptic(JointsHelper hand){
+    public AmplitudeModulationEmitter ee;
+    public Haptic(JointsHelper hand, AmplitudeModulationEmitter emitter){
         hh = hand;
+        ee = emitter;
     }
     public List<AmplitudeModulationControlPoint> AquireTarget(Hand h)
     {

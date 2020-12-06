@@ -29,7 +29,7 @@ public class Target_Test{
             1
         );
         
-        Haptic h = new Haptic(new JointsHelper(new VectorHelper()));
+        Haptic h = new Haptic(new JointsHelper(new VectorHelper()),new AmplitudeModulationEmitter());
         List<AmplitudeModulationControlPoint> act = h.AquireTarget(inp_hand);
         GBL.UH_INTENSITY = org_UH_INTENSITY;
         GBL.UH_FREQUENCY = org_UH_FREQUENCY;
@@ -52,7 +52,7 @@ public class Target_Test{
         var Hand = hg.newHand(Fingers);
         bool exp = false;
         bool act = false;
-        var haptic = new Haptic(jh);
+        var haptic = new Haptic(jh,new AmplitudeModulationEmitter());
         var points = haptic.AquireTarget(Hand);
         exp = mock_emitter.update(points);
         act = haptic.updateEmitter(points,mock_emitter);
