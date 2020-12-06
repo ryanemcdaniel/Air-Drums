@@ -55,7 +55,7 @@ public class Target_Test{
         var haptic = new Haptic(jh,new AmplitudeModulationEmitter());
         var points = haptic.AquireTarget(Hand);
         exp = mock_emitter.update(points);
-        act = haptic.updateEmitter(points,mock_emitter);
+        act = haptic.updateEmitter(points);
 
         Assert.Equal(exp,act);
     }

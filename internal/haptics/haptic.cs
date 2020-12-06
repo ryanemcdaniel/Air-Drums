@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using System;
 
 public class Haptic{
-    public JointsHelper hh;
+    public JointsHelper jh;
     public AmplitudeModulationEmitter ee;
     public Haptic(JointsHelper hand, AmplitudeModulationEmitter emitter){
-        hh = hand;
+        jh = hand;
         ee = emitter;
     }
     public List<AmplitudeModulationControlPoint> AquireTarget(Hand h)
     {
-        Vector temp = hh.lowestJoint(h);
+        Vector temp = jh.lowestJoint(h);
         AmplitudeModulationControlPoint point = new AmplitudeModulationControlPoint(
             temp.x,
             temp.z,
@@ -26,8 +26,8 @@ public class Haptic{
         return Points;
     }
     
-    public bool updateEmitter(List<AmplitudeModulationControlPoint> positions, AmplitudeModulationEmitter emitter){
-        bool IsUpdated = emitter.update(positions);
+    public bool updateEmitter(List<AmplitudeModulationControlPoint> positions){
+        bool IsUpdated = ee.update(positions);
         if (IsUpdated){
             Console.WriteLine("Emitter successfully updated!");
         }

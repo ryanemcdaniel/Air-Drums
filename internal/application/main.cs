@@ -30,15 +30,19 @@ public class Air_Drums {
     VectorHelper vh = new VectorHelper();
     JointsHelper jh = new JointsHelper(vh);
     GBL.UH_INTENSITY = 1.0f;
-    GBL.UH_FREQUENCY = 200.0f;
+    GBL.UH_FREQUENCY = 100.0f;
     AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();
     Haptic kit = new Haptic(jh,emitter);
 
     var Fingers = hg.newFingerList();
     var Hand = hg.newHand(Fingers);
     var points = kit.AquireTarget(Hand);
-    kit.updateEmitter(points,emitter);
-    //System.Threading.Thread.Sleep(1000);
+    Console.WriteLine("X:",points[0].getPosition().x);
+    Console.WriteLine("Y:",points[0].getPosition().y);
+    Console.WriteLine("Z:",points[0].getPosition().z);
+
+    kit.updateEmitter(points);
+    System.Threading.Thread.Sleep(3000);
     emitter.stop();
     emitter.Dispose();
     emitter = null;
