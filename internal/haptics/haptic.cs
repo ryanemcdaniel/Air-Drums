@@ -9,45 +9,30 @@ public class Haptic{
     public Haptic(JointsHelper hand){
         hh = hand;
     }
-    public AmplitudeModulationControlPoint AquireTarget(Hand h)
+    public List<AmplitudeModulationControlPoint> AquireTarget(Hand h)
     {
         Vector temp = hh.lowestJoint(h);
-        return new AmplitudeModulationControlPoint(
+        AmplitudeModulationControlPoint point = new AmplitudeModulationControlPoint(
             temp.x,
             temp.z,
             -1 * temp.y,
             GBL.UH_INTENSITY,
             GBL.UH_FREQUENCY
         );
+        List<AmplitudeModulationControlPoint> Points = new List<AmplitudeModulationControlPoint>();
+        Points.Add(point);
+        return Points;
     }
-        
-    public AmplitudeModulationEmitter createEmitter(){
-        AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();
-        return emitter;
-    }
-
-    public AmplitudeModulationEmitter updateEmitter(List<AmplitudeModulationControlPoint> positions){
-        AmplitudeModulationEmitter emitter = new AmplitudeModulationEmitter();
-        if (emitter.update(positions)){
-            return emitter;
+    
+    public bool updateEmitter(List<AmplitudeModulationControlPoint> positions, AmplitudeModulationEmitter emitter){
+        bool IsUpdated = emitter.update(positions);
+        if (IsUpdated){
+            Console.WriteLine("Emitter successfully updated!");
         }
         else { 
-            Console.WriteLine("Emitter update Failure");
-            return null;
+            Console.WriteLine("Emitter failed to update!");
         }  
-    }
-
-    public void stopEmitting(AmplitudeModulationEmitter emitter){
-        emitter.stop();
-    }
-
-    // public bool isEmitting() {
-    //     return true;
-    // }
-
-    public void destroyEmitter(AmplitudeModulationEmitter emitter){
-        emitter.Dispose();
-        emitter = null;
+        return IsUpdated;
     }
 }
 

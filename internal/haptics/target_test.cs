@@ -30,12 +30,13 @@ public class Target_Test{
         );
         
         Haptic h = new Haptic(new JointsHelper(new VectorHelper()));
-        AmplitudeModulationControlPoint act = h.AquireTarget(inp_hand);
+        List<AmplitudeModulationControlPoint> act = h.AquireTarget(inp_hand);
         GBL.UH_INTENSITY = org_UH_INTENSITY;
         GBL.UH_FREQUENCY = org_UH_FREQUENCY;
-        Assert.Equal(exp.getPosition().x,act.getPosition().x);
-        Assert.Equal(exp.getPosition().y,act.getPosition().z);
-        Assert.Equal(-1 * exp.getPosition().z,act.getPosition().y);
+
+        Assert.Equal(exp.getPosition().x,act[0].getPosition().x);
+        Assert.Equal(exp.getPosition().y,act[0].getPosition().z);
+        Assert.Equal(-1 * exp.getPosition().z,act[0].getPosition().y);
     }
 
     [Fact]
@@ -43,10 +44,19 @@ public class Target_Test{
     {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
-        int length = dg.newInt(100);
+        VectorHelper vh = new VectorHelper();
+        JointsHelper jh = new JointsHelper(vh);
+        AmplitudeModulationEmitter mock_emitter = new AmplitudeModulationEmitter("MockDevice:U5;logfile=log.txt");
 
-        List<AmplitudeModulationControlPoint> points = dg.newAmplitudeModulationControlPointList(length);
-        AmplitudeModulationEmitter exp = new AmplitudeModulationEmitter();
-        Assert.True(false);
+        var Fingers = hg.newFingerList();
+        var Hand = hg.newHand(Fingers);
+        bool exp = false;
+        bool act = false;
+        var haptic = new Haptic(jh);
+        var points = haptic.AquireTarget(Hand);
+        exp = mock_emitter.update(points);
+        act = haptic.updateEmitter(points,mock_emitter);
+
+        Assert.Equal(exp,act);
     }
 }
