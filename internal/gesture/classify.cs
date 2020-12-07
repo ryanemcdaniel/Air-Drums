@@ -41,8 +41,6 @@ public class Classify : IClassify {
             return false;
         };
 
-        // XZ movement rejection
-
         // Zero acceleration rejection
         var velRange = vh.average(s.range(vel).TipsNoThumb()).y;
         if (velRange < 150) {
