@@ -14,10 +14,11 @@ public class Haptic{
     public List<AmplitudeModulationControlPoint> AquireTarget(Hand h)
     {
         Vector temp = jh.lowestJoint(h);
+        Console.WriteLine(temp.ToString());
         AmplitudeModulationControlPoint point = new AmplitudeModulationControlPoint(
             temp.x,
-            temp.z,
-            -1 * temp.y,
+            temp.z * -1,
+            temp.y,
             GBL.UH_INTENSITY,
             GBL.UH_FREQUENCY
         );

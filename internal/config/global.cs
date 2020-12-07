@@ -7,8 +7,8 @@ namespace Global {
         public static int       N_SAMPLES = 10;
         public static int       N_LOOKBACK = 9;
         
-        public static float     UH_INTENSITY = 0;
-        public static float     UH_FREQUENCY = 0;
+        public static float     UH_INTENSITY = 1.0f;
+        public static float     UH_FREQUENCY = 200.0f;
         
         public static Vector    TAP_VEL_RANGE             = new Vector{
             x = 0,
