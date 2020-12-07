@@ -22,6 +22,8 @@ public class Queues : IQueues {
         samples.Add(h);
         positions.Add(jh.handToJoints(h));
 
+        if (samples.Count == 1) velocities.Add(new Joints());
+
         if(samples.Count > 1){
             var temp = jh.sub(positions[positions.Count - 1], positions[positions.Count - 2]);
             velocities.Add(jh.div(temp, 0.02f));

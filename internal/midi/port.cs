@@ -3,8 +3,12 @@ using TobiasErichsen.teVirtualMIDI;
 
 public class Port : IPort {
     private static ITeVirtualMIDI port;
-    private static byte[] c_midC_on = { 0b10011010, 0b00111100, 0b01111111 };
-    private static byte[] c_midC_off = { 0b10001010, 0b00111100, 0b01111111 };
+    private static byte[] c_midC_on = { 0b10011010, 97, 0b01111111 };
+    private static byte[] c_midC_off = { 0b10001010, 97, 0b01111111 };
+
+    private static byte[] c_92_on = { 0b10011010, 92, 0b01111111 };
+    private static byte[] c_92_off = { 0b10001010, 92, 0b01111111 };
+
     private static byte[] c_play = { 0b11111010, 0 ,0 };
     private static byte[] c_pause = { 0b11111100, 0, 0 };
 
@@ -23,8 +27,14 @@ public class Port : IPort {
     
     public void playNote() {
         sendMIDI(c_midC_on);
-        System.Threading.Thread.Sleep(250);
+        System.Threading.Thread.Sleep(100);
         sendMIDI(c_midC_off);
+    }
+
+    public void playNote2() {
+        sendMIDI(c_92_on);
+        System.Threading.Thread.Sleep(100);
+        sendMIDI(c_92_off);
     }
 
     public void play() {

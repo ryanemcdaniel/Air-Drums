@@ -1,5 +1,5 @@
 using Leap;
-
+using System.Collections.Generic;
 public class Joints {
 
     public Vector[] pinky;
@@ -51,6 +51,22 @@ public class Joints {
     }
 
     public Vector[] TipsNoThumb() => new[]{pinky[4], ring[4], middle[4], index[4]};
+
+    public Vector[] OtherJoints() {
+        var ret = new List<Vector>();
+        int i = 0;
+        foreach (var v in pinky) if(i++ != 4) ret.Add(v);
+        i = 0;
+        foreach (var v in ring) if(i++ != 4) ret.Add(v);
+        i = 0;
+        foreach (var v in middle) if(i++ != 4) ret.Add(v);
+        i = 0;
+        foreach (var v in index) if(i++ != 4) ret.Add(v);
+        i = 0;
+        foreach (var v in thumb) if(i++ != 4) ret.Add(v);
+        ret.Add(palm);
+        return ret.ToArray();
+    }
 
     public Vector[] ToArray() {
         var ret = new Vector[26];

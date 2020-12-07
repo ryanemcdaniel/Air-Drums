@@ -1,70 +1,49 @@
 using Leap;
+using System;
 
 namespace Global {
     public static class GBL {
 
-        static GBL(){
-            N_SAMPLES           = 10;            // Controls number of frames we analyze at a time
+        public static int       N_SAMPLES = 10;
+        public static int       N_LOOKBACK = 9;
+        
+        public static float     UH_INTENSITY = 0;
+        public static float     UH_FREQUENCY = 0;
+        
+        public static Vector    TAP_VEL_RANGE             = new Vector{
+            x = 0,
+            y = 3000,
+            z = 0
+        };
+        
+        public static Vector    TAP_VEL_AVE             = new Vector{
+            x = 0,
+            y = -150,
+            z = 0
+        };
+        
+        public static Vector    TAP_POS_RANGE             = new Vector{
+            x = 75,
+            y = 125,
+            z = 75
+        };
 
-            UH_FREQUENCY        = 0;
+        public static Vector    NO_GESTURE_RANGE = new Vector{
+            x = 100,
+            y = 100,
+            z = 100
+        };
 
-            UH_INTENSITY        = 0;
-            
-            DIV_P               = new Vector{   
-                x = 0,
-                y = 0,
-                z = 0
-            };
+        public static void VelocityLookback(float v) {
+            if (GBL.N_LOOKBACK == 1) return;
 
-            DIV_N               = new Vector{
-                x = 0,
-                y = 0,
-                z = 0
-            };
-
-            TAP_VEL_RANGE             = new Vector{
-                x = 0,
-                y = 300,
-                z = 0
-            };
-
-            TAP_POS_RANGE             = new Vector{
-                x = 75,
-                y = 125,
-                z = 75
-            };
-
-            TAP_VEL_AVE             = new Vector{
-                x = 0,
-                y = -100,
-                z = 0
-            };
-            
-            SWP_VEL             = new Vector{
-                x = 0,
-                y = 0,
-                z = 0
-            };
-
-            NO_GESTURE_RANGE = new Vector{
-                x = 100,
-                y = 100,
-                z = 100
-            };
+            if (v < 0) GBL.N_LOOKBACK = 1;
         }
 
-        public static int       N_SAMPLES;
-        
-        public static float     UH_INTENSITY;
+        public static void LookbackReset() {
+            GBL.N_LOOKBACK = GBL.N_SAMPLES - 1;
+        }
 
-        public static float     UH_FREQUENCY;
-
-        public static Vector    DIV_P;
-        public static Vector    DIV_N;
-        public static Vector    TAP_VEL_AVE;
-        public static Vector    TAP_VEL_RANGE;
-        public static Vector    TAP_POS_RANGE;
-        public static Vector    SWP_VEL;
-        public static Vector    NO_GESTURE_RANGE;
+        public static int LookbackStart() => GBL.N_SAMPLES - N_LOOKBACK;
     }
 }

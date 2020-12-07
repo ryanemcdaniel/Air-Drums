@@ -16,6 +16,10 @@ public class Dispatch : IDispatch {
         Stats s = new Stats(new JointsHelper(new VectorHelper()));
         Classify gesture = new Classify(new VectorHelper(), s);
 
+
+
+        Port midi = new Port();
+
         for (;;) {
             dm.Extract(c.Frame());
             System.Threading.Thread.Sleep(20);
@@ -23,12 +27,22 @@ public class Dispatch : IDispatch {
             var pos = dm.positions();
             var vel = dm.velocities();
 
-            if(pos.right.Count != Global.GBL.N_SAMPLES) continue;
+            
 
             if(gesture.IsMovement(pos.right)){
 
                 if(gesture.IsTap(pos.right, vel.right)){
                     Console.WriteLine("Tap!");
+                    midi.playNote();
+                }
+
+            }
+
+            if(gesture.IsMovement(pos.left)){
+
+                if(gesture.IsTap(pos.left, vel.left)){
+                    Console.WriteLine("Tap!");
+                    midi.playNote2();
                 }
 
             }

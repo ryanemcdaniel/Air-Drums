@@ -16,40 +16,72 @@ public class Classify : IClassify {
     }
 
     public bool IsMovement(List<Joints> positions) {
+        if(positions.Count != GBL.N_SAMPLES) return false;
         var flag = false;
         var range = s.range(positions);
         foreach (var v in range.ToArray()){
             var checks = vh.greaterEqual(v, GBL.NO_GESTURE_RANGE);
             if (checks.x || checks.y || checks.z) flag = true;
         }
-        
+    
+
         return flag;
     }
 
     public bool IsTap(List<Joints> pos, List<Joints> vel) {
-        var posRange = s.range(pos);
-        foreach (var v in posRange.TipsNoThumb()) {
-            var checks = vh.greaterEqual(v, GBL.TAP_POS_RANGE);
-            if (checks.x || !checks.y || checks.z) return false;
-        }
 
-        Console.WriteLine("Check:  pos range");
+        // Positive velocity rejection
+        var curVel = vh.average(vel[GBL.N_SAMPLES - 1].TipsNoThumb()).y;
+        if (curVel > 0) return false;
 
-        var velAve = s.average(vel);
-        foreach (var v in velAve.TipsNoThumb()) {
-            var checks = vh.greaterEqual(v, GBL.TAP_VEL_AVE);
-            if (checks.y) return false;
-        }
+        // Finger tips above palm rejection
+        var curPosPalm = pos[GBL.N_SAMPLES -1].palm;
+        var posCheck = vh.greaterEqualListOnetoMany(pos[GBL.N_SAMPLES - 1].TipsNoThumb(), curPosPalm);
+        foreach (var c in posCheck) if(c.y) {
+            return false;
+        };
 
-        Console.WriteLine("Check:  vel ave");
+        // XZ movement rejection
 
-        var velRange = s.range(vel.GetRange(GBL.N_SAMPLES - 3, 2));
-        foreach (var v in velRange.TipsNoThumb()) {
-            var checks = vh.greaterEqual(v, GBL.TAP_VEL_RANGE);
-            if (checks.y) return false;
-        }
+        // Zero acceleration rejection
+        var velRange = vh.average(s.range(vel).TipsNoThumb()).y;
+        if (velRange < 150) {
+            return false;
+        };
 
-        return true;
+        // Velocity lookback attenuation
+        var prevVel = vh.average(vel[GBL.N_SAMPLES - 2].TipsNoThumb()).y;
+        if (curVel < prevVel) GBL.VelocityLookback(curVel);
+
+        // Iterative deceleration rejection
+        else {
+            
+            // Find lookback values
+            var lookback = vel.GetRange(GBL.LookbackStart(), GBL.N_LOOKBACK);
+            
+            // Recent velocity magnitude criteria
+            var velAve = vh.average(s.average(lookback).TipsNoThumb()).y;
+            if (velAve > -100) {
+                GBL.LookbackReset();
+                return false;
+            }
+
+            var finalVelRange = vh.average(s.range(lookback).TipsNoThumb()).y;
+            if (finalVelRange > 100.0f) {
+                GBL.LookbackReset();
+                return false;
+            }
+
+
+
+            
+            // Accept moment of deceleration
+            GBL.LookbackReset();
+            return true;
+
+        };
+
+        return false;
     }
 
 
