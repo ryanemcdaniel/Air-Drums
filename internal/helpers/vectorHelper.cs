@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Leap;
+using Global;
 using System.Linq;
 
 public partial class VectorHelper : IVectorHelper{
@@ -52,6 +53,26 @@ public partial class VectorHelper : IVectorHelper{
             if(v.y < ret.y) wholeVector((x, y) => x = y , ret, v);
         }
         return ret;
+    }
+
+    public void IdentQuadrant(Vector FingerTip)
+    {
+        if(FingerTip.x > 0 && FingerTip.z < 0)
+        {
+            GBL.DIV_XZ = 1;
+        }
+        else if(FingerTip.x < 0 && FingerTip.z < 0)
+        {
+            GBL.DIV_XZ = 2;
+        }
+        else if(FingerTip.x < 0 && FingerTip.z > 0)
+        {
+            GBL.DIV_XZ = 3;
+        }
+        else if(FingerTip.x > 0 && FingerTip.z > 0)
+        {
+            GBL.DIV_XZ = 4;
+        }
     }
 
     public Vector average(Vector[] vA) {

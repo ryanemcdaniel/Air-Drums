@@ -16,4 +16,5 @@ public interface IVectorHelper{
     public (Vector[] min, Vector[] max) minMaxList  (Vector[] curMin, Vector[] curMax, Vector[] vA);
     public Vector average(Vector[] vA);
     public Vector lowest(Vector[] vA);
+    public void IdentQuadrant(Vector FingerTip);
 }
