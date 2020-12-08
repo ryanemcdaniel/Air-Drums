@@ -55,24 +55,27 @@ public partial class VectorHelper : IVectorHelper{
         return ret;
     }
 
-    public void IdentQuadrant(Vector FingerTip)
+    public int IdentQuadrant(Vector FingerTip)
     {
+        int Quadrant = 0;
+
         if(FingerTip.x > 0 && FingerTip.z < 0)
         {
-            GBL.DIV_XZ = 1;
+            Quadrant = 1;
         }
         else if(FingerTip.x < 0 && FingerTip.z < 0)
         {
-            GBL.DIV_XZ = 2;
+            Quadrant = 2;
         }
         else if(FingerTip.x < 0 && FingerTip.z > 0)
         {
-            GBL.DIV_XZ = 3;
+            Quadrant = 3;
         }
         else if(FingerTip.x > 0 && FingerTip.z > 0)
         {
-            GBL.DIV_XZ = 4;
+            Quadrant = 4;
         }
+        return Quadrant;
     }
 
     public Vector average(Vector[] vA) {

@@ -9,8 +9,6 @@ namespace Global {
         
         public static float     UH_INTENSITY = 1.0f;
         public static float     UH_FREQUENCY = 200.0f;
-
-        public static int       DIV_XZ       = 0;
         
         public static Vector    TAP_VEL_RANGE             = new Vector{
             x = 0,
