@@ -1,32 +1,30 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {}
+    "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {}
   },
   "projects": {
-    "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {
+    "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
+        "projectUniqueName": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
         "projectName": "gui",
-        "projectPath": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
-        "packagesPath": "C:\\Users\\gmilroy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\obj\\",
+        "projectPath": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
+        "packagesPath": "C:\\Users\\Ryan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\gmilroy\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Ryan\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
-          "net5.0-windows"
+          "netcoreapp3.1"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "net5.0-windows7.0": {
-            "targetAlias": "net5.0-windows",
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -37,8 +35,28 @@
         }
       },
       "frameworks": {
-        "net5.0-windows7.0": {
-          "targetAlias": "net5.0-windows",
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.8.0, )"
+            },
+            "moq": {
+              "target": "Package",
+              "version": "[4.15.1, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.4.1, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[2.4.3, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -49,6 +67,16 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Ref",
+              "version": "[3.1.10, 3.1.10]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Host.win-x64",
+              "version": "[3.1.10, 3.1.10]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -57,7 +85,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
