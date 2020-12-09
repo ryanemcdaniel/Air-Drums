@@ -13,6 +13,19 @@ public class processes_test {
         Assert.True(false);
     }
 
+    // TODO
+    [Fact] public void LeftHandStoreCalculate() {
+        Assert.True(false);
+    }
 
+    // TODO
+    [Fact] public void RightHandStoreCalculate() {
+        Assert.True(false);
+    }
+
+    // TODO
+    [Fact] public void UpdateHapticsEmissions() {
+        Assert.True(false);
+    }
 
 }
