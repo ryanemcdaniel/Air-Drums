@@ -1,34 +1,23 @@
 using Leap;
 using System;
 
+
 namespace Global {
     public static class GBL {
 
+        public static volatile bool      PLAY = false;
+        public static volatile bool      STOP = true;
+        public static volatile bool      RECORD = false;
+
+        public static int       N_POLLING_MILISECONDS = 20;
         public static int       N_SAMPLES = 10;
         public static int       N_LOOKBACK = 9;
-        
+
         public static float     UH_INTENSITY = 1.0f;
         public static float     UH_FREQUENCY = 200.0f;
-        
-        public static Vector    TAP_VEL_RANGE             = new Vector{
-            x = 0,
-            y = 3000,
-            z = 0
-        };
-        
-        public static Vector    TAP_VEL_AVE             = new Vector{
-            x = 0,
-            y = -150,
-            z = 0
-        };
-        
-        public static Vector    TAP_POS_RANGE             = new Vector{
-            x = 75,
-            y = 125,
-            z = 75
-        };
+        public static int       UH_TIME     = 50;
 
-        public static Vector    NO_GESTURE_RANGE = new Vector{
+        public static Vector    GES_POS_RANGE = new Vector{
             x = 100,
             y = 100,
             z = 100
