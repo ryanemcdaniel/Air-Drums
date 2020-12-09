@@ -14,22 +14,26 @@ public class Processes : IProcesses {
     private IDataManager rightCache;
     private IClassify gesture;
     private IHaptic haptics;
+    private IPort leftPort;
+    private IPort rightPort;
 
     private ConcurrentQueue<Frame> leftFrameStreams;
     private ConcurrentQueue<Frame> rightFrameStreams;
-    private ConcurrentQueue<Hand> hapticStream;
+    private ConcurrentQueue<Joints> hapticStream;
 
-    public Processes(IController lm, IDataManager ldm, IDataManager rdm, IClassify c, IHaptic h) {
+    public Processes(IController lm, IDataManager ldm, IDataManager rdm, IPort lp, IPort rp, IClassify c, IHaptic h) {
         leapMotion = lm;
         leftCache = ldm;
         rightCache = rdm;
         gesture = c;
         haptics = h;
 
+        leftPort = lp;
+        rightPort = rp;
 
         leftFrameStreams = new ConcurrentQueue<Frame>();
         rightFrameStreams = new ConcurrentQueue<Frame>();
-        hapticStream = new ConcurrentQueue<Hand>();
+        hapticStream = new ConcurrentQueue<Joints>();
     }
 
     public void PollLeapMotionController() {
@@ -60,6 +64,7 @@ public class Processes : IProcesses {
                 if (leftMoved) {
 
                     if (gesture.IsTap(pos.left, vel.left)) {
+                        hapticStream.Enqueue(pos.left[GBL.N_SAMPLES - 1]);
 
 
                     }
