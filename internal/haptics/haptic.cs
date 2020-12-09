@@ -28,6 +28,11 @@ public class Haptic{
     }
     
     public bool updateEmitter(List<AmplitudeModulationControlPoint> positions){
+        if(GBL.dogMode)
+        {
+            return false;
+        }
+
         bool IsUpdated = ee.update(positions);
         if (IsUpdated){
             Console.WriteLine("Emitter successfully updated!");
