@@ -1,6 +1,5 @@
 using Leap;
 using System.Collections.Concurrent;
-using System.Threading;
 using Ultrahaptics;
 using Global;
 
@@ -11,24 +10,26 @@ public interface IProcesses {
 public class Processes : IProcesses {
 
     private IController leapMotion;
-    private IDataManager cache;
+    private IDataManager leftCache;
+    private IDataManager rightCache;
     private IClassify gesture;
     private IHaptic haptics;
 
     private ConcurrentQueue<Frame> leftFrameStreams;
     private ConcurrentQueue<Frame> rightFrameStreams;
-    private ConcurrentQueue<AmplitudeModulationControlPoint> hapticStream;
+    private ConcurrentQueue<Hand> hapticStream;
 
-    public Processes(IController lm, IDataManager dm, IClassify c, IHaptic h) {
+    public Processes(IController lm, IDataManager ldm, IDataManager rdm, IClassify c, IHaptic h) {
         leapMotion = lm;
-        cache = dm;
+        leftCache = ldm;
+        rightCache = rdm;
         gesture = c;
         haptics = h;
 
 
         leftFrameStreams = new ConcurrentQueue<Frame>();
         rightFrameStreams = new ConcurrentQueue<Frame>();
-        hapticStream = new ConcurrentQueue<AmplitudeModulationControlPoint>();
+        hapticStream = new ConcurrentQueue<Hand>();
     }
 
     public void PollLeapMotionController() {
@@ -45,6 +46,30 @@ public class Processes : IProcesses {
         }
     }
 
+    public void LeftHandStoreCalculate() {
+        Frame curFrame;
+        for(;;) {
+            if (rightFrameStreams.TryDequeue(out curFrame)) {
+
+                leftCache.Extract(curFrame);
+                var pos = leftCache.positions();
+                var vel = leftCache.velocities();
+
+                var leftMoved = gesture.IsMovement(pos.left);
+
+                if (leftMoved) {
+
+                    if (gesture.IsTap(pos.left, vel.left)) {
+
+
+                    }
+
+
+                }
+            }
+        }
+    }
+
     public void RightHandStoreCalculate() {
         Frame curFrame;
         for(;;) {
@@ -52,9 +77,9 @@ public class Processes : IProcesses {
             // Upon successful queue consumption
             if (leftFrameStreams.TryDequeue(out curFrame)) {
 
-                cache.Extract(curFrame);
-                var pos = cache.positions();
-                var vel = cache.velocities();
+                leftCache.Extract(curFrame);
+                var pos = leftCache.positions();
+                var vel = leftCache.velocities();
 
                 var leftMoved = gesture.IsMovement(pos.left);
                 var rightMoved = gesture.IsMovement(pos.right);
@@ -68,32 +93,6 @@ public class Processes : IProcesses {
                     }
                 }
 
-            }
-        }
-    }
-
-    public void LeftHandStoreCalculate() {
-        Frame curFrame;
-        for(;;) {
-            if (rightFrameStreams.TryDequeue(out curFrame)) {
-
-                cache.Extract(curFrame);
-                var pos = cache.positions();
-                var vel = cache.velocities();
-
-                var leftMoved = gesture.IsMovement(pos.left);
-                var rightMoved = gesture.IsMovement(pos.right);
-
-                if (leftMoved) {
-
-                    if (gesture.IsTap(pos.left, vel.left)) {
-
-
-
-                    }
-
-
-                }
             }
         }
     }
