@@ -34,6 +34,8 @@ public class Proc_MIDI {
                     Console.Error.WriteLine("error: proc data dispatch midi command null");
                     goto wait;
                 }
+
+                Console.WriteLine(command);
                 
                 if (p.IsNoteOnCode(command)) {
                     noteIDs.Add(curID);
