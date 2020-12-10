@@ -21,6 +21,8 @@ public class Processes : IProcesses {
     private ConcurrentQueue<Frame> leftFrameStreams;
     private ConcurrentQueue<Frame> rightFrameStreams;
     private ConcurrentQueue<Joints> hapticStream;
+    private ConcurrentQueue<int> leftMIDIStream;
+    private ConcurrentQueue<int> rightMIDIStream;
 
     public Processes(IController lm, IDataManager ldm, IDataManager rdm, IClassify c, 
                         IHaptic h, IPort lp, IPort rp, IVectorHelper vh) {
@@ -87,7 +89,7 @@ public class Processes : IProcesses {
                             case 4:
                                 break;
                         }
-                        
+
                     } else {
 
                         // TODO
@@ -129,8 +131,36 @@ public class Processes : IProcesses {
             }
         }
     }
-
     public void UpdateHapticsEmissions() {
+
+    }
+
+    public void LeftDispatchMIDI() {
+        int type;
+        for(;;){
+            if (leftMIDIStream.TryDequeue(out type)) {
+                switch (type) {
+                    default: break;
+                    
+                    // Quadrants commands
+                    case 1:  leftPort.sendMIDI();  break;
+                    case 2:  leftPort.sendMIDI();  break;
+                    case 3:  leftPort.sendMIDI();  break;
+                    case 4:  leftPort.sendMIDI();  break;
+                    
+                    // Transport commands
+                    case 5:
+                        break;
+                    case 6:
+                        break;
+                    case 7:
+                        break;
+                }
+            }
+        }
+    }
+
+    public void RightDispatchMIDI() {
 
     }
 
