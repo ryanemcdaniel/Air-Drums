@@ -52,11 +52,11 @@ public class Air_Drums {
         Console.WriteLine("Haptics thread resources ready.");
 
         Console.WriteLine("Initializing MIDI threads resources...");
-        var leftComTable = new Commands(true);
+        var leftComTable = new Commands(false);
         var leftNotes = new List<int>();
         var leftTimes = new List<int>();
         var leftPort = new Port(leftMIDI);
-        var rightComTable = new Commands(false);
+        var rightComTable = new Commands(true);
         var rightNotes = new List<int>();
         var rightTimes = new List<int>();
         var rightPort = new Port(rightMIDI);
