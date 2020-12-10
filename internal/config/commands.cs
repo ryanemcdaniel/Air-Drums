@@ -1,7 +1,7 @@
 namespace Global {
     public static class CMD {
 
-        public static int MIDI_WAIT = 10; // Centiseconds
+        public static int MIDI_WAIT = 8; // Centiseconds
 
         // Left hand MIDI command byte codes
         public static byte[]    LEFT_TAP_QUAD_1    = new byte[]{ 0b10011110, 92, 0b01111111 };
