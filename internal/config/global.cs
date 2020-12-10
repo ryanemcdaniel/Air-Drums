@@ -1,49 +1,28 @@
 using Leap;
 using System;
 
+
 namespace Global {
     public static class GBL {
 
-        public static int       N_SAMPLES = 10;
-        public static int       N_LOOKBACK = 9;
-        
-        public static float     UH_INTENSITY = 1.0f;
-        public static float     UH_FREQUENCY = 200.0f;
-        
-        public static Vector    TAP_VEL_RANGE             = new Vector{
-            x = 0,
-            y = 3000,
-            z = 0
-        };
-        
-        public static Vector    TAP_VEL_AVE             = new Vector{
-            x = 0,
-            y = -150,
-            z = 0
-        };
-        
-        public static Vector    TAP_POS_RANGE             = new Vector{
-            x = 75,
-            y = 125,
-            z = 75
-        };
+        public static volatile bool      PLAY = false;          // Play playback state
+        public static volatile bool      STOP = true;           // Stop playback state
+        public static volatile bool      RECORD = false;        // Recording state
+        public static volatile bool      DOG_FRIENDLY = false;  // Ultrasonic state
+        public static volatile bool     CUSTOM_MODE = false;    // User customized settings
 
-        public static Vector    NO_GESTURE_RANGE = new Vector{
+        public static int       N_POLLING_TIME = 20;    // Miliseconds
+        public static int       N_SAMPLES = 10;         // Samples to track
+        public static int       N_LOOKBACK = 9;         // Samples to start deceleration timing from
+
+        public static float     UH_INTENSITY = 1.0f;    // Index 0-1
+        public static float     UH_FREQUENCY = 150.0f;  // Hz
+        public static int       UH_TIME     = 10;        // Centiseconds
+
+        public static Vector    GES_POS_RANGE = new Vector{
             x = 100,
             y = 100,
             z = 100
         };
-
-        public static void VelocityLookback(float v) {
-            if (GBL.N_LOOKBACK == 1) return;
-
-            if (v < 0) GBL.N_LOOKBACK = 1;
-        }
-
-        public static void LookbackReset() {
-            GBL.N_LOOKBACK = GBL.N_SAMPLES - 1;
-        }
-
-        public static int LookbackStart() => GBL.N_SAMPLES - N_LOOKBACK;
     }
 }

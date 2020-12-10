@@ -243,6 +243,49 @@ public class vectorHelper_test{
         test.Equals(exp_z,act_z);
     }
 
+    [Fact] public void IdentQuadrant_Passes()
+        {
+            Vector Quad1 = new Vector(1,0,-1);
+            Vector Quad2 = new Vector(-1,0,-1);
+            Vector Quad3 = new Vector(-1,0,1);
+            Vector Quad4 = new Vector(1,0,1);
+
+            int expQuad1 =0;
+            int expQuad2 =0;
+            int expQuad3 =0;
+            int expQuad4 =0;
+
+            
+            if(Quad1.x > 0 && Quad1.z < 0)
+            {
+                expQuad1 = 1;
+            }
+            if(Quad2.x < 0 && Quad2.z < 0)
+            {
+                expQuad2 = 2;
+            }
+            if(Quad3.x < 0 && Quad3.z > 0)
+            {
+                expQuad3 = 3;
+            }
+            if(Quad4.x > 0 && Quad4.z > 0)
+            {
+                expQuad4 = 4;
+            }
+            
+            VectorHelper v= new VectorHelper();
+            int actQuad1 = v.IdentQuadrant(Quad1);
+            int actQuad2 = v.IdentQuadrant(Quad2);
+            int actQuad3 = v.IdentQuadrant(Quad3);
+            int actQuad4 = v.IdentQuadrant(Quad4);
+
+            test.Equals(actQuad1,expQuad1);
+            test.Equals(actQuad2,expQuad2);
+            test.Equals(actQuad3,expQuad3);
+            test.Equals(actQuad4,expQuad4);
+        }
+    
+
     [Fact] public void greaterEqualListOneToOne() {
         Data_Generator dg = new Data_Generator();
         int length = dg.newInt(100);
@@ -297,5 +340,4 @@ public class vectorHelper_test{
             test.Equals(act_tupleList[i],exp_tupleList[i]);
         }
     }
-
 }
