@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {}
+    "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {
+    "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
+        "projectUniqueName": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
         "projectName": "gui",
-        "projectPath": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
-        "packagesPath": "C:\\Users\\Ryan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Ryan\\Desktop\\boja-mes-systems\\air-drums\\gui\\obj\\",
+        "projectPath": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\gui.csproj",
+        "packagesPath": "C:\\Users\\gmilroy\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\gmilroy\\Desktop\\boja-mes-systems\\air-drums\\gui\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Ryan\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\gmilroy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netcoreapp3.1"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -67,16 +69,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[3.1.10, 3.1.10]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Host.win-x64",
-              "version": "[3.1.10, 3.1.10]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -85,7 +77,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
         }
       }
     }
