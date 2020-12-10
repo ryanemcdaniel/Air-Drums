@@ -2,7 +2,7 @@
 using TobiasErichsen.teVirtualMIDI;
 
 public class Port : IPort {
-    private static ITeVirtualMIDI port;
+    private static ITeVirtualMIDI midiDispatch;
     private static byte[] c_midC_on = { 0b10011010, 97, 0b01111111 };
     private static byte[] c_midC_off = { 0b10001010, 97, 0b01111111 };
 
@@ -15,13 +15,17 @@ public class Port : IPort {
     private static Guid manufacturer = new Guid("aa4e075f-3504-4aab-9b06-9a4104a91cf0");
     private static Guid product = new Guid("bb4e075f-3504-4aab-9b06-9a4104a91cf0");
 
-    public Port() {
-        TeVirtualMIDI.logging(TeVirtualMIDI.TE_VM_LOGGING_MISC | TeVirtualMIDI.TE_VM_LOGGING_RX | TeVirtualMIDI.TE_VM_LOGGING_TX);
-        port = new TeVirtualMIDI("C# loopback", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref manufacturer, ref product);
+    public Port(ITeVirtualMIDI tvm) {
+        midiDispatch = tvm;
     }
 
-    private void sendMIDI(byte[] midiCode) {
-        port.sendCommand(midiCode);
+    // TODO lift out into documentation
+    // USEFUL TO KNOW FOR NOW
+    // TeVirtualMIDI.logging(TeVirtualMIDI.TE_VM_LOGGING_MISC | TeVirtualMIDI.TE_VM_LOGGING_RX | TeVirtualMIDI.TE_VM_LOGGING_TX);
+    //     port = new TeVirtualMIDI("C# loopback", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref manufacturer, ref product);
+
+    public void sendMIDI(byte[] midiCode) {
+        midiDispatch.sendCommand(midiCode);
         
     }
     
@@ -45,6 +49,6 @@ public class Port : IPort {
         sendMIDI(c_pause);
     }
     public void closePort(){
-        port.shutdown();
+        midiDispatch.shutdown();
     }
 }

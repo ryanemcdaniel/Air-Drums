@@ -1,7 +1,7 @@
 
 
 public interface IPort {
-    private void sendMIDI(byte[] midiCode);
+    public void sendMIDI(byte[] midiCode);
     
     public void playNote();
 

@@ -16,12 +16,14 @@ public class Processes : IProcesses {
     private IHaptic haptics;
     private IPort leftPort;
     private IPort rightPort;
+    private IVectorHelper vecHelp;
 
     private ConcurrentQueue<Frame> leftFrameStreams;
     private ConcurrentQueue<Frame> rightFrameStreams;
     private ConcurrentQueue<Joints> hapticStream;
 
-    public Processes(IController lm, IDataManager ldm, IDataManager rdm, IPort lp, IPort rp, IClassify c, IHaptic h) {
+    public Processes(IController lm, IDataManager ldm, IDataManager rdm, IClassify c, 
+                        IHaptic h, IPort lp, IPort rp, IVectorHelper vh) {
         leapMotion = lm;
         leftCache = ldm;
         rightCache = rdm;
@@ -30,6 +32,7 @@ public class Processes : IProcesses {
 
         leftPort = lp;
         rightPort = rp;
+        vecHelp = vh;
 
         leftFrameStreams = new ConcurrentQueue<Frame>();
         rightFrameStreams = new ConcurrentQueue<Frame>();
@@ -62,9 +65,33 @@ public class Processes : IProcesses {
                 var leftMoved = gesture.IsMovement(pos.left);
 
                 if (leftMoved) {
-
                     if (gesture.IsTap(pos.left, vel.left)) {
-                        hapticStream.Enqueue(pos.left[GBL.N_SAMPLES - 1]);
+                        var curPos = pos.left[GBL.N_SAMPLES - 1];
+                        hapticStream.Enqueue(curPos);
+                        switch (vecHelp.IdentQuadrant(curPos.TipsNoThumb()[2])) {
+                            default: break;
+                            
+                            // Quad 1
+                            case 1:
+                                break;
+
+                            // Quad 2
+                            case 2:
+                                break;
+
+                            // Quad 3
+                            case 3:
+                                break;
+
+                            // Quad 4
+                            case 4:
+                                break;
+                        }
+                    } else {
+
+                        // TODO
+                        var swiped = gesture.IsSwipe();
+
 
 
                     }

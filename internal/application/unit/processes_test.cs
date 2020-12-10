@@ -6,6 +6,9 @@ using Global;
 using Xunit;
 using Moq;
 
+// TODO:  Identify additional points of failure and mark them with failing tests
+//          for incoming tester
+
 public class processes_test {
 
     // TODO
