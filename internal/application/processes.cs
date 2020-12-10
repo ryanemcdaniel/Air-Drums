@@ -1,5 +1,6 @@
 using Leap;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using Ultrahaptics;
 using Global;
 
@@ -80,7 +81,7 @@ public class Processes : IProcesses {
     public void RightHandStoreCalculate() {
         Frame curFrame;
         for(;;) {
-            if (leftFrameStreams.TryDequeue(out curFrame)) {
+            if (rightFrameStreams.TryDequeue(out curFrame)) {
 
                 leftCache.Extract(curFrame);
                 var pos = leftCache.positions();
@@ -92,7 +93,7 @@ public class Processes : IProcesses {
                         var curPos = pos.right[GBL.N_SAMPLES - 1];
                         hapticStream.Enqueue(curPos);
                         var quad = vecHelp.IdentQuadrant(curPos.TipsNoThumb()[2]);
-                        leftMIDIStream.Enqueue(quad);
+                        rightMIDIStream.Enqueue(quad);
                     }
                 }
 
@@ -100,7 +101,19 @@ public class Processes : IProcesses {
         }
     }
     public void UpdateHapticsEmissions() {
+        Joints curJoint;
+        var points = new List<AmplitudeModulationControlPoint>();
+        var times = new List<int>();
+        for(;;) {
+            if(hapticStream.TryDequeue(out curJoint)){
+                
+                times.Add(GBL.UH_TIME);
+            }
 
+            for (int i = 0; i < points.Count; i++) times[i]--;
+            for (int i = 0; i < times.Count; i++) ;
+            System.Threading.Thread.Sleep(10);
+        }
     }
 
     public void LeftDispatchMIDI() {

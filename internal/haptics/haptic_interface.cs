@@ -3,7 +3,6 @@ using Leap;
 using Ultrahaptics;
 
 public interface IHaptic{
-    public List<AmplitudeModulationControlPoint> AquireTarget(Hand h);
-    
-    public bool updateEmitter(List<AmplitudeModulationControlPoint> positions);
+    public AmplitudeModulationControlPoint AquireTarget(Joints j);
+    public bool UpdateEmitter(List<AmplitudeModulationControlPoint> positions);
 }
