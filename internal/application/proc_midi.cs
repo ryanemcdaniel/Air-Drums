@@ -36,7 +36,7 @@ public class Proc_MIDI {
                 }
                 
 
-                Console.WriteLine(command);
+                Console.WriteLine(command[0] + " " + command[1] + " " + command[2]);
                 
                 if (p.IsNoteOnCode(command)) {
                     noteIDs.Add(curID);
