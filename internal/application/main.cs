@@ -84,7 +84,7 @@ public class Air_Drums {
         var rightCommandStream = new ConcurrentQueue<int>();
         var hapticStream = new ConcurrentQueue<Joints>();
         
-        // Threads
+        // Processes
         var data = new Proc_Data(leapMotion, leftFrameStream, rightFrameStream);
         var leftGesture = new Proc_Gesture(leftClassify, leftDataManager, leftVH, leftFrameStream, leftCommandStream, hapticStream);
         var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream);
@@ -92,6 +92,7 @@ public class Air_Drums {
         var rightCommand = new Proc_MIDI(rightPort, rightCommandStream, rightNotes, rightTimes, rightComTable);
         var haptics = new Proc_Haptics(haptic, hapticStream, hapticTargets, hapticTimes);
 
+        // Begin threads
         var dataThread = new Thread(data.PollCamera);
         var leftGestureThread = new Thread(leftGesture.ClassificationPipeline);
         var rightGestureThread = new Thread(rightGesture.ClassificationPipeline);
