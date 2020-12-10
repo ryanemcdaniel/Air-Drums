@@ -34,11 +34,11 @@ public class Air_Drums {
         Console.WriteLine("MIDI:  system flags set...");
         var leftManu = new Guid("aa4e075f-3504-4aab-9b06-9a4104a91cf0");
         var leftProd = new Guid("bb4e075f-3504-4aab-9b06-9a4104a91cf0");
-        var leftMIDI = new TeVirtualMIDI("C# loopback", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref leftManu, ref leftProd);
+        var leftMIDI = new TeVirtualMIDI("Air Drums Left Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref leftManu, ref leftProd);
         Console.WriteLine("MIDI:  left hand port ready...");
         var rightManu = new Guid("cc4e075f-3504-4aab-9b06-9a4104a91cf0");
         var rightProd = new Guid("dd4e075f-3504-4aab-9b06-9a4104a91cf0");
-        var rightMIDI = new TeVirtualMIDI("C# loopback", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref rightManu, ref rightProd);
+        var rightMIDI = new TeVirtualMIDI("Air Drums Right Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref rightManu, ref rightProd);
         Console.WriteLine("MIDI:  right hand port ready...");
         Console.WriteLine("MIDI resources ready.");
 
