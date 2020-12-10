@@ -18,9 +18,9 @@ public class Haptic : IHaptic {
     }
 
     public AmplitudeModulationControlPoint AquireTarget(Joints j) => new AmplitudeModulationControlPoint(
-        j.TipsNoThumb()[2].x,
-        j.TipsNoThumb()[2].z * -1,
-        j.TipsNoThumb()[2].y,
+        j.palm.x,
+        j.palm.z * -1,
+        j.palm.y,
         GBL.UH_INTENSITY,
         GBL.UH_FREQUENCY
     );
