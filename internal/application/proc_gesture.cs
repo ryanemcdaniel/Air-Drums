@@ -2,6 +2,7 @@ using Leap;
 using Ultrahaptics;
 using System.Collections.Concurrent;
 using Global;
+using System;
 
 public interface IProc_Gesture {
 
@@ -39,6 +40,7 @@ public class Proc_Gesture : IProc_Gesture {
                 if (gesture.IsMovement()) {
 
                     if (gesture.IsTap()) {
+                        Console.WriteLine("Tap!");
                         var curPos = data.position[GBL.N_SAMPLES - 1];
                         targetStream.Enqueue(curPos);
                         var quad = vh.IdentQuadrant(curPos.TipsNoThumb()[2]);

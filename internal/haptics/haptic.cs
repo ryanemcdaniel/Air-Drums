@@ -14,12 +14,6 @@ public class Haptic : IHaptic {
 
     public bool Emit(List<AmplitudeModulationControlPoint> positions) {
         bool IsUpdated = ee.update(positions);
-        if (IsUpdated){
-            Console.WriteLine("Emitter successfully updated!");
-        }
-        else { 
-            Console.WriteLine("Emitter failed to update!");
-        }  
         return IsUpdated;
     }
 

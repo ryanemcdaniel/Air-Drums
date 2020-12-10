@@ -1,22 +1,22 @@
 namespace Global {
     public static class CMD {
 
-        public static int MIDI_WAIT = 5; // Centiseconds
+        public static int MIDI_WAIT = 10; // Centiseconds
 
         // Left hand MIDI command byte codes
-        public static byte[]    LEFT_TAP_QUAD_1    = new byte[]{};
-        public static byte[]    LEFT_TAP_QUAD_2    = new byte[]{};
-        public static byte[]    LEFT_TAP_QUAD_3    = new byte[]{};
-        public static byte[]    LEFT_TAP_QUAD_4    = new byte[]{};
+        public static byte[]    LEFT_TAP_QUAD_1    = new byte[]{ 0b10011010, 92, 0b01111111 };
+        public static byte[]    LEFT_TAP_QUAD_2    = new byte[]{ 0b10011010, 92, 0b01111111 };
+        public static byte[]    LEFT_TAP_QUAD_3    = new byte[]{ 0b10011010, 92, 0b01111111 };
+        public static byte[]    LEFT_TAP_QUAD_4    = new byte[]{ 0b10011010, 92, 0b01111111 };
         public static byte[]    LEFT_SWIPE_LEFT    = new byte[]{};
         public static byte[]    LEFT_SWIPE_RIGHT   = new byte[]{};
         public static byte[]    LEFT_STOP          = new byte[]{};
 
         // Right hand MIDI command byte codes
-        public static byte[]    RIGHT_TAP_QUAD_1   = new byte[]{};
-        public static byte[]    RIGHT_TAP_QUAD_2   = new byte[]{};
-        public static byte[]    RIGHT_TAP_QUAD_3   = new byte[]{};
-        public static byte[]    RIGHT_TAP_QUAD_4   = new byte[]{};
+        public static byte[]    RIGHT_TAP_QUAD_1   = new byte[]{ 0b10011010, 97, 0b01111111 };
+        public static byte[]    RIGHT_TAP_QUAD_2   = new byte[]{ 0b10011010, 97, 0b01111111 };
+        public static byte[]    RIGHT_TAP_QUAD_3   = new byte[]{ 0b10011010, 97, 0b01111111 };
+        public static byte[]    RIGHT_TAP_QUAD_4   = new byte[]{ 0b10011010, 97, 0b01111111 };
         public static byte[]    RIGHT_SWIPE_LEFT   = new byte[]{};
         public static byte[]    RIGHT_SWIPE_RIGHT  = new byte[]{};
         public static byte[]    RIGHT_STOP         = new byte[]{};

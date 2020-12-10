@@ -33,7 +33,7 @@ public class queues_test {
         test.jointsEqual(exp_pos, act_pos[0]);
         Assert.Single<Hand>(act_hnd);
         Assert.Single<Joints>(act_pos);
-        Assert.Empty(act_vel);
+        Assert.Single<Joints>(act_vel);
     }
 
     [Fact] public void Load_Multiple() {

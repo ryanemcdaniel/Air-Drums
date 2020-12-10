@@ -8,7 +8,7 @@ namespace Global {
         public static volatile bool      PLAY = false;          // Play playback state
         public static volatile bool      STOP = true;           // Stop playback state
         public static volatile bool      RECORD = false;        // Recording state
-        public static volatile bool      DOG_FRIENDLY = false;  // Ultrasonic state
+        public static volatile bool      DOG_FRIENDLY = true;  // Ultrasonic state
         public static volatile bool     CUSTOM_MODE = false;    // User customized settings
 
         public static int       N_POLLING_TIME = 20;    // Miliseconds

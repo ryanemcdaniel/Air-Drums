@@ -56,7 +56,7 @@ public class Air_Drums {
         var leftNotes = new List<int>();
         var leftTimes = new List<int>();
         var leftPort = new Port(leftMIDI);
-        var rightComTable = new Commands(true);
+        var rightComTable = new Commands(false);
         var rightNotes = new List<int>();
         var rightTimes = new List<int>();
         var rightPort = new Port(rightMIDI);
@@ -103,6 +103,6 @@ public class Air_Drums {
         rightGestureThread.Start();
         leftCommandThread.Start();
         rightCommandThread.Start();
-        hapticsThread.Start();
+        // hapticsThread.Start();
     }
 }

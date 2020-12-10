@@ -39,7 +39,6 @@ public class Classify : IClassify {
     }
 
     public bool IsTap() {
-
         // Positive velocity rejection
         var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).y;
         if (curVel > 0) return false;
@@ -103,8 +102,8 @@ public class Classify : IClassify {
     }
 
     public void VelocityLookback(float v) {
-        if (GBL.N_LOOKBACK == 1) return;
-        if (v < 0) GBL.N_LOOKBACK = 1;
+        if (n_lookback == 1) return;
+        if (v < 0) n_lookback = 1;
     }
 
     public void LookbackReset() {
