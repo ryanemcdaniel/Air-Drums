@@ -5,6 +5,27 @@ using Global;
 using System.Collections.Generic;
 public class haptic_test{
     
+    [Fact] public void Emit () {
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        
+        VectorHelper vh = new VectorHelper();
+        JointsHelper jh = new JointsHelper(vh);
+        AmplitudeModulationEmitter mock_emitter = new AmplitudeModulationEmitter("MockDevice:U5;logfile=log.txt");
+
+        var j = hg.newJoints();
+        bool exp = false;
+        bool act = false;
+        var haptic = new Haptic(jh, mock_emitter);
+        var point = haptic.AquireTarget(j);
+        var points = new List<AmplitudeModulationControlPoint>();
+        points.Add(point);
+        exp = mock_emitter.update(points);
+        act = haptic.Emit(points);
+
+        Assert.Equal(exp,act);
+    }
+
     [Fact] public void AquireTarget() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
@@ -28,26 +49,5 @@ public class haptic_test{
         Assert.Equal(exp.getPosition().x,act.getPosition().x);
         Assert.Equal(exp.getPosition().y,act.getPosition().y);
         Assert.Equal(exp.getPosition().z,act.getPosition().z);
-    }
-
-    [Fact] public void UpdateEmitter () {
-        Data_Generator dg = new Data_Generator();
-        Hand_Generator hg = new Hand_Generator(dg);
-        
-        VectorHelper vh = new VectorHelper();
-        JointsHelper jh = new JointsHelper(vh);
-        AmplitudeModulationEmitter mock_emitter = new AmplitudeModulationEmitter("MockDevice:U5;logfile=log.txt");
-
-        var j = hg.newJoints();
-        bool exp = false;
-        bool act = false;
-        var haptic = new Haptic(jh, mock_emitter);
-        var point = haptic.AquireTarget(j);
-        var points = new List<AmplitudeModulationControlPoint>();
-        points.Add(point);
-        exp = mock_emitter.update(points);
-        act = haptic.UpdateEmitter(points);
-
-        Assert.Equal(exp,act);
     }
 }

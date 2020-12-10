@@ -11,18 +11,8 @@ public class Haptic : IHaptic {
         jh = hand;
         ee = emitter;
     }
-    public AmplitudeModulationControlPoint AquireTarget(Joints j) {
-        AmplitudeModulationControlPoint point = new AmplitudeModulationControlPoint(
-            j.TipsNoThumb()[2].x,
-            j.TipsNoThumb()[2].z * -1,
-            j.TipsNoThumb()[2].y,
-            GBL.UH_INTENSITY,
-            GBL.UH_FREQUENCY
-        );
-        return point;
-    }
-    
-    public bool UpdateEmitter(List<AmplitudeModulationControlPoint> positions) {
+
+    public bool Emit(List<AmplitudeModulationControlPoint> positions) {
         bool IsUpdated = ee.update(positions);
         if (IsUpdated){
             Console.WriteLine("Emitter successfully updated!");
@@ -32,5 +22,13 @@ public class Haptic : IHaptic {
         }  
         return IsUpdated;
     }
+
+    public AmplitudeModulationControlPoint AquireTarget(Joints j) => new AmplitudeModulationControlPoint(
+        j.TipsNoThumb()[2].x,
+        j.TipsNoThumb()[2].z * -1,
+        j.TipsNoThumb()[2].y,
+        GBL.UH_INTENSITY,
+        GBL.UH_FREQUENCY
+    );
 }
 

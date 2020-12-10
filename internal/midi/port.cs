@@ -26,7 +26,15 @@ public class Port : IPort {
 
     public void sendMIDI(byte[] midiCode) {
         midiDispatch.sendCommand(midiCode);
-        
+    }
+
+    public bool IsNoteOnCode(byte[] midiCode) {
+        return (midiCode[0] & 0b11110000) == 0b10010000;
+    }
+
+    public void SendNoteOff(byte[] midiCode) {
+        var noteOff = (byte) (midiCode[0] & 0b00001111 + 0b10000000);
+        midiDispatch.sendCommand(new byte[]{noteOff, midiCode[1], midiCode[2]});
     }
     
     public void playNote() {

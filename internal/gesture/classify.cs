@@ -9,6 +9,8 @@ public class Classify : IClassify {
     private IStats stats;
     private int n_lookback;
     private int n_samples;
+    private List<Joints> pos;
+    private List<Joints> vel;
 
     public Classify(IVectorHelper vecH, IStats stats) {
         vh = vecH;
@@ -17,13 +19,18 @@ public class Classify : IClassify {
         n_samples = GBL.N_SAMPLES;
     }
 
-    public bool IsMovement(List<Joints> positions) {
+    public void Update(List<Joints> position, List<Joints> velocity) {
+        pos = position;
+        vel = velocity;
+    }
+
+    public bool IsMovement() {
         
         // Do not classify movements until enough samples have loaded
-        if(positions.Count != n_samples) return false;
+        if(pos.Count != n_samples) return false;
 
         // Small position change in detection window rejection
-        var range = stats.range(positions);
+        var range = stats.range(pos);
         foreach (var v in range.ToArray()){
             var checks = vh.greaterEqual(v, GBL.GES_POS_RANGE);
             if (checks.x || checks.y || checks.z) return true;
@@ -31,7 +38,7 @@ public class Classify : IClassify {
         return false;
     }
 
-    public bool IsTap(List<Joints> pos, List<Joints> vel) {
+    public bool IsTap() {
 
         // Positive velocity rejection
         var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).y;
@@ -83,11 +90,15 @@ public class Classify : IClassify {
         return false;
     }
 
-    public (bool swiped, bool direction) IsSwipe() {
-        return (false, false);
+    public bool IsSwipe() {
+        return false;
     }
 
-    public bool IsRecord() {
+    public bool IsSwipeLeft() {
+        return false;
+    }
+
+    public bool IsStop() {
         return false;
     }
 

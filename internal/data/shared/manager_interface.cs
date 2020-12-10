@@ -4,6 +4,5 @@ using System.Collections.Generic;
 
 public interface IDataManager {
     public void Extract(Frame f);
-    public (List<Joints> left, List<Joints> right) positions();
-    public (List<Joints> left, List<Joints> right) velocities();
+    public (List<Joints> position, List<Joints> velocity) GetData();
 }

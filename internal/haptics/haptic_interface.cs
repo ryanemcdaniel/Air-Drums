@@ -4,5 +4,5 @@ using Ultrahaptics;
 
 public interface IHaptic{
     public AmplitudeModulationControlPoint AquireTarget(Joints j);
-    public bool UpdateEmitter(List<AmplitudeModulationControlPoint> positions);
+    public bool Emit(List<AmplitudeModulationControlPoint> positions);
 }
