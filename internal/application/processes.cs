@@ -63,43 +63,15 @@ public class Processes : IProcesses {
                 leftCache.Extract(curFrame);
                 var pos = leftCache.positions();
                 var vel = leftCache.velocities();
-
                 var leftMoved = gesture.IsMovement(pos.left);
 
                 if (leftMoved) {
                     if (gesture.IsTap(pos.left, vel.left)) {
                         var curPos = pos.left[GBL.N_SAMPLES - 1];
                         hapticStream.Enqueue(curPos);
-                        switch (vecHelp.IdentQuadrant(curPos.TipsNoThumb()[2])) {
-                            default: break;
-                            
-                            // Quad 1
-                            case 1:
-                                break;
-
-                            // Quad 2
-                            case 2:
-                                break;
-
-                            // Quad 3
-                            case 3:
-                                break;
-
-                            // Quad 4
-                            case 4:
-                                break;
-                        }
-
-                    } else {
-
-                        // TODO
-                        var swiped = gesture.IsSwipe();
-
-
-
+                        var quad = vecHelp.IdentQuadrant(curPos.TipsNoThumb()[2]);
+                        leftMIDIStream.Enqueue(quad);
                     }
-
-
                 }
             }
         }
@@ -108,23 +80,19 @@ public class Processes : IProcesses {
     public void RightHandStoreCalculate() {
         Frame curFrame;
         for(;;) {
-
-            // Upon successful queue consumption
             if (leftFrameStreams.TryDequeue(out curFrame)) {
 
                 leftCache.Extract(curFrame);
                 var pos = leftCache.positions();
                 var vel = leftCache.velocities();
-
-                var leftMoved = gesture.IsMovement(pos.left);
                 var rightMoved = gesture.IsMovement(pos.right);
 
                 if (rightMoved) {
-                    
                     if (gesture.IsTap(pos.right, vel.right)) {
-
-
-
+                        var curPos = pos.right[GBL.N_SAMPLES - 1];
+                        hapticStream.Enqueue(curPos);
+                        var quad = vecHelp.IdentQuadrant(curPos.TipsNoThumb()[2]);
+                        leftMIDIStream.Enqueue(quad);
                     }
                 }
 
@@ -140,28 +108,41 @@ public class Processes : IProcesses {
         for(;;){
             if (leftMIDIStream.TryDequeue(out type)) {
                 switch (type) {
-                    default: break;
-                    
                     // Quadrants commands
-                    case 1:  leftPort.sendMIDI();  break;
-                    case 2:  leftPort.sendMIDI();  break;
-                    case 3:  leftPort.sendMIDI();  break;
-                    case 4:  leftPort.sendMIDI();  break;
+                    case 1:  leftPort.sendMIDI(CMD.LEFT_TAP_QUAD_1      );  break;
+                    case 2:  leftPort.sendMIDI(CMD.LEFT_TAP_QUAD_2      );  break;
+                    case 3:  leftPort.sendMIDI(CMD.LEFT_TAP_QUAD_3      );  break;
+                    case 4:  leftPort.sendMIDI(CMD.LEFT_TAP_QUAD_4      );  break;
                     
                     // Transport commands
-                    case 5:
-                        break;
-                    case 6:
-                        break;
-                    case 7:
-                        break;
-                }
+                    case 5:  leftPort.sendMIDI(CMD.LEFT_SWIPE_LEFT      );  break;
+                    case 6:  leftPort.sendMIDI(CMD.LEFT_SWIPE_RIGHT     );  break;
+                    case 7:  leftPort.sendMIDI(CMD.LEFT_STOP            );  break;
+                    default: break;
+                }   
             }
         }
     }
 
     public void RightDispatchMIDI() {
-
+        int type;
+        for(;;){
+            if (leftMIDIStream.TryDequeue(out type)) {
+                switch (type) {
+                    // Quadrants commands
+                    case 1:  rightPort.sendMIDI(CMD.RIGHT_TAP_QUAD_1    );  break;
+                    case 2:  rightPort.sendMIDI(CMD.RIGHT_TAP_QUAD_2    );  break;
+                    case 3:  rightPort.sendMIDI(CMD.RIGHT_TAP_QUAD_3    );  break;
+                    case 4:  rightPort.sendMIDI(CMD.RIGHT_TAP_QUAD_4    );  break;
+                    
+                    // Transport commands
+                    case 5:  rightPort.sendMIDI(CMD.RIGHT_SWIPE_LEFT    );  break;
+                    case 6:  rightPort.sendMIDI(CMD.RIGHT_SWIPE_RIGHT   );  break;
+                    case 7:  rightPort.sendMIDI(CMD.RIGHT_STOP          );  break;
+                    default: break;
+                }
+            }
+        }
     }
 
 }

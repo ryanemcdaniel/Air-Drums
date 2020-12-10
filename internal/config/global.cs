@@ -8,7 +8,7 @@ namespace Global {
         public static volatile bool      PLAY = false;
         public static volatile bool      STOP = true;
         public static volatile bool      RECORD = false;
-        public static volatile bool      DOG_FRIENDLY_MODE = false;
+        public static volatile bool      dogMode = false;
 
         public static int       N_POLLING_MILISECONDS = 20;
         public static int       N_SAMPLES = 10;
