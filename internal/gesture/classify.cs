@@ -76,27 +76,44 @@ public class Classify : IClassify {
         return false;
     }
 
-    public bool IsSwipe() {
+    public bool IsSwipeRight() {
 
+        // Y movement rejection
         var range = stats.range(pos);
         foreach (var p in stats.range(pos).ToArray()) {
             if (p.y > 30) return false;
         }
-        
+
+        // Zero acceleration rejection
+        var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
+        if (velRange < 150 || velRange < -150) {
+            return false;
+        };
+
         var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
         var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
 
-        if (prevVel > 0 ^ curVel > 0) {
-            LookbackReset2();
-            return false;
-        }
-
-        
-
+        if (curVel < prevVel) return true;
         return false;
     }
 
     public bool IsSwipeLeft() {
+        // Y movement rejection
+        var range = stats.range(pos);
+        foreach (var p in stats.range(pos).ToArray()) {
+            if (p.y > 30) return false;
+        }
+
+        // Zero acceleration rejection
+        var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
+        if (velRange < 150 || velRange < -150) {
+            return false;
+        };
+
+        var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
+        var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
+
+        if (curVel < prevVel) return true;
         return false;
     }
 
