@@ -5,20 +5,16 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using Global;
 using System.Threading;
-using TobiasErichsen.teVirtualMIDI;
+using MIDI = TobiasErichsen.teVirtualMIDI.TeVirtualMIDI;
 
 
 public class Air_Drums {
-
-    public Air_Drums() {
-
-    }
 
     public static void Main(){
 
         // TODO put GUI stuff here
 
-        // Get main IO routes initialized
+        // Connect to LeapMotion Controller
         Console.WriteLine("Initializing Leap...");
         var leapMotion = new Controller();
         do {
@@ -27,19 +23,21 @@ public class Air_Drums {
         } while (!leapMotion.IsConnected);
         Console.WriteLine("Leap ready.");
 
+        // Connect to UHDK5 ultrasonic emitters
         Console.WriteLine("Initializing UHDK5...");
         var uhdk5 = new AmplitudeModulationEmitter();
         Console.WriteLine("UHDK5 ready.");
         Console.WriteLine("Dog Friendly Mode: " + GBL.DOG_FRIENDLY);
 
+        // Connect virtual MIDI ports
         Console.WriteLine("Initializing virtual MIDI ports...");
-        TeVirtualMIDI.logging(TeVirtualMIDI.TE_VM_LOGGING_MISC | TeVirtualMIDI.TE_VM_LOGGING_RX | TeVirtualMIDI.TE_VM_LOGGING_TX);
+        MIDI.logging(MIDI.TE_VM_LOGGING_MISC | MIDI.TE_VM_LOGGING_RX | MIDI.TE_VM_LOGGING_TX);
         var leftManu = new Guid("aa4e075f-3504-4aab-9b06-9a4104a91cf0");
         var leftProd = new Guid("bb4e075f-3504-4aab-9b06-9a4104a91cf0");
-        var leftMIDI = new TeVirtualMIDI("Air Drums Left Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref leftManu, ref leftProd);
+        var leftMIDI = new MIDI("Air Drums Left Hand", 65535, MIDI.TE_VM_FLAGS_PARSE_RX, ref leftManu, ref leftProd);
         var rightManu = new Guid("cc4e075f-3504-4aab-9b06-9a4104a91cf0");
         var rightProd = new Guid("dd4e075f-3504-4aab-9b06-9a4104a91cf0");
-        var rightMIDI = new TeVirtualMIDI("Air Drums Right Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref rightManu, ref rightProd);
+        var rightMIDI = new MIDI("Air Drums Right Hand", 65535, MIDI.TE_VM_FLAGS_PARSE_RX, ref rightManu, ref rightProd);
         Console.WriteLine("MIDI resources ready.");
 
         // Haptics resources
