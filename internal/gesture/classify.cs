@@ -1,7 +1,6 @@
-using System;
-using Leap;
-using Global;
 using System.Collections.Generic;
+using System;
+using Global;
 
 public class Classify : IClassify {
 
@@ -25,11 +24,7 @@ public class Classify : IClassify {
     }
 
     public bool IsMovement() {
-        
-        // Do not classify movements until enough samples have loaded
         if(pos.Count != n_samples) return false;
-
-        // Small position change in detection window rejection
         var range = stats.range(pos);
         foreach (var v in range.ToArray()){
             var checks = vh.greaterEqual(v, GBL.GES_POS_RANGE);
@@ -56,42 +51,32 @@ public class Classify : IClassify {
             return false;
         };
 
-        // Velocity lookback attenuation
-        // Increasing velocity means more weight on recent velocities
         var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).y;
         if (curVel < prevVel) VelocityLookback(curVel);
-
-        // Iterative deceleration rejection
         else {
-            
-            // Find lookback values
             var lookbackList = vel.GetRange(n_samples - n_lookback, n_lookback);
             
-            // Low velocity on deceleration rejection
             var velAve = vh.average(stats.average(lookbackList).TipsNoThumb()).y;
             if (velAve > -100) {
                 LookbackReset();
                 return false;
             }
 
-            // Consistent deceleration rejection
             var finalVelRange = vh.average(stats.range(lookbackList).TipsNoThumb()).y;
             if (finalVelRange > 100.0f) {
                 LookbackReset();
                 return false;
             }
 
-            // Accept first moment of deceleration
             LookbackReset();
             return true;
-
         };
         return false;
     }
 
     public bool IsSwipe() {
 
-        // Check for 
+        
 
         return false;
     }
@@ -101,11 +86,24 @@ public class Classify : IClassify {
     }
 
     public bool IsStop() {
-
-        // Check for palm being lowest first
         
+        // Check for palm being lowest joint
+        var curPalmPos = pos[n_samples - 1].palm;
+        foreach (var p in pos[n_samples - 1].ToArray()){
+            var check = vh.greaterEqual(curPalmPos, p);
+            if (check.y) return false;
+        }
 
-        return false;
+        // Check for low z range across current hand
+        var vectors = pos[n_samples -1].ToArray();
+        (var min, var max) = (vectors[0], vectors[0]);
+        foreach (var v in vectors) {
+            (min, max) = vh.minMax(min, max, v);
+        }
+        Console.WriteLine(vh.sub(max, min).ToString());
+        if (vh.sub(max, min).z > 20) return false;
+
+        return true;
     }
 
     public void VelocityLookback(float v) {
