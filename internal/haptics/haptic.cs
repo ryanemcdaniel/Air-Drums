@@ -1,8 +1,6 @@
 using Ultrahaptics;
-using Leap;
 using Global;
 using System.Collections.Generic;
-using System;
 
 public class Haptic : IHaptic {
     public JointsHelper jh;

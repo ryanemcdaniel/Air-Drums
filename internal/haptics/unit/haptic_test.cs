@@ -1,8 +1,8 @@
 using Ultrahaptics;
-using Leap;
 using Xunit;
 using Global;
 using System.Collections.Generic;
+
 public class haptic_test{
     
     [Fact] public void Emit () {

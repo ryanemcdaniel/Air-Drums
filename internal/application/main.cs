@@ -53,6 +53,7 @@ public class Air_Drums {
 
         Console.WriteLine("Initializing MIDI threads resources...");
         var leftComTable = new Commands(true);
+        Console.WriteLine(leftComTable.LookUp(1)[0]);
         var leftNotes = new List<int>();
         var leftTimes = new List<int>();
         var leftPort = new Port(leftMIDI);
@@ -80,18 +81,27 @@ public class Air_Drums {
         // Concurrency structures
         var leftFrameStream = new ConcurrentQueue<Frame>();
         var leftCommandStream = new ConcurrentQueue<int>();
+        
         var rightFrameStream = new ConcurrentQueue<Frame>();
         var rightCommandStream = new ConcurrentQueue<int>();
-        var hapticStream = new ConcurrentQueue<Joints>();
         
-        // Threads
+        var hapticStream = new ConcurrentQueue<Joints>();
+
+        
+        Console.WriteLine(rightComTable.LookUp(1)[0]);
+        
+        // Processes
         var data = new Proc_Data(leapMotion, leftFrameStream, rightFrameStream);
+        
         var leftGesture = new Proc_Gesture(leftClassify, leftDataManager, leftVH, leftFrameStream, leftCommandStream, hapticStream);
-        var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream);
         var leftCommand = new Proc_MIDI(leftPort, leftCommandStream, leftNotes, leftTimes, leftComTable);
+
+        var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream);
         var rightCommand = new Proc_MIDI(rightPort, rightCommandStream, rightNotes, rightTimes, rightComTable);
+        
         var haptics = new Proc_Haptics(haptic, hapticStream, hapticTargets, hapticTimes);
 
+        // Begin threads
         var dataThread = new Thread(data.PollCamera);
         var leftGestureThread = new Thread(leftGesture.ClassificationPipeline);
         var rightGestureThread = new Thread(rightGesture.ClassificationPipeline);

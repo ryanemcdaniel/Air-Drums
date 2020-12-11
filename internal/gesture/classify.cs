@@ -1,13 +1,13 @@
-using System;
-using Leap;
-using Global;
 using System.Collections.Generic;
+using System;
+using Global;
 
 public class Classify : IClassify {
 
     private IVectorHelper vh;
     private IStats stats;
     private int n_lookback;
+    private int n_lookback2;
     private int n_samples;
     private List<Joints> pos;
     private List<Joints> vel;
@@ -17,6 +17,7 @@ public class Classify : IClassify {
         this.stats = stats;
         n_lookback = GBL.N_LOOKBACK;
         n_samples = GBL.N_SAMPLES;
+        n_lookback2 = GBL.N_LOOKBACK;
     }
 
     public void Update(List<Joints> position, List<Joints> velocity) {
@@ -25,11 +26,7 @@ public class Classify : IClassify {
     }
 
     public bool IsMovement() {
-        
-        // Do not classify movements until enough samples have loaded
         if(pos.Count != n_samples) return false;
-
-        // Small position change in detection window rejection
         var range = stats.range(pos);
         foreach (var v in range.ToArray()){
             var checks = vh.greaterEqual(v, GBL.GES_POS_RANGE);
@@ -56,49 +53,89 @@ public class Classify : IClassify {
             return false;
         };
 
-        // Velocity lookback attenuation
-        // Increasing velocity means more weight on recent velocities
         var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).y;
         if (curVel < prevVel) VelocityLookback(curVel);
-
-        // Iterative deceleration rejection
         else {
-            
-            // Find lookback values
             var lookbackList = vel.GetRange(n_samples - n_lookback, n_lookback);
             
-            // Low velocity on deceleration rejection
             var velAve = vh.average(stats.average(lookbackList).TipsNoThumb()).y;
             if (velAve > -100) {
                 LookbackReset();
                 return false;
             }
 
-            // Consistent deceleration rejection
             var finalVelRange = vh.average(stats.range(lookbackList).TipsNoThumb()).y;
             if (finalVelRange > 100.0f) {
                 LookbackReset();
                 return false;
             }
 
-            // Accept first moment of deceleration
             LookbackReset();
             return true;
-
         };
         return false;
     }
 
-    public bool IsSwipe() {
+    public bool IsSwipeRight() {
+
+        // Y movement rejection
+        var range = stats.range(pos);
+        foreach (var p in stats.range(pos).ToArray()) {
+            if (p.y > 30) return false;
+        }
+
+        // Zero acceleration rejection
+        var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
+        if (velRange < 150 || velRange < -150) {
+            return false;
+        };
+
+        var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
+        var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
+
+        if (curVel < prevVel) return true;
         return false;
     }
 
     public bool IsSwipeLeft() {
+        // Y movement rejection
+        var range = stats.range(pos);
+        foreach (var p in stats.range(pos).ToArray()) {
+            if (p.y > 30) return false;
+        }
+
+        // Zero acceleration rejection
+        var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
+        if (velRange < 150 || velRange < -150) {
+            return false;
+        };
+
+        var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
+        var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
+
+        if (curVel < prevVel) return true;
         return false;
     }
 
     public bool IsStop() {
-        return false;
+        
+        // Check for palm being lowest joint
+        var curPalmPos = pos[n_samples - 1].palm;
+        foreach (var p in pos[n_samples - 1].ToArray()){
+            var check = vh.greaterEqual(curPalmPos, p);
+            if (check.y) return false;
+        }
+
+        // Check for low z range across current hand
+        var vectors = pos[n_samples -1].ToArray();
+        (var min, var max) = (vectors[0], vectors[0]);
+        foreach (var v in vectors) {
+            (min, max) = vh.minMax(min, max, v);
+        }
+        Console.WriteLine(vh.sub(max, min).ToString());
+        if (vh.sub(max, min).z > 20) return false;
+
+        return true;
     }
 
     public void VelocityLookback(float v) {
@@ -108,6 +145,15 @@ public class Classify : IClassify {
 
     public void LookbackReset() {
         n_lookback = n_samples - 1;
+    }
+
+    public void VelocityLookback2(float v) {
+        if (n_lookback2 == 1) return;
+        if (v < 0) n_lookback2 = 1;
+    }
+
+    public void LookbackReset2() {
+        n_lookback2 = n_samples - 1;
     }
 
 }
