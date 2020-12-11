@@ -90,6 +90,9 @@ public class Classify : IClassify {
     }
 
     public bool IsSwipe() {
+
+        // Check for 
+
         return false;
     }
 
@@ -98,6 +101,10 @@ public class Classify : IClassify {
     }
 
     public bool IsStop() {
+
+        // Check for palm being lowest first
+        
+
         return false;
     }
 
