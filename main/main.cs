@@ -10,6 +10,10 @@ using TobiasErichsen.teVirtualMIDI;
 
 public class Air_Drums {
 
+    public Air_Drums() {
+
+    }
+
     public static void Main(){
 
         // TODO run and exit config tool before any other code executes
@@ -91,23 +95,23 @@ public class Air_Drums {
         Console.WriteLine(rightComTable.LookUp(1)[0]);
         
         // Processes
-        var data = new Proc_Data(leapMotion, leftFrameStream, rightFrameStream);
+        var data = new Proc_Data(leapMotion, leftFrameStream, rightFrameStream) as IProc;
         
-        var leftGesture = new Proc_Gesture(leftClassify, leftDataManager, leftVH, leftFrameStream, leftCommandStream, hapticStream);
-        var leftCommand = new Proc_MIDI(leftPort, leftCommandStream, leftNotes, leftTimes, leftComTable);
+        var leftGesture = new Proc_Gesture(leftClassify, leftDataManager, leftVH, leftFrameStream, leftCommandStream, hapticStream) as IProc;
+        var leftCommand = new Proc_MIDI(leftPort, leftCommandStream, leftNotes, leftTimes, leftComTable) as IProc;
 
-        var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream);
-        var rightCommand = new Proc_MIDI(rightPort, rightCommandStream, rightNotes, rightTimes, rightComTable);
+        var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream) as IProc;
+        var rightCommand = new Proc_MIDI(rightPort, rightCommandStream, rightNotes, rightTimes, rightComTable) as IProc;
         
-        var haptics = new Proc_Haptics(haptic, hapticStream, hapticTargets, hapticTimes);
+        var haptics = new Proc_Haptics(haptic, hapticStream, hapticTargets, hapticTimes) as IProc;
 
         // Begin threads
-        var dataThread = new Thread(data.PollCamera);
-        var leftGestureThread = new Thread(leftGesture.ClassificationPipeline);
-        var rightGestureThread = new Thread(rightGesture.ClassificationPipeline);
-        var leftCommandThread = new Thread(leftCommand.DispatchMIDI);
-        var rightCommandThread = new Thread(rightCommand.DispatchMIDI);
-        var hapticsThread = new Thread(haptics.EmissionPipeline);
+        var dataThread = new Thread(data.Run);
+        var leftGestureThread = new Thread(leftGesture.Run);
+        var rightGestureThread = new Thread(rightGesture.Run);
+        var leftCommandThread = new Thread(leftCommand.Run);
+        var rightCommandThread = new Thread(rightCommand.Run);
+        var hapticsThread = new Thread(haptics.Run);
         dataThread.Start();
         leftGestureThread.Start();
         rightGestureThread.Start();
