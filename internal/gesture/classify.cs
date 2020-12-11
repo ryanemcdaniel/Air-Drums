@@ -7,6 +7,7 @@ public class Classify : IClassify {
     private IVectorHelper vh;
     private IStats stats;
     private int n_lookback;
+    private int n_lookback2;
     private int n_samples;
     private List<Joints> pos;
     private List<Joints> vel;
@@ -16,6 +17,7 @@ public class Classify : IClassify {
         this.stats = stats;
         n_lookback = GBL.N_LOOKBACK;
         n_samples = GBL.N_SAMPLES;
+        n_lookback2 = GBL.N_LOOKBACK;
     }
 
     public void Update(List<Joints> position, List<Joints> velocity) {
@@ -76,6 +78,19 @@ public class Classify : IClassify {
 
     public bool IsSwipe() {
 
+        var range = stats.range(pos);
+        foreach (var p in stats.range(pos).ToArray()) {
+            if (p.y > 30) return false;
+        }
+        
+        var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
+        var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
+
+        if (prevVel > 0 ^ curVel > 0) {
+            LookbackReset2();
+            return false;
+        }
+
         
 
         return false;
@@ -113,6 +128,15 @@ public class Classify : IClassify {
 
     public void LookbackReset() {
         n_lookback = n_samples - 1;
+    }
+
+    public void VelocityLookback2(float v) {
+        if (n_lookback2 == 1) return;
+        if (v < 0) n_lookback2 = 1;
+    }
+
+    public void LookbackReset2() {
+        n_lookback2 = n_samples - 1;
     }
 
 }
