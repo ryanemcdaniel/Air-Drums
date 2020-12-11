@@ -1,9 +1,9 @@
 using System;
 
 public interface ITeVirtualMIDI {
-    public UInt32 logWithMask(UInt32 loggingMask);
-    public void shutdown();
-    public void sendCommand( byte[] command );
-    public byte[] getCommand();
-    public UInt64[] getProcessIds();
+    UInt32 logWithMask(UInt32 loggingMask);
+    void shutdown();
+    void sendCommand( byte[] command );
+    byte[] getCommand();
+    UInt64[] getProcessIds();
 }

@@ -48,23 +48,20 @@ public class Proc_Gesture : IProc_Gesture {
                         continue;
                     }
 
-                    if (gesture.IsSwipe()) {
-                        
-                        if (GBL.CUSTOM_MODE || !GBL.RECORD && gesture.IsSwipeLeft()) {
-                            midiStream.Enqueue(5);
-                            GBL.PLAY = true;
-                            GBL.RECORD = true;
-                            GBL.STOP = false;
-                            continue;
-                        }
-                        
-                        if (GBL.CUSTOM_MODE || !GBL.PLAY) {
+                    if (GBL.CUSTOM_MODE || !GBL.RECORD && gesture.IsSwipeLeft()) {
+                        midiStream.Enqueue(5);
+                        GBL.PLAY = true;
+                        GBL.RECORD = true;
+                        GBL.STOP = false;
+                        continue;
+                    }
+
+                    if (GBL.CUSTOM_MODE || !GBL.PLAY && gesture.IsSwipeRight()) {
                             midiStream.Enqueue(6);
                             GBL.PLAY = true;
                             GBL.STOP = false;
                             continue;
                         }
-                    }
 
                     if (GBL.CUSTOM_MODE || !GBL.STOP && gesture.IsStop()) {
                         midiStream.Enqueue(7);

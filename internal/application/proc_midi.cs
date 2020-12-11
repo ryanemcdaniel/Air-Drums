@@ -35,12 +35,15 @@ public class Proc_MIDI {
                     goto wait;
                 }
                 
-                if (p.IsNoteOnCode(command)) {
+
+                Console.WriteLine(command[0] + " " + command[1] + " " + command[2]);
+                
+                if (p.IsCodeNoteOn(command)) {
                     noteIDs.Add(curID);
                     noteOnTimes.Add(CMD.MIDI_WAIT);
                 }
 
-                p.sendMIDI(command);
+                p.SendMIDI(command);
             }
 
             wait:   
