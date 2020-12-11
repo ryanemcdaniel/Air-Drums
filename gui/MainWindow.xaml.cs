@@ -23,6 +23,7 @@ namespace gui
         public MainWindow()
         {
             InitializeComponent();
+            noteOffTime.Text = "centi-sec";
         }
     }
 }
