@@ -2,7 +2,6 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Global;
 using System;
-using System.IO;
 
 public class Proc_MIDI : IProc {
 

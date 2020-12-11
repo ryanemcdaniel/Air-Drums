@@ -2,7 +2,7 @@ public interface IProc {
 
     void Pipeline();
 
-    void Run() {
+    void Loop() {
         for (;;) {
             Pipeline();
         }

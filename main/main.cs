@@ -16,8 +16,7 @@ public class Air_Drums {
 
     public static void Main(){
 
-        // TODO run and exit config tool before any other code executes
-
+        // TODO put GUI stuff here
 
         // Get main IO routes initialized
         Console.WriteLine("Initializing Leap...");
@@ -35,29 +34,23 @@ public class Air_Drums {
 
         Console.WriteLine("Initializing virtual MIDI ports...");
         TeVirtualMIDI.logging(TeVirtualMIDI.TE_VM_LOGGING_MISC | TeVirtualMIDI.TE_VM_LOGGING_RX | TeVirtualMIDI.TE_VM_LOGGING_TX);
-        Console.WriteLine("MIDI:  system flags set...");
         var leftManu = new Guid("aa4e075f-3504-4aab-9b06-9a4104a91cf0");
         var leftProd = new Guid("bb4e075f-3504-4aab-9b06-9a4104a91cf0");
         var leftMIDI = new TeVirtualMIDI("Air Drums Left Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref leftManu, ref leftProd);
-        Console.WriteLine("MIDI:  left hand port ready...");
         var rightManu = new Guid("cc4e075f-3504-4aab-9b06-9a4104a91cf0");
         var rightProd = new Guid("dd4e075f-3504-4aab-9b06-9a4104a91cf0");
         var rightMIDI = new TeVirtualMIDI("Air Drums Right Hand", 65535, TeVirtualMIDI.TE_VM_FLAGS_PARSE_RX, ref rightManu, ref rightProd);
-        Console.WriteLine("MIDI:  right hand port ready...");
         Console.WriteLine("MIDI resources ready.");
 
-        // Instantiate per thread resources
-        Console.WriteLine("Initializing haptics thread resources...");
+        // Haptics resources
         var hapticTargets = new List<AmplitudeModulationControlPoint>();
         var hapticTimes = new List<int>();
         var hapticVH = new VectorHelper();
         var hapticJH = new JointsHelper(hapticVH);
         var haptic = new Haptic(hapticJH, uhdk5);
-        Console.WriteLine("Haptics thread resources ready.");
 
-        Console.WriteLine("Initializing MIDI threads resources...");
+        // MIDI resources
         var leftComTable = new Commands(true);
-        Console.WriteLine(leftComTable.LookUp(1)[0]);
         var leftNotes = new List<int>();
         var leftTimes = new List<int>();
         var leftPort = new Port(leftMIDI);
@@ -65,9 +58,8 @@ public class Air_Drums {
         var rightNotes = new List<int>();
         var rightTimes = new List<int>();
         var rightPort = new Port(rightMIDI);
-        Console.WriteLine("MIDI threads resources ready.");
 
-        Console.WriteLine("Initializing classification threads resources...");
+        // Classification resources
         var leftVH = new VectorHelper();
         var leftJH = new JointsHelper(leftVH);
         var leftStats = new Stats(leftJH);
@@ -80,38 +72,31 @@ public class Air_Drums {
         var rightClassify = new Classify(rightVH, rightStats);
         var rightQueues = new Queues(rightJH);
         var rightDataManager = new DataManager(rightQueues, false);
-        Console.WriteLine("Classification threads resources ready.");
 
         // Concurrency structures
         var leftFrameStream = new ConcurrentQueue<Frame>();
         var leftCommandStream = new ConcurrentQueue<int>();
-        
         var rightFrameStream = new ConcurrentQueue<Frame>();
         var rightCommandStream = new ConcurrentQueue<int>();
-        
         var hapticStream = new ConcurrentQueue<Joints>();
-
-        
-        Console.WriteLine(rightComTable.LookUp(1)[0]);
         
         // Processes
         var data = new Proc_Data(leapMotion, leftFrameStream, rightFrameStream) as IProc;
-        
         var leftGesture = new Proc_Gesture(leftClassify, leftDataManager, leftVH, leftFrameStream, leftCommandStream, hapticStream) as IProc;
         var leftCommand = new Proc_MIDI(leftPort, leftCommandStream, leftNotes, leftTimes, leftComTable) as IProc;
-
         var rightGesture = new Proc_Gesture(rightClassify, rightDataManager, rightVH, rightFrameStream, rightCommandStream, hapticStream) as IProc;
         var rightCommand = new Proc_MIDI(rightPort, rightCommandStream, rightNotes, rightTimes, rightComTable) as IProc;
-        
         var haptics = new Proc_Haptics(haptic, hapticStream, hapticTargets, hapticTimes) as IProc;
 
-        // Begin threads
-        var dataThread = new Thread(data.Run);
-        var leftGestureThread = new Thread(leftGesture.Run);
-        var rightGestureThread = new Thread(rightGesture.Run);
-        var leftCommandThread = new Thread(leftCommand.Run);
-        var rightCommandThread = new Thread(rightCommand.Run);
-        var hapticsThread = new Thread(haptics.Run);
+        // Instantiate threads with looped pipelines
+        var dataThread = new Thread(data.Loop);
+        var leftGestureThread = new Thread(leftGesture.Loop);
+        var rightGestureThread = new Thread(rightGesture.Loop);
+        var leftCommandThread = new Thread(leftCommand.Loop);
+        var rightCommandThread = new Thread(rightCommand.Loop);
+        var hapticsThread = new Thread(haptics.Loop);
+
+        // Start threads
         dataThread.Start();
         leftGestureThread.Start();
         rightGestureThread.Start();
