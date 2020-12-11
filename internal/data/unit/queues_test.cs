@@ -36,7 +36,7 @@ public class queues_test {
         Assert.Single<Joints>(act_vel);
     }
 
-    [Fact] public void Load_Multiple() {
+    [Fact] public void Load_MoreThanNSAMPLES() {
         Assert.True(false);
     }
 
