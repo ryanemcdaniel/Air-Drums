@@ -1,6 +1,5 @@
-using System.Collections.Generic;
-using Leap;
 using Ultrahaptics;
+using System.Collections.Generic;
 
 public interface IHaptic{
     public AmplitudeModulationControlPoint AquireTarget(Joints j);
