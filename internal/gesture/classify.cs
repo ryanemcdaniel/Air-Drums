@@ -6,89 +6,108 @@ using System.Collections.Generic;
 public class Classify : IClassify {
 
     private IVectorHelper vh;
-    private IStats s;
+    private IStats stats;
+    private int n_lookback;
+    private int n_samples;
     private List<Joints> pos;
     private List<Joints> vel;
 
     public Classify(IVectorHelper vecH, IStats stats) {
         vh = vecH;
-        s = stats;
+        this.stats = stats;
+        n_lookback = GBL.N_LOOKBACK;
+        n_samples = GBL.N_SAMPLES;
     }
 
-    public bool IsMovement(List<Joints> positions) {
-        if(positions.Count != GBL.N_SAMPLES) return false;
-        var flag = false;
-        var range = s.range(positions);
+    public void Update(List<Joints> position, List<Joints> velocity) {
+        pos = position;
+        vel = velocity;
+    }
+
+    public bool IsMovement() {
+        
+        // Do not classify movements until enough samples have loaded
+        if(pos.Count != n_samples) return false;
+
+        // Small position change in detection window rejection
+        var range = stats.range(pos);
         foreach (var v in range.ToArray()){
-            var checks = vh.greaterEqual(v, GBL.NO_GESTURE_RANGE);
-            if (checks.x || checks.y || checks.z) flag = true;
+            var checks = vh.greaterEqual(v, GBL.GES_POS_RANGE);
+            if (checks.x || checks.y || checks.z) return true;
         }
-    
-
-        return flag;
+        return false;
     }
 
-    public bool IsTap(List<Joints> pos, List<Joints> vel) {
-
+    public bool IsTap() {
         // Positive velocity rejection
-        var curVel = vh.average(vel[GBL.N_SAMPLES - 1].TipsNoThumb()).y;
+        var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).y;
         if (curVel > 0) return false;
 
         // Finger tips above palm rejection
-        var curPosPalm = pos[GBL.N_SAMPLES -1].palm;
-        var posCheck = vh.greaterEqualListOnetoMany(pos[GBL.N_SAMPLES - 1].TipsNoThumb(), curPosPalm);
+        var curPosPalm = pos[n_samples -1].palm;
+        var posCheck = vh.greaterEqualListOnetoMany(pos[n_samples - 1].TipsNoThumb(), curPosPalm);
         foreach (var c in posCheck) if(c.y) {
             return false;
         };
 
         // Zero acceleration rejection
-        var velRange = vh.average(s.range(vel).TipsNoThumb()).y;
+        var velRange = vh.average(stats.range(vel).TipsNoThumb()).y;
         if (velRange < 150) {
             return false;
         };
 
         // Velocity lookback attenuation
-        var prevVel = vh.average(vel[GBL.N_SAMPLES - 2].TipsNoThumb()).y;
-        if (curVel < prevVel) GBL.VelocityLookback(curVel);
+        // Increasing velocity means more weight on recent velocities
+        var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).y;
+        if (curVel < prevVel) VelocityLookback(curVel);
 
         // Iterative deceleration rejection
         else {
             
             // Find lookback values
-            var lookback = vel.GetRange(GBL.LookbackStart(), GBL.N_LOOKBACK);
+            var lookbackList = vel.GetRange(n_samples - n_lookback, n_lookback);
             
-            // Recent velocity magnitude criteria
-            var velAve = vh.average(s.average(lookback).TipsNoThumb()).y;
+            // Low velocity on deceleration rejection
+            var velAve = vh.average(stats.average(lookbackList).TipsNoThumb()).y;
             if (velAve > -100) {
-                GBL.LookbackReset();
+                LookbackReset();
                 return false;
             }
 
-            var finalVelRange = vh.average(s.range(lookback).TipsNoThumb()).y;
+            // Consistent deceleration rejection
+            var finalVelRange = vh.average(stats.range(lookbackList).TipsNoThumb()).y;
             if (finalVelRange > 100.0f) {
-                GBL.LookbackReset();
+                LookbackReset();
                 return false;
             }
 
-
-
-            
-            // Accept moment of deceleration
-            GBL.LookbackReset();
+            // Accept first moment of deceleration
+            LookbackReset();
             return true;
 
         };
-
         return false;
     }
 
-
-    public (bool swiped, bool direction) IsSwipe() {
-        return (false, false);
+    public bool IsSwipe() {
+        return false;
     }
 
-    public bool IsRecord() {
+    public bool IsSwipeLeft() {
         return false;
+    }
+
+    public bool IsStop() {
+        return false;
+    }
+
+    public void VelocityLookback(float v) {
+        if (n_lookback == 1) return;
+        if (v < 0) n_lookback = 1;
+    }
+
+    public void LookbackReset() {
+        n_lookback = n_samples - 1;
     }
 
 }

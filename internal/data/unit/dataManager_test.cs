@@ -13,15 +13,12 @@ public class dataManager_test {
 
         var mock_l = new Mock<IQueues>();
         mock_l.Setup(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond));
-        var mock_r = new Mock<IQueues>();
-        mock_r.Setup(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond));
 
-        var dm = new DataManager(mock_l.Object, mock_r.Object);
+        var dm = new DataManager(mock_l.Object, true);
 
         dm.Extract(dat_f);
 
         mock_l.Verify(m => m.LoadSample(dat_f.Hands[1], dat_f.CurrentFramesPerSecond), Times.Once());
-        mock_r.Verify(m => m.LoadSample(dat_f.Hands[0], dat_f.CurrentFramesPerSecond), Times.Once());
     }
 
     [Fact] public void Extract_Multiple(){

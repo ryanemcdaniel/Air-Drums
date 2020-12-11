@@ -1,13 +1,17 @@
 using System.Collections.Generic;
 
 public interface IClassify {
+
+    public void Update(List<Joints> position, List<Joints> velocity);
     
-    public bool IsMovement(List<Joints> pos);
+    public bool IsMovement();
 
-    public bool IsTap(List<Joints> pos, List<Joints> vel);
+    public bool IsTap();
 
-    public (bool swiped, bool direction) IsSwipe();
+    public bool IsSwipe();
 
-    public bool IsRecord();
+    public bool IsSwipeLeft();
+
+    public bool IsStop();
 
 }

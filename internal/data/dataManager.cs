@@ -1,27 +1,30 @@
 using Leap;
 using System.Collections.Generic;
+using System;
 
 public class DataManager : IDataManager {
 
-    private IQueues left;
-    private IQueues right;
+    private IQueues data;
+    private bool leftMode;
 
-    public DataManager(IQueues l, IQueues r){
-        left = l;
-        right = r;
+    public DataManager(IQueues q, bool isLeft){
+        data = q;
+        leftMode = isLeft;
     }
 
     public void Extract(Frame f){
-        if(f.Hands.Count == 0) {
-            left.Clear();
-            right.Clear();
-        }
         foreach(var h in f.Hands){
-            if(h.IsLeft) left.LoadSample(h, f.CurrentFramesPerSecond);
-            else right.LoadSample(h, f.CurrentFramesPerSecond); 
+            if (h.IsLeft && leftMode) {
+                data.LoadSample(h, f.CurrentFramesPerSecond);
+                return;
+            }
+            else if (!h.IsLeft && !leftMode) {
+                data.LoadSample(h, f.CurrentFramesPerSecond);
+                return;
+            }
         }
+        data.Clear();
     }
 
-    public (List<Joints> left, List<Joints> right) positions() => (left.GetPositions(), right.GetPositions());
-    public (List<Joints> left, List<Joints> right) velocities() => (left.GetVelocities(), right.GetVelocities());
+    public (List<Joints> position, List<Joints> velocity) GetData() => (data.GetPositions(), data.GetVelocities());
 }
