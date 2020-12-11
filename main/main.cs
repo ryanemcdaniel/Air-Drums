@@ -1,12 +1,11 @@
-using System;
 using Leap;
 using Ultrahaptics;
+using MIDI = TobiasErichsen.teVirtualMIDI.TeVirtualMIDI;
+using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
-using Global;
 using System.Threading;
-using MIDI = TobiasErichsen.teVirtualMIDI.TeVirtualMIDI;
-
+using Global;
 
 public class Air_Drums {
 
