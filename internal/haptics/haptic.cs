@@ -4,38 +4,25 @@ using Global;
 using System.Collections.Generic;
 using System;
 
-public class Haptic{
+public class Haptic : IHaptic {
     public JointsHelper jh;
     public AmplitudeModulationEmitter ee;
     public Haptic(JointsHelper hand, AmplitudeModulationEmitter emitter){
         jh = hand;
         ee = emitter;
     }
-    public List<AmplitudeModulationControlPoint> AquireTarget(Hand h)
-    {
-        Vector temp = jh.lowestJoint(h);
-        Console.WriteLine(temp.ToString());
-        AmplitudeModulationControlPoint point = new AmplitudeModulationControlPoint(
-            temp.x,
-            temp.z * -1,
-            temp.y,
-            GBL.UH_INTENSITY,
-            GBL.UH_FREQUENCY
-        );
-        List<AmplitudeModulationControlPoint> Points = new List<AmplitudeModulationControlPoint>();
-        Points.Add(point);
-        return Points;
-    }
-    
-    public bool updateEmitter(List<AmplitudeModulationControlPoint> positions){
+
+    public bool Emit(List<AmplitudeModulationControlPoint> positions) {
         bool IsUpdated = ee.update(positions);
-        if (IsUpdated){
-            Console.WriteLine("Emitter successfully updated!");
-        }
-        else { 
-            Console.WriteLine("Emitter failed to update!");
-        }  
         return IsUpdated;
     }
+
+    public AmplitudeModulationControlPoint AquireTarget(Joints j) => new AmplitudeModulationControlPoint(
+        j.palm.x,
+        j.palm.z * -1,
+        j.palm.y,
+        GBL.UH_INTENSITY,
+        GBL.UH_FREQUENCY
+    );
 }
 

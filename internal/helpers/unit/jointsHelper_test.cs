@@ -213,8 +213,7 @@ public class jointsHelper_test {
         test.jointsEqual(exp_joints, act_joints);
     }
 
-    [Fact] public void greaterEqual()
-    {
+    [Fact] public void greaterEqual() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
         
@@ -226,8 +225,7 @@ public class jointsHelper_test {
         Assert.True(false);
     }
 
-        [Fact] public void greaterEqualList()
-    {
+    [Fact] public void greaterEqualList() {
         Assert.True(false);
     }
 }
