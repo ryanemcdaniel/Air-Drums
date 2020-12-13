@@ -2,6 +2,7 @@ using Xunit;
 using Moq;
 using Leap;
 using Global;
+using System.Collections.Generic;
 
 public class queues_test {
 
@@ -72,7 +73,35 @@ public class queues_test {
     }
 
     [Fact] public void Clear() {
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        var dat_hnd = hg.newHand(hg.newFingerList());
+        var dat_fps = dg.newFloat(100);
+
+        var exp_hnd = dat_hnd;
+        var exp_pos = hg.newJoints();
+
+        var mock_jh = new Mock<IJointsHelper>();
+        mock_jh.Setup(m => m.handToJoints(dat_hnd)).Returns(exp_pos);
+
+        var org_N_SAMPLES = GBL.N_SAMPLES;
+        GBL.N_SAMPLES = dg.newInt(100);
+        var q = new Queues(mock_jh.Object);
+        q.LoadSample(dat_hnd, dat_fps);
+        q.Clear();
+        var act_hnd = q.GetSamples();
+        var act_pos = q.GetPositions();
+        var act_vel = q.GetVelocities();
+        GBL.N_SAMPLES = org_N_SAMPLES;
+
+        (List<Hand> samples, List<Joints> positions, List<Joints> velocities) exp;
+        exp.samples = null;
+        exp.positions = null;
+        exp.velocities = null;
+
+        test.Equals(act_hnd, exp.samples);
+        test.Equals(act_pos, exp.positions);
+        test.Equals(act_vel, exp.velocities);
     }
 
 }
