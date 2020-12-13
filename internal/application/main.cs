@@ -6,14 +6,24 @@ using System.Collections.Concurrent;
 using Global;
 using System.Threading;
 using TobiasErichsen.teVirtualMIDI;
-
+using air_drums;
 
 public class Air_Drums {
 
     public static void Main(){
+        
+        Thread newWindowThread = new Thread(new ThreadStart(() =>  
+        {  
+            // create and show the window
+            App obj = new App();   
 
-        // TODO run and exit config tool before any other code executes
+            // start the Dispatcher processing  
+            System.Windows.Threading.Dispatcher.Run();  
+        }));  
 
+        newWindowThread.SetApartmentState(ApartmentState.STA);  
+        newWindowThread.IsBackground = true;  
+        newWindowThread.Start();  
 
         // Get main IO routes initialized
         Console.WriteLine("Initializing Leap...");

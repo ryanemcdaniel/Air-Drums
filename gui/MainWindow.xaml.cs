@@ -1,13 +1,8 @@
 ﻿
 using System.Windows;
 using System.Windows.Input;
-using System;
-using Global;
 
-
-
-
-namespace gui
+namespace air_drums
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -17,7 +12,7 @@ namespace gui
         public MainWindow()
         {
             InitializeComponent();
-            CMD commands= new CMD();
+            
             NoteOffTime.Text = "centi-sec";
         }
 

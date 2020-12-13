@@ -6,12 +6,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace gui
+namespace air_drums
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
+        
+        public App() {
+            MainWindow mw = new MainWindow();
+            mw.Show();
+        }
+
     }
 }
