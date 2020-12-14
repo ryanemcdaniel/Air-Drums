@@ -10,11 +10,10 @@
   <StackPanel>
   <DockPanel>
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="_File">
-                <MenuItem Header="_New" />
+            <MenuItem Header="_File" >
                 <MenuItem Header="_Default" />
-                <MenuItem Header="_Open" />
-                <MenuItem Header="_Save" />
+                <MenuItem Header="_Open" Click = "OpenConfig" />
+                <MenuItem Header="_Save" Click = "SaveConfig" />
                 <MenuItem Header="_Save As" />
                 <Separator />
                 <MenuItem Header="_Exit" />

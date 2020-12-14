@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Text;
+using System.IO;
+using Microsoft.Win32;
+using System.Collections.Generic;
 using Global;
 
 
@@ -19,6 +22,31 @@ namespace air_drums
             NoteOffTime.Text = "centi-sec";
 
     
+        }
+        private void OpenConfig(object sender, System.EventArgs e)
+        {
+            string text;
+            var MIDIwords = new List<string[]>();
+            string[] MIDIlines;
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+			if(openFileDialog.ShowDialog() == true)
+				text = File.ReadAllText(openFileDialog.FileName);
+            else
+            {
+                text = " ";
+            }
+            MIDIlines = text.Split("\n");
+
+            for(int i=0; i<MIDIlines.Length-1;i++)
+            {
+                 MIDIwords.Add(MIDIlines[i].Split(" "));
+            }
+       
+        }
+        private void SaveConfig(object sender, System.EventArgs e)
+        {
+           Console.WriteLine("save config");
+
         }
         private void SubmitSetup(object sender, System.EventArgs e)
         {
@@ -55,6 +83,10 @@ namespace air_drums
                     CMD.RIGHT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
                     CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_8.Text, 2));
                     CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_8.Text, 2));
+
+                    GBL.DONE_EDITING; 
+
+                    this.Close();
 
 
 
