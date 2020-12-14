@@ -84,7 +84,7 @@ namespace air_drums
                     CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_8.Text, 2));
                     CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_8.Text, 2));
 
-                    GBL.DONE_EDITING; 
+                    GBL.DONE_EDITING = true; 
 
                     this.Close();
 
