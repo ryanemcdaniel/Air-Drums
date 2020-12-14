@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading;
+using Global;
 using air_drums;
 
 public class Air_Drums {
@@ -23,6 +24,10 @@ public class Air_Drums {
         newWindowThread.SetApartmentState(ApartmentState.STA);  
         newWindowThread.IsBackground = true;  
         newWindowThread.Start();  
+
+        while (!GBL.DONE_EDITING) {
+            System.Threading.Thread.Sleep(1000);
+        }
 
         // Connect to LeapMotion Controller
         Console.WriteLine("Initializing Leap...");
