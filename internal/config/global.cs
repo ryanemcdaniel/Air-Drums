@@ -5,6 +5,7 @@ using System;
 namespace Global {
     public static class GBL {
 
+        public static volatile bool DONE_EDITING = false; 
         public static volatile bool PLAY = false;           // Play playback state
         public static volatile bool STOP = true;            // Stop playback state
         public static volatile bool RECORD = false;         // Recording state

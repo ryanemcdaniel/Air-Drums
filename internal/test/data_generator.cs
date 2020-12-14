@@ -54,6 +54,16 @@ public class Data_Generator {
         return ret;
     }
 
+    public Vector newMinVector(){
+        return new Vector(float.MinValue, float.MinValue, float.MinValue);
+    }
+
+    public Vector[] newMinVectors(int len){
+        Vector[] ret = new Vector[len];
+        for(int i = 0; i < len; i++) ret[i] = newMinVector();
+        return ret;
+    }
+
     public AmplitudeModulationControlPoint newAmplitudeModulationControlPoint(){
         Vector3  Temp = new Vector3(this.newFloat(100),this.newFloat(100),this.newFloat(100));
         return new AmplitudeModulationControlPoint(Temp,this.newFloat(100),this.newFloat(100));

@@ -161,7 +161,25 @@ public class jointsHelper_test {
     }
 
     [Fact] public void MinMax() {
-        Assert.True(false);
+        Data_Generator dg = new Data_Generator();
+        Hand_Generator hg = new Hand_Generator(dg);
+        (Joints min, Joints max, Joints j) dat;
+        dat.j = hg.newJoints();
+        dat.min = new Joints(dg.newMinVectors(5), dg.newMinVectors(5), dg.newMinVectors(5), dg.newMinVectors(5), 
+        dg.newMinVectors(5), dg.newMinVector(), dg.newFloat(100));
+        dat.max = new Joints(dg.newZeroVectors(5), dg.newZeroVectors(5), dg.newZeroVectors(5), dg.newZeroVectors(5), 
+        dg.newZeroVectors(5), dg.newZeroVector(), dg.newFloat(100));
+
+        (Joints min, Joints max) exp;
+        exp.min = dat.min;
+        exp.max = dat.j;
+
+        var vH = new VectorHelper();
+        var jH = new JointsHelper(vH);
+
+        var act = jH.minMax(dat.min, dat.max, dat.j);
+        test.jointsEqual(exp.min, act.min);
+        test.jointsEqual(exp.max, act.max);
     }
 
     [Fact] public void FingerToVectors() {
