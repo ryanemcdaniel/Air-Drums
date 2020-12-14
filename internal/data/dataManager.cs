@@ -1,6 +1,5 @@
 using Leap;
 using System.Collections.Generic;
-using System;
 
 public class DataManager : IDataManager {
 

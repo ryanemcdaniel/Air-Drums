@@ -4,6 +4,18 @@ using System.Collections.Generic;
 
 public class joints_test {
 
+    [Fact] public void Clone() {
+        Assert.True(false);
+    }
+
+    [Fact] public void TipsNoThumb(){
+        Assert.True(false);
+    }
+
+    [Fact] public void OtherJoints() {
+        Assert.True(false);
+    }
+
     [Fact] public void ToArray() {
         Data_Generator dg = new Data_Generator();
         Hand_Generator hg = new Hand_Generator(dg);
@@ -39,9 +51,5 @@ public class joints_test {
         }
         test.Equals(jVecArr[25], datPalm);
     }
-    
-    // [Fact] public void ToString() {
-    //     Assert.True(false);
-    // }
-    
+
 }

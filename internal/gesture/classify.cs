@@ -113,7 +113,7 @@ public class Classify : IClassify {
         var curVel = vh.average(vel[n_samples - 1].TipsNoThumb()).x;
         var prevVel = vh.average(vel[n_samples - 2].TipsNoThumb()).x;
 
-        if (curVel < prevVel) return true;
+        if (curVel > prevVel) return true;
         return false;
     }
 
