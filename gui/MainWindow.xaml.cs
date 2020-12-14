@@ -55,34 +55,34 @@ namespace air_drums
                     CMD.LEFT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_1.Text, 2));
                     CMD.LEFT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_1.Text, 2));
                 
-                    CMD.LEFT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command2.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_2.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_2.Text, 2));
+                    CMD.LEFT_TAP_QUAD_2[0] = Convert.ToByte(Convert.ToInt32(command2.Text, 2));
+                    CMD.LEFT_TAP_QUAD_2[1] = Convert.ToByte(Convert.ToInt32(data1_2.Text, 2));
+                    CMD.LEFT_TAP_QUAD_2[2] = Convert.ToByte(Convert.ToInt32(data2_2.Text, 2));
 
-                    CMD.LEFT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command3.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_3.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_3.Text, 2));
+                    CMD.LEFT_TAP_QUAD_3[0] = Convert.ToByte(Convert.ToInt32(command3.Text, 2));
+                    CMD.LEFT_TAP_QUAD_3[1] = Convert.ToByte(Convert.ToInt32(data1_3.Text, 2));
+                    CMD.LEFT_TAP_QUAD_3[2] = Convert.ToByte(Convert.ToInt32(data2_3.Text, 2));
 
-                    CMD.LEFT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command4.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_4.Text, 2));
-                    CMD.LEFT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_4.Text, 2));
+                    CMD.LEFT_TAP_QUAD_4[0] = Convert.ToByte(Convert.ToInt32(command4.Text, 2));
+                    CMD.LEFT_TAP_QUAD_4[1] = Convert.ToByte(Convert.ToInt32(data1_4.Text, 2));
+                    CMD.LEFT_TAP_QUAD_4[2] = Convert.ToByte(Convert.ToInt32(data2_4.Text, 2));
 
                     CMD.RIGHT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
                     CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_5.Text, 2));
                     CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_5.Text, 2));
 
-                    CMD.RIGHT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command6.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_6.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_6.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_2[0] = Convert.ToByte(Convert.ToInt32(command6.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_2[1] = Convert.ToByte(Convert.ToInt32(data1_6.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_2[2] = Convert.ToByte(Convert.ToInt32(data2_6.Text, 2));
 
-                    CMD.RIGHT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_7.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_7.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_3[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_3[1] = Convert.ToByte(Convert.ToInt32(data1_7.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_3[2] = Convert.ToByte(Convert.ToInt32(data2_7.Text, 2));
 
                 
-                    CMD.RIGHT_TAP_QUAD_1[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[1] = Convert.ToByte(Convert.ToInt32(data1_8.Text, 2));
-                    CMD.RIGHT_TAP_QUAD_1[2] = Convert.ToByte(Convert.ToInt32(data2_8.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_4[0] = Convert.ToByte(Convert.ToInt32(command5.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_4[1] = Convert.ToByte(Convert.ToInt32(data1_8.Text, 2));
+                    CMD.RIGHT_TAP_QUAD_4[2] = Convert.ToByte(Convert.ToInt32(data2_8.Text, 2));
 
                     GBL.DONE_EDITING = true; 
 
