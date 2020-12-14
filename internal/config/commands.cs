@@ -1,14 +1,14 @@
 namespace Global {
     public static class CMD {
 
-        public static int MIDI_WAIT = 8; // Centiseconds
+        public static int MIDI_WAIT = 10; // Centiseconds
 
         // Left hand MIDI command byte codes
         public static byte[]    LEFT_TAP_QUAD_1    = new byte[]{ 0b10011110, 92, 0b01111111 };
         public static byte[]    LEFT_TAP_QUAD_2    = new byte[]{ 0b10011110, 93, 0b01111111 };
         public static byte[]    LEFT_TAP_QUAD_3    = new byte[]{ 0b10011110, 94, 0b01111111 };
         public static byte[]    LEFT_TAP_QUAD_4    = new byte[]{ 0b10011110, 95, 0b01111111 };
-        public static byte[]    LEFT_SWIPE_LEFT    = new byte[]{ 0b10011110, 95, 0b01111111 };
+        public static byte[]    LEFT_SWIPE_LEFT    = new byte[]{ 0, 0, 0 };
         public static byte[]    LEFT_SWIPE_RIGHT   = new byte[]{ 0b11111010, 0 ,0 };
         public static byte[]    LEFT_STOP          = new byte[]{ 0b11111100, 0, 0 };
 
@@ -17,7 +17,7 @@ namespace Global {
         public static byte[]    RIGHT_TAP_QUAD_2   = new byte[]{ 0b10011010, 98, 0b01111111 };
         public static byte[]    RIGHT_TAP_QUAD_3   = new byte[]{ 0b10011010, 99, 0b01111111 };
         public static byte[]    RIGHT_TAP_QUAD_4   = new byte[]{ 0b10011010, 100, 0b01111111 };
-        public static byte[]    RIGHT_SWIPE_LEFT   = new byte[]{ 0b10011110, 95, 0b01111111 };
+        public static byte[]    RIGHT_SWIPE_LEFT   = new byte[]{ 0, 0, 0 };
         public static byte[]    RIGHT_SWIPE_RIGHT  = new byte[]{ 0b11111010, 0 ,0 };
         public static byte[]    RIGHT_STOP         = new byte[]{ 0b11111100, 0, 0 };
     }
@@ -47,13 +47,13 @@ namespace Global {
             }
         }
 
-        public byte[]    TAP_QUAD_1 ;
-        public byte[]    TAP_QUAD_2 ;
-        public byte[]    TAP_QUAD_3 ;
-        public byte[]    TAP_QUAD_4 ;
-        public byte[]    SWIPE_LEFT ;
-        public byte[]    SWIPE_RIGHT;
-        public byte[]    STOP       ;
+        public static byte[]    TAP_QUAD_1 ;
+        public static byte[]    TAP_QUAD_2 ;
+        public static byte[]    TAP_QUAD_3 ;
+        public static byte[]    TAP_QUAD_4 ;
+        public static byte[]    SWIPE_LEFT ;
+        public static byte[]    SWIPE_RIGHT;
+        public static byte[]    STOP       ;
 
     }
 }
