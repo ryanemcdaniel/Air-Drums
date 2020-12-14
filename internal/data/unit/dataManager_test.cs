@@ -26,7 +26,11 @@ public class dataManager_test {
         Assert.True(false);
     }
 
-    [Fact] public void Extract_ClearsQueues() {
+    [Fact] public void Extract_GetsCorrectHands(){
+        Assert.True(false);
+    }
+
+    [Fact] public void Extract_Clears() {
         Assert.True(false);
     }
 }

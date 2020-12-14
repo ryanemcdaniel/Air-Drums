@@ -36,16 +36,14 @@ public class haptic_test{
         float exp_UH_INTENSITY = dg.newFloat(100);
         float exp_UH_FREQUENCY = dg.newFloat(200);
         AmplitudeModulationControlPoint exp = new AmplitudeModulationControlPoint(
-            inp_joint.TipsNoThumb()[2].x,
-            inp_joint.TipsNoThumb()[2].z * -1,
-            inp_joint.TipsNoThumb()[2].y,
+            inp_joint.palm.x,
+            inp_joint.palm.z * -1,
+            inp_joint.palm.y,
             exp_UH_INTENSITY,
             exp_UH_FREQUENCY
         );      
         Haptic h = new Haptic(new JointsHelper(new VectorHelper()),new AmplitudeModulationEmitter());
         var act = h.AquireTarget(inp_joint);
-        GBL.UH_INTENSITY = org_UH_INTENSITY;
-        GBL.UH_FREQUENCY = org_UH_FREQUENCY;
         Assert.Equal(exp.getPosition().x,act.getPosition().x);
         Assert.Equal(exp.getPosition().y,act.getPosition().y);
         Assert.Equal(exp.getPosition().z,act.getPosition().z);

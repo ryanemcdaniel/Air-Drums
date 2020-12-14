@@ -1,7 +1,6 @@
-using System;
 using Leap;
-using Global;
 using System.Collections.Generic;
+using Global;
 
 public class Queues : IQueues {
 
@@ -10,14 +9,14 @@ public class Queues : IQueues {
     private List<Hand> samples;
     private List<Joints> positions;
     private List<Joints> velocities;
-    private int N_SAMPLES;
+    private int n_samples;
 
     public Queues(IJointsHelper jointsHelper){
         jh = jointsHelper;
         samples = new List<Hand>();
         positions = new List<Joints>();
         velocities = new List<Joints>();
-        N_SAMPLES = GBL.N_SAMPLES;
+        n_samples = GBL.N_SAMPLES;
     }
 
     public void LoadSample(Hand h, float fps){
@@ -31,7 +30,7 @@ public class Queues : IQueues {
             velocities.Add(jh.div(temp, 0.02f));
         }
 
-        if (samples.Count > N_SAMPLES) {
+        if (samples.Count > n_samples) {
             samples.RemoveAt(0);
             positions.RemoveAt(0);
             velocities.RemoveAt(0);
