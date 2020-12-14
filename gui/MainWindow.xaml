@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:air_drums"
         mc:Ignorable="d"
-        Title="MIDI Selection" Height="310" Width="500">
+        Title="MIDI Selection" Height="350" Width="500">
 
   <StackPanel>
   <DockPanel>
@@ -68,51 +68,55 @@
       <TextBlock Name="textBlock10" Grid.Column = "2" Grid.Row = "10" TextWrapping="Wrap">Quad 4</TextBlock>
 
       <TextBlock Name="commandHeader" Grid.Column = "3" Grid.Row = "1" TextWrapping="Wrap"> <Bold>Commands</Bold></TextBlock>
-      <TextBox Name="command1" Grid.Column = "3" Grid.Row = "2" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command2" Grid.Column = "3" Grid.Row = "3" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command3" Grid.Column = "3" Grid.Row = "4" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command4" Grid.Column = "3" Grid.Row = "5" TextWrapping="Wrap" KeyDown="KeyHandler" />
+      <TextBox Name="command1" Grid.Column = "3" Grid.Row = "2" TextWrapping="Wrap" />
+      <TextBox Name="command2" Grid.Column = "3" Grid.Row = "3" TextWrapping="Wrap" />
+      <TextBox Name="command3" Grid.Column = "3" Grid.Row = "4" TextWrapping="Wrap" />
+      <TextBox Name="command4" Grid.Column = "3" Grid.Row = "5" TextWrapping="Wrap"  />
       <Label Grid.Column = "3" Grid.Row = "6" />
-      <TextBox Name="command5" Grid.Column = "3" Grid.Row = "7" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command6" Grid.Column = "3" Grid.Row = "8" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command7" Grid.Column = "3" Grid.Row = "9" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="command8" Grid.Column = "3" Grid.Row = "10" TextWrapping="Wrap" KeyDown="KeyHandler"/>
+      <TextBox Name="command5" Grid.Column = "3" Grid.Row = "7" TextWrapping="Wrap" />
+      <TextBox Name="command6" Grid.Column = "3" Grid.Row = "8" TextWrapping="Wrap" />
+      <TextBox Name="command7" Grid.Column = "3" Grid.Row = "9" TextWrapping="Wrap" />
+      <TextBox Name="command8" Grid.Column = "3" Grid.Row = "10" TextWrapping="Wrap" />
 
       <TextBlock Name="data1_header" Grid.Column = "4" Grid.Row = "1" TextWrapping="Wrap"> <Bold>Data 1</Bold></TextBlock>
-      <TextBox Name="data1_1" Grid.Column = "4" Grid.Row = "2" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_2" Grid.Column = "4" Grid.Row = "3" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_3" Grid.Column = "4" Grid.Row = "4" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_4" Grid.Column = "4" Grid.Row = "5" TextWrapping="Wrap" KeyDown="KeyHandler"/>
+      <TextBox Name="data1_1" Grid.Column = "4" Grid.Row = "2" TextWrapping="Wrap" />
+      <TextBox Name="data1_2" Grid.Column = "4" Grid.Row = "3" TextWrapping="Wrap" />
+      <TextBox Name="data1_3" Grid.Column = "4" Grid.Row = "4" TextWrapping="Wrap" />
+      <TextBox Name="data1_4" Grid.Column = "4" Grid.Row = "5" TextWrapping="Wrap" />
       <Label   Grid.Column = "4" Grid.Row = "6" />
-      <TextBox Name="data1_5" Grid.Column = "4" Grid.Row = "7" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_6" Grid.Column = "4" Grid.Row = "8" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_7" Grid.Column = "4" Grid.Row = "9" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data1_8" Grid.Column = "4" Grid.Row = "10" TextWrapping="Wrap" KeyDown="KeyHandler"/>
+      <TextBox Name="data1_5" Grid.Column = "4" Grid.Row = "7" TextWrapping="Wrap" />
+      <TextBox Name="data1_6" Grid.Column = "4" Grid.Row = "8" TextWrapping="Wrap" />
+      <TextBox Name="data1_7" Grid.Column = "4" Grid.Row = "9" TextWrapping="Wrap" />
+      <TextBox Name="data1_8" Grid.Column = "4" Grid.Row = "10" TextWrapping="Wrap" />
 
       <TextBlock Name="data2_header" Grid.Column = "5" Grid.Row = "1" TextWrapping="Wrap"> <Bold>Data 2</Bold></TextBlock>
-      <TextBox Name="data2_1" Grid.Column = "5" Grid.Row = "2" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_2" Grid.Column = "5" Grid.Row = "3" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_3" Grid.Column = "5" Grid.Row = "4" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_4" Grid.Column = "5" Grid.Row = "5" TextWrapping="Wrap" KeyDown="KeyHandler"/>
+      <TextBox Name="data2_1" Grid.Column = "5" Grid.Row = "2" TextWrapping="Wrap" />
+      <TextBox Name="data2_2" Grid.Column = "5" Grid.Row = "3" TextWrapping="Wrap" />
+      <TextBox Name="data2_3" Grid.Column = "5" Grid.Row = "4" TextWrapping="Wrap" />
+      <TextBox Name="data2_4" Grid.Column = "5" Grid.Row = "5" TextWrapping="Wrap" />
      <Label  Grid.Column = "5" Grid.Row = "6" />
-      <TextBox Name="data2_5" Grid.Column = "5" Grid.Row = "7" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_6" Grid.Column = "5" Grid.Row = "8" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_7" Grid.Column = "5" Grid.Row = "9" TextWrapping="Wrap" KeyDown="KeyHandler"/>
-      <TextBox Name="data2_8" Grid.Column = "5" Grid.Row = "10" TextWrapping="Wrap" KeyDown="KeyHandler"/>
+      <TextBox Name="data2_5" Grid.Column = "5" Grid.Row = "7" TextWrapping="Wrap" />
+      <TextBox Name="data2_6" Grid.Column = "5" Grid.Row = "8" TextWrapping="Wrap" />
+      <TextBox Name="data2_7" Grid.Column = "5" Grid.Row = "9" TextWrapping="Wrap" />
+      <TextBox Name="data2_8" Grid.Column = "5" Grid.Row = "10" TextWrapping="Wrap" />
      
 
     
 	</Grid>
 
-  <StackPanel Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center" Name="DogFriendlyButton" VerticalAlignment="Top">
+  <StackPanel Grid.Column="2" Grid.Row="12" HorizontalAlignment="Center" VerticalAlignment="Top">
+    <Label  Grid.Column = "2" Grid.Row = "12" />
+
     <CheckBox Name="DogFriendlyCheckBox" Click="DogFriendlyClick">
 			<TextBlock>
 				<Run>Dog Friendly Mode</Run>
 			</TextBlock>
 	</CheckBox>
+    <Label/>
     <TextBlock Name="NoteOffTimeLabel" Grid.Column = "4" Grid.Row = "12" TextWrapping="Wrap"><Bold>Note Off Wait Time</Bold></TextBlock>
     <TextBox Name="NoteOffTime" Grid.Column = "5" Grid.Row = "12" TextWrapping="Wrap" KeyDown="KeyHandler" />
-    
+    <Label/>
+    <Button Click = "SubmitSetup" Name= "Submit" Margin="0,10,0,10">Submit</Button>
 
   </StackPanel> 
 </StackPanel>
