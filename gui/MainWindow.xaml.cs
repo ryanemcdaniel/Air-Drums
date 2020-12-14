@@ -48,6 +48,14 @@ namespace air_drums
            Console.WriteLine("save config");
 
         }
+        private void DefaultSetup(object sender, System.EventArgs e)
+        {
+              GBL.DONE_EDITING = true; 
+
+              this.Close();
+
+
+        }
         private void SubmitSetup(object sender, System.EventArgs e)
         {
 
