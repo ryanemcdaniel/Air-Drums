@@ -4,11 +4,11 @@ using Global;
 
 public class Proc_Data : IProc {
     
-    private Controller c;
+    private IController c;
     private ConcurrentQueue<Frame> leftStream;
     private ConcurrentQueue<Frame> rightStream;
 
-    public Proc_Data(Controller controller, ConcurrentQueue<Frame> left, ConcurrentQueue<Frame> right) {
+    public Proc_Data(IController controller, ConcurrentQueue<Frame> left, ConcurrentQueue<Frame> right) {
         c = controller;
         leftStream = left;
         rightStream = right;
