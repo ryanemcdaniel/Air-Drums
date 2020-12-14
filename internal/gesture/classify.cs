@@ -86,7 +86,7 @@ public class Classify : IClassify {
 
         // Zero acceleration rejection
         var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
-        if (velRange < 150 || velRange < -150) {
+        if (velRange < 100 || velRange < -100) {
             return false;
         };
 
@@ -106,7 +106,7 @@ public class Classify : IClassify {
 
         // Zero acceleration rejection
         var velRange = vh.average(stats.range(vel).TipsNoThumb()).x;
-        if (velRange < 150 || velRange < -150) {
+        if (velRange < 100 || velRange < -100) {
             return false;
         };
 
@@ -121,7 +121,7 @@ public class Classify : IClassify {
         
         // Check for palm being lowest joint
         var curPalmPos = pos[n_samples - 1].palm;
-        foreach (var p in pos[n_samples - 1].ToArray()){
+        foreach (var p in pos[n_samples - 1].TipsNoThumb()){
             var check = vh.greaterEqual(curPalmPos, p);
             if (check.y) return false;
         }
@@ -132,8 +132,9 @@ public class Classify : IClassify {
         foreach (var v in vectors) {
             (min, max) = vh.minMax(min, max, v);
         }
-        Console.WriteLine(vh.sub(max, min).ToString());
-        if (vh.sub(max, min).z > 20) return false;
+        if (vh.sub(max, min).z > 40) return false;
+
+        Console.WriteLine("here");
 
         return true;
     }
